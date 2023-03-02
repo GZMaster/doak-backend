@@ -1,0 +1,11 @@
+{
+  "name": "doak-backend",
+  "version": "1.0.0",
+  "description": "the backend api for doak website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GZM",
+  "license": "ISC"
+}
