@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors"); // External middleware for handling Cross-Origin Resource Sharing (CORS)
 const AppError = require("./utils/appError"); // Custom error handling utility
 const globalErrorHandler = require("./controllers/errorController"); // Global error handling middleware
+const wineProductRouter = require("./routes/productRoutes"); // Wine product routes
 
 // Create a new instance of the Express application
 const app = express();
@@ -26,8 +27,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// Routes
 // Add CORS handling middleware to allow cross-origin requests to the API
-app.use("/api/v1/", cors());
+app.use("/api/v1/wine", cors(), wineProductRouter);
 
 // Handle all undefined routes by throwing a custom error with a 404 status code
 app.all("*", (req, res, next) => {
