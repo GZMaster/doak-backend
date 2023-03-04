@@ -19,10 +19,6 @@ const wineProductSchema = new mongoose.Schema({
     type: Number,
     required: [true, "A wine product must have a price"],
   },
-  rating: {
-    type: Number,
-    default: 4.5,
-  },
   summary: {
     type: String,
     trim: true,
