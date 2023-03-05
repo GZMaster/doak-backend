@@ -1,4 +1,5 @@
 const WineProduct = require("../models/wineProductModel");
+const User = require("../models/userModel");
 const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
@@ -87,5 +88,74 @@ exports.deleteWineProduct = catchAsync(async (req, res, next) => {
   res.status(204).json({
     status: "success",
     data: null,
+  });
+});
+
+exports.addToCart = catchAsync(async (req, res, next) => {
+  const wine = await WineProduct.findById(req.params.id);
+
+  if (!wine) {
+    return next(new AppError("No wine found with that ID", 404));
+  }
+
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
+  }
+
+  const cart = await user.cart.push(wine);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      cart,
+    },
+  });
+});
+
+exports.getCart = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
+  }
+
+  const cart = await user.cart;
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      cart,
+    },
+  });
+});
+
+exports.deleteFromCart = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
+  }
+
+  const cart = await user.cart;
+
+  const wine = await WineProduct.findById(req.params.id);
+
+  if (!wine) {
+    return next(new AppError("No wine found with that ID", 404));
+  }
+
+  const index = cart.indexOf(wine);
+
+  if (index > -1) {
+    cart.splice(index, 1);
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      cart,
+    },
   });
 });

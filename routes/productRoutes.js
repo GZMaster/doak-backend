@@ -41,4 +41,11 @@ router
   .patch(userController.protect, productController.updateWineProduct)
   .delete(userController.protect, productController.deleteWineProduct);
 
+router.route("/cart").get(userController.protect, productController.getCart);
+
+router
+  .route("/cart/:id")
+  .post(userController.protect, productController.addToCart)
+  .delete(userController.protect, productController.deleteFromCart);
+
 module.exports = router;
