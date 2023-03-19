@@ -33,6 +33,7 @@ const wineProductSchema = new mongoose.Schema({
     required: [true, "A wine product must have a cover image"],
   },
   images: [String],
+  categories: [String],
   createdAt: {
     type: Date,
     default: Date.now(),
