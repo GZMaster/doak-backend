@@ -25,6 +25,7 @@
 		"nodemailer-sendgrid-transport": "^0.2.0",
 		"nodemon": "^2.0.20",
 		"otp-generator": "^4.0.0",
+		"paypal-rest-sdk": "^1.8.1",
 		"slugify": "^1.6.5",
 		"uuid": "^9.0.0",
 		"validator": "^13.7.0"
