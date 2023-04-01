@@ -28,8 +28,8 @@ exports.createPaymentIntent = catchAsync(async (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/cancel",
+      return_url: "http://localhost:3000/api/v1/payment/success",
+      cancel_url: "http://localhost:3000/api/v1/payment//cancel",
     },
     transactions: [
       {
