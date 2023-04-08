@@ -1,6 +1,7 @@
 const express = require("express");
 const productController = require("../controllers/productController");
 const userController = require("../controllers/userController");
+const isAuthenticated = require("../controllers/authController");
 
 const router = express.Router();
 
@@ -24,7 +25,11 @@ router.patch("/updateMe", userController.protect, userController.updateMe);
 
 router
   .route("/")
-  .get(userController.protect, productController.getAllWineProducts)
+  .get(
+    isAuthenticated,
+    userController.protect,
+    productController.getAllWineProducts
+  )
   .post(userController.protect, productController.createWineProduct);
 
 router
