@@ -10,7 +10,7 @@ exports.isAuthenticated = (req, res, next) => {
     });
   }
 
-  const idToken = authorization.split("Bearer ")[1];
+  const idToken = authorization.split("Bearer")[1];
 
   admin
     .auth()

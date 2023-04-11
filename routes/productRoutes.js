@@ -1,7 +1,6 @@
 const express = require("express");
 const productController = require("../controllers/productController");
 const userController = require("../controllers/userController");
-const isAuthenticated = require("../controllers/authController");
 
 const router = express.Router();
 
@@ -25,32 +24,20 @@ router.patch("/updateMe", userController.protect, userController.updateMe);
 
 router
   .route("/")
-  .get(
-    isAuthenticated,
-    userController.protect,
-    productController.getAllWineProducts
-  )
-  .post(userController.protect, productController.createWineProduct);
-
-router
-  .route("/top-5-cheap")
-  .get(
-    userController.protect,
-    productController.aliasTopWineProducts,
-    productController.getAllWineProducts
-  );
+  .get(productController.getAllWineProducts)
+  .post(productController.createWineProduct);
 
 router
   .route("/:id")
-  .get(userController.protect, productController.getWineProduct)
-  .patch(userController.protect, productController.updateWineProduct)
-  .delete(userController.protect, productController.deleteWineProduct);
+  .get(productController.getWineProduct)
+  .patch(productController.updateWineProduct)
+  .delete(productController.deleteWineProduct);
 
-router.route("/cart").get(userController.protect, productController.getCart);
+router.route("/cart").get(productController.getCart);
 
 router
   .route("/cart/:id")
-  .post(userController.protect, productController.addToCart)
-  .delete(userController.protect, productController.deleteFromCart);
+  .post(productController.addToCart)
+  .delete(productController.deleteFromCart);
 
 module.exports = router;

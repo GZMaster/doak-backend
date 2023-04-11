@@ -1,5 +1,9 @@
+/* eslint-disable node/no-missing-require */
+/* eslint-disable import/no-unresolved */
 const { initializeApp } = require("firebase/app");
-const admin = require("firebase-admin");
+const { getFirestore, collection } = require("firebase/firestore");
+// eslint-disable-next-line node/no-unpublished-require
+// const serviceAccount = require("./serviceAccountKey.json");
 
 const {
   API_KEY,
@@ -22,18 +26,9 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-
-// Initialize Firebase app
-// eslint-disable-next-line node/no-unpublished-require
-const serviceAccount = require("./serviceAccountKey.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL:
-    "https://doak-shop-default-rtdb.europe-west1.firebasedatabase.app",
-});
-
 // Create a reference to the database
-const db = admin.database();
+const db = getFirestore(firebaseApp);
 
-module.exports = { firebaseApp, db };
+const docRef = collection(db, "wineProducts");
+
+module.exports = { firebaseApp, db, docRef };

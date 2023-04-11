@@ -1,34 +1,34 @@
 const {
-  getFirestore,
   doc,
   getDoc,
-  setDoc,
+  addDoc,
   updateDoc,
   deleteDoc,
+  getDocs,
 } = require("firebase/firestore");
-const WineProduct = require("../models/wineProductModel");
-const APIFeatures = require("../utils/apiFeatures");
+// const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
-const { firebaseApp } = require("../firebase");
+const { docRef } = require("../firebase");
 
-const db = getFirestore(firebaseApp);
+exports.createWineProduct = catchAsync(async (req, res, next) => {
+  const newWineProduct = await addDoc(docRef, req.body);
 
-exports.aliasTopWineProducts = (req, res, next) => {
-  req.query.limit = "10";
-  req.query.sort = "price";
-  req.query.fields = "name,price,summary,difficulty";
-  next();
-};
+  res.status(201).json({
+    status: "success",
+    data: {
+      id: newWineProduct.id,
+      wineProduct: req.body,
+    },
+  });
+});
 
 exports.getAllWineProducts = catchAsync(async (req, res, next) => {
-  // EXECUTE QUERY
-  const features = new APIFeatures(WineProduct.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  const wineProducts = await features.query;
+  const wineProducts = await (
+    await getDocs(docRef)
+  ).docs.map((item) => ({
+    ...item.data(),
+  }));
 
   // SEND RESPONSE
   res.status(200).json({
@@ -41,7 +41,7 @@ exports.getAllWineProducts = catchAsync(async (req, res, next) => {
 });
 
 exports.getWineProduct = catchAsync(async (req, res, next) => {
-  const wineProductRef = doc(db, "wineProducts", req.params.id);
+  const wineProductRef = doc(docRef, req.params.id);
   const wineProductDoc = await getDoc(wineProductRef);
 
   if (!wineProductDoc.exists()) {
@@ -56,20 +56,8 @@ exports.getWineProduct = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createWineProduct = catchAsync(async (req, res, next) => {
-  const newWineProductRef = doc(db, "wineProducts");
-  await setDoc(newWineProductRef, req.body);
-
-  res.status(201).json({
-    status: "success",
-    data: {
-      wineProduct: req.body,
-    },
-  });
-});
-
 exports.updateWineProduct = catchAsync(async (req, res, next) => {
-  const wineProductRef = doc(db, "wineProducts", req.params.id);
+  const wineProductRef = doc(docRef, req.params.id);
   const wineProductDoc = await getDoc(wineProductRef);
 
   if (!wineProductDoc.exists()) {
@@ -87,7 +75,7 @@ exports.updateWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteWineProduct = catchAsync(async (req, res, next) => {
-  const wineProductRef = doc(db, "wineProducts", req.params.id);
+  const wineProductRef = doc(docRef, req.params.id);
   const wineProductDoc = await getDoc(wineProductRef);
 
   if (!wineProductDoc.exists()) {
@@ -103,14 +91,14 @@ exports.deleteWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.addToCart = catchAsync(async (req, res, next) => {
-  const wineSnapshot = await db.ref(`wines/${req.params.id}`).once("value");
+  const wineSnapshot = await docRef.ref(`wines/${req.params.id}`).once("value");
   const wine = wineSnapshot.val();
 
   if (!wine) {
     return next(new AppError("No wine found with that ID", 404));
   }
 
-  const userSnapshot = await db.ref(`users/${req.user.id}`).once("value");
+  const userSnapshot = await docRef.ref(`users/${req.user.id}`).once("value");
   const user = userSnapshot.val();
 
   if (!user) {
@@ -118,7 +106,7 @@ exports.addToCart = catchAsync(async (req, res, next) => {
   }
 
   // Add the wine to the user's cart
-  const cartRef = db.ref(`users/${req.user.id}/cart`);
+  const cartRef = docRef.ref(`users/${req.user.id}/cart`);
   const cartSnapshot = await cartRef.once("value");
   const cart = cartSnapshot.val() || [];
 
@@ -135,14 +123,16 @@ exports.addToCart = catchAsync(async (req, res, next) => {
 });
 
 exports.getCart = catchAsync(async (req, res, next) => {
-  const userSnapshot = await db.ref(`users/${req.user.id}`).once("value");
+  const userSnapshot = await docRef.ref(`users/${req.user.id}`).once("value");
   const user = userSnapshot.val();
 
   if (!user) {
     return next(new AppError("No user found with that ID", 404));
   }
 
-  const cartSnapshot = await db.ref(`users/${req.user.id}/cart`).once("value");
+  const cartSnapshot = await docRef
+    .ref(`users/${req.user.id}/cart`)
+    .once("value");
   const cart = cartSnapshot.val() || [];
 
   res.status(200).json({
@@ -154,17 +144,19 @@ exports.getCart = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteFromCart = catchAsync(async (req, res, next) => {
-  const userSnapshot = await db.ref(`users/${req.user.id}`).once("value");
+  const userSnapshot = await docRef.ref(`users/${req.user.id}`).once("value");
   const user = userSnapshot.val();
 
   if (!user) {
     return next(new AppError("No user found with that ID", 404));
   }
 
-  const cartSnapshot = await db.ref(`users/${req.user.id}/cart`).once("value");
+  const cartSnapshot = await docRef
+    .ref(`users/${req.user.id}/cart`)
+    .once("value");
   const cart = cartSnapshot.val() || [];
 
-  const wineSnapshot = await db.ref(`wines/${req.params.id}`).once("value");
+  const wineSnapshot = await docRef.ref(`wines/${req.params.id}`).once("value");
   const wine = wineSnapshot.val();
 
   if (!wine) {
@@ -177,7 +169,7 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
   if (index > -1) {
     cart.splice(index, 1);
 
-    await db.ref(`users/${req.user.id}/cart`).set(cart);
+    await docRef.ref(`users/${req.user.id}/cart`).set(cart);
   }
 
   res.status(200).json({
