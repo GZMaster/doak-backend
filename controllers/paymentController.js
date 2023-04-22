@@ -3,12 +3,6 @@ const paypal = require("paypal-rest-sdk");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
-paypal.configure({
-  mode: process.env.PAYMENT_MODE,
-  client_id: process.env.CLIENT_ID,
-  client_secret: process.env.CLIENT_SECRET,
-});
-
 exports.createPaymentIntent = catchAsync(async (req, res) => {
   const { cart } = req.body;
 
@@ -28,8 +22,8 @@ exports.createPaymentIntent = catchAsync(async (req, res) => {
       payment_method: "paypal",
     },
     redirect_urls: {
-      return_url: "http://localhost:3000/api/v1/payment/success",
-      cancel_url: "http://localhost:3000/api/v1/payment//cancel",
+      return_url: "http://localhost:3000/success",
+      cancel_url: "http://localhost:3000/cancel",
     },
     transactions: [
       {
@@ -62,18 +56,6 @@ exports.createPaymentIntent = catchAsync(async (req, res) => {
 exports.executePayment = (req, res) => {
   const { paymentId } = req.query;
   const payerId = { payer_id: req.query.PayerID };
-
-  // const executePaymentJson = {
-  //   payer_id: payerId,
-  //   transactions: [
-  //     {
-  //       amount: {
-  //         currency: "USD",
-  //         total: "25.00",
-  //       },
-  //     },
-  //   ],
-  // };
 
   paypal.payment.execute(paymentId, payerId, (error, payment) => {
     if (error) {
