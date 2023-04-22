@@ -24,7 +24,7 @@ class APIFeatures {
     );
 
     // Apply filtering to query
-    this.query = this.query.find(JSON.parse(queryString));
+    this.query = this.query.where(JSON.parse(queryString));
 
     // Return instance for chaining
     return this;
