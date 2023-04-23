@@ -56,6 +56,17 @@ exports.createWineProduct = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.createWineProductMany = catchAsync(async (req, res, next) => {
+  const newWineProducts = await WineProduct.insertMany(req.body);
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      wineProducts: newWineProducts,
+    },
+  });
+});
+
 exports.updateWineProduct = catchAsync(async (req, res, next) => {
   const updatedWine = await WineProduct.findByIdAndUpdate(
     req.params.id,
