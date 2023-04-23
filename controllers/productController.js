@@ -30,6 +30,15 @@ exports.getAllWineProducts = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getLength = catchAsync(async (req, res, next) => {
+  const numberOfWines = await WineProduct.countDocuments();
+
+  res.status(200).json({
+    status: "success",
+    data: numberOfWines,
+  });
+});
+
 exports.getWineProduct = catchAsync(async (req, res, next) => {
   const wineProduct = await WineProduct.findById(req.params.id);
 
