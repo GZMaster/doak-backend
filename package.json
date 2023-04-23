@@ -4,7 +4,7 @@
   "description": "the backend api for doak website",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "start:DEV": "NODE_ENV=development node server.js",
     "build": "set NODE_ENV=production node server.js",
     "debug": "ndb server.js",
