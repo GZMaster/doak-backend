@@ -2,7 +2,6 @@
 const express = require("express");
 const compression = require("compression"); // External middleware for compressing responses
 const helmet = require("helmet"); // External middleware for setting HTTP response headers
-const RateLimit = require("express-rate-limit"); // External middleware for limiting repeated requests to public APIs and/or endpoints
 const morgan = require("morgan");
 const cors = require("cors"); // External middleware for handling Cross-Origin Resource Sharing (CORS)
 const AppError = require("./utils/appError"); // Custom error handling utility
@@ -12,14 +11,6 @@ const paymentRouter = require("./routes/paymentRoutes"); // Payment routes
 
 // Create a new instance of the Express application
 const app = express();
-
-const limiter = new RateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 200,
-});
-
-// Apply rate limiting to all requests to the API
-app.use("/api", limiter);
 
 // Set the view engine to EJS
 app.use(
