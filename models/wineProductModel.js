@@ -10,10 +10,6 @@ const wineProductSchema = new mongoose.Schema({
       40,
       "A wine product name must have less or equal then 40 characters",
     ],
-    minlength: [
-      10,
-      "A wine product name must have more or equal then 10 characters",
-    ],
   },
   price: {
     type: Number,

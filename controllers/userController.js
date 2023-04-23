@@ -1,7 +1,6 @@
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { v4: uuidv4 } = require("uuid");
 const nodemailer = require("nodemailer");
 const User = require("../models/userModel");
