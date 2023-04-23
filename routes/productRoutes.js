@@ -8,6 +8,8 @@ router
   .get(productController.getAllWineProducts)
   .post(productController.createWineProduct);
 
+router.route("/many").post(productController.createWineProductMany);
+
 router
   .route("/:id")
   .get(productController.getWineProduct)
