@@ -9,11 +9,15 @@ router.post("/login", userController.login);
 
 router.get("/verifyEmail/:id", userController.verifyEmail);
 
-router.get("/logout", userController.logout);
+router.get("/logout", userController.protect, userController.logout);
 
 router.post("/forgotPassword", userController.forgotPassword);
 
-router.patch("/resetPassword/:token", userController.resetPassword);
+router.patch(
+  "/resetPassword/:token",
+  userController.protect,
+  userController.resetPassword
+);
 
 router.patch(
   "/updateMyPassword",

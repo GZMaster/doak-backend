@@ -10,6 +10,10 @@ const transactionSchema = new mongoose.Schema(
       type: Number,
       trim: true,
     },
+    orderId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "order",
+    },
     name: {
       type: String,
       required: [true, "name is required"],

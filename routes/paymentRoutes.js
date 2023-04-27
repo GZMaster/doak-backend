@@ -14,5 +14,13 @@ router
 
 router.route("/payintent").post(userController.protect, payment.chargeCard);
 
+router
+  .route("/transaction")
+  .get(
+    userController.protect,
+    userController.restrictTo("admin"),
+    payment.getAllTransactions
+  );
+
 // Export the Express router
 module.exports = router;
