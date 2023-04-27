@@ -1,3 +1,4 @@
+const dotenv = require("dotenv");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -6,6 +7,8 @@ const nodemailer = require("nodemailer");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+
+dotenv.config({ path: "./config.env" });
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -38,12 +41,58 @@ const createSendToken = (user, statusCode, res) => {
   });
 };
 
+exports.verifyEmail = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const { otp } = req.body;
+
+  const user = await User.findById(id, otp);
+
+  if (!user) {
+    return next(new AppError("Invalid user", 400));
+  }
+
+  if (user.otp !== otp) {
+    return next(new AppError("Invalid OTP", 400));
+  }
+
+  user.otp = undefined;
+  user.verified = true;
+
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    status: "success",
+    message: "Email verified successfully",
+  });
+});
+
 exports.signup = catchAsync(async (req, res, next) => {
+  const otp = uuidv4();
+
+  // Send the password reset email
+  const transporter = nodemailer.createTransport({
+    service: process.env.COMPANY_EMAIL,
+    auth: {
+      user: process.env.COMPANY_EMAIL,
+      pass: process.env.COMPANY_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    to: req.body.email,
+    from: process.env.COMPANY_EMAIL,
+    subject: "OTP for email verification",
+    text: `Your OTP for email verification is ${otp}`,
+  };
+
+  await transporter.sendMail(mailOptions);
+
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    otp: otp,
   });
 
   createSendToken(newUser, 201, res);
