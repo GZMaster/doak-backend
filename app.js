@@ -9,6 +9,7 @@ const globalErrorHandler = require("./controllers/errorController"); // Global e
 const userRouter = require("./routes/userRoutes"); // User routes
 const wineProductRouter = require("./routes/productRoutes"); // Wine product routes
 const paymentRouter = require("./routes/paymentRoutes"); // Payment routes
+const orderRouter = require("./routes/orderRoutes"); // Order routes
 
 // Create a new instance of the Express application
 const app = express();
@@ -52,6 +53,7 @@ app.use((req, res, next) => {
 app.use("/api/v1/wine", cors(), wineProductRouter);
 app.use("/api/v1/payment", cors(), paymentRouter);
 app.use("/api/v1/users", cors(), userRouter);
+app.use("/api/v1/orders", cors(), orderRouter);
 
 // Handle all undefined routes by throwing a custom error with a 404 status code
 app.all("*", (req, res, next) => {

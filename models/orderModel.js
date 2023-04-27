@@ -10,6 +10,16 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       trim: true,
     },
+    orderStatus: {
+      type: String,
+      enum: ["pending", "delivered", "cancelled"],
+      default: "pending",
+    },
+    address: {
+      type: String,
+      required: [true, "address is required"],
+      trim: true,
+    },
     items: [
       {
         productId: {

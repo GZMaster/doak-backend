@@ -6,12 +6,13 @@ const Order = require("../models/orderModel");
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { items } = req.body;
+  const { items, address } = req.body;
   const orderId = uuidv4();
 
   const order = await Order.create({
     userId: id,
     orderId,
+    address,
     items,
   });
 

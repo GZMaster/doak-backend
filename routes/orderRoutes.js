@@ -21,7 +21,7 @@ router.post(
   "/updateOrderStatus/:id",
   userController.protect,
   userController.restrictTo("admin"),
-  orderController.updateOrderStatus
+  orderController.updateOrder
 );
 
 router.get(
