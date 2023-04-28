@@ -111,7 +111,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     otp: otp,
   });
 
-  createSendToken(newUser, 201, res);
+  createSendToken(newUser, 204, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
