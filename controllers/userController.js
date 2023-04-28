@@ -84,7 +84,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   // Send the password reset email
   const transporter = nodemailer.createTransport({
-    service: process.env.COMPANY_EMAIL,
+    service: process.env.COMPANY_EMAIL_SERVICE,
     auth: {
       user: process.env.COMPANY_EMAIL,
       pass: process.env.COMPANY_PASSWORD,
