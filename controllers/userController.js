@@ -52,8 +52,6 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
 
   const user = await User.findById(id, otp);
 
-  console.log(user);
-
   if (!user) {
     return next(new AppError("Invalid user", 400));
   }
