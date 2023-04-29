@@ -13,11 +13,7 @@ router.get("/logout", userController.protect, userController.logout);
 
 router.post("/forgotPassword", userController.forgotPassword);
 
-router.patch(
-  "/resetPassword/:token",
-  userController.protect,
-  userController.resetPassword
-);
+router.post("/resetPassword/:token", userController.resetPassword);
 
 router.patch(
   "/updateMyPassword",

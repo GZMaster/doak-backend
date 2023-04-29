@@ -1,9 +1,9 @@
 const dotenv = require("dotenv");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const { v4: uuidv4 } = require("uuid");
-const nodemailer = require("nodemailer");
+// const bcrypt = require("bcryptjs");
+// const { v4: uuidv4 } = require("uuid");
+// const nodemailer = require("nodemailer");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
@@ -192,7 +192,10 @@ exports.logout = (req, res) => {
   res.status(200).json({ status: "success" });
 };
 
-exports.forgotPassword = catchAsync(async (email) => {
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  // 1) Get user based on POSTed email
+  const { email } = req.body;
+
   // Find user by email
   const user = await User.findOne({ email });
 
@@ -201,31 +204,40 @@ exports.forgotPassword = catchAsync(async (email) => {
   }
 
   // Generate a new password reset token
-  const resetToken = uuidv4();
+  const resetToken = generateOtp();
 
   // Hash the reset token and store it in the database
-  const hashedResetToken = await bcrypt.hash(resetToken, 10);
-  user.resetPasswordToken = hashedResetToken;
-  user.resetPasswordExpires = Date.now() + 3600000; // 1 hour from now
-  await user.save();
+  // const hashedResetToken = await bcrypt.hash(resetToken, 10);
+  user.passwordResetToken = resetToken;
+  user.passwordResetExpires = Date.now() + 3600000; // 1 hour from now
+
+  await user.save({ validateBeforeSave: false });
 
   // Send the password reset email
-  const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-      user: "your_email@gmail.com",
-      pass: "your_password",
+  // const transporter = nodemailer.createTransport({
+  //   service: "Gmail",
+  //   auth: {
+  //     user: "your_email@gmail.com",
+  //     pass: "your_password",
+  //   },
+  // });
+
+  // const mailOptions = {
+  //   to: user.email,
+  //   from: "your_email@gmail.com",
+  //   subject: "Password Reset",
+  //   text: `Hi ${user.name},\n\nYou are receiving this email because you (or someone else) has requested a password reset for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://localhost:3000/reset/${resetToken}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n\nBest regards,\nThe App Team`,
+  // };
+
+  // await transporter.sendMail(mailOptions);
+
+  res.status(200).json({
+    status: "success",
+    message: "Token sent to email",
+    data: {
+      resetToken,
     },
   });
-
-  const mailOptions = {
-    to: user.email,
-    from: "your_email@gmail.com",
-    subject: "Password Reset",
-    text: `Hi ${user.name},\n\nYou are receiving this email because you (or someone else) has requested a password reset for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://localhost:3000/reset/${resetToken}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n\nBest regards,\nThe App Team`,
-  };
-
-  await transporter.sendMail(mailOptions);
 });
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
@@ -233,8 +245,8 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   // Find user by token
   const user = await User.findOne({
-    resetPasswordToken: req.params.token,
-    resetPasswordExpires: { $gt: Date.now() },
+    passwordResetToken: req.params.token,
+    passwordResetExpires: { $gt: Date.now() },
   });
 
   if (!user) {
@@ -244,12 +256,14 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // Set new password
   user.password = password;
   user.passwordConfirm = passwordConfirm;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
   await user.save();
 
-  // Log the user in, send JWT
-  createSendToken(user, 200, res);
+  res.status(200).json({
+    status: "success",
+    message: "Password reset successfully",
+  });
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
