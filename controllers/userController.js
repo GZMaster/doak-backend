@@ -128,7 +128,17 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 3) If everything ok, send token to client
-  createSendToken(user, 200, res);
+  const { token, cookieOptions } = createSendToken(user);
+
+  res.status(200).json({
+    status: "success",
+    message: "Logged in successfully",
+    data: {
+      user,
+      token,
+      cookieOptions,
+    },
+  });
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
