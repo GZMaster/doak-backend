@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require("uuid");
 const WineProduct = require("../models/wineProductModel");
 const User = require("../models/userModel");
 const APIFeatures = require("../utils/apiFeatures");
@@ -40,7 +41,7 @@ exports.getLength = catchAsync(async (req, res, next) => {
 });
 
 exports.getWineProduct = catchAsync(async (req, res, next) => {
-  const wineProduct = await WineProduct.findById(req.params.id);
+  const wineProduct = await WineProduct.findOne({ id: req.params.id });
 
   if (!wineProduct) {
     return next(new AppError("No wineProduct found with that ID", 404));
@@ -55,6 +56,10 @@ exports.getWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.createWineProduct = catchAsync(async (req, res, next) => {
+  const newId = uuidv4();
+
+  req.body.id = newId;
+
   const newWineProduct = await WineProduct.create(req.body);
 
   res.status(201).json({
@@ -66,7 +71,12 @@ exports.createWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.createWineProductMany = catchAsync(async (req, res, next) => {
-  const newWineProducts = await WineProduct.insertMany(req.body);
+  const manyProd = req.body.map((el) => {
+    el.id = uuidv4();
+    return el;
+  });
+
+  const newWineProducts = await WineProduct.insertMany(manyProd);
 
   res.status(201).json({
     status: "success",
@@ -77,8 +87,8 @@ exports.createWineProductMany = catchAsync(async (req, res, next) => {
 });
 
 exports.updateWineProduct = catchAsync(async (req, res, next) => {
-  const updatedWine = await WineProduct.findByIdAndUpdate(
-    req.params.id,
+  const updatedWine = await WineProduct.findOneAndUpdate(
+    { id: req.params.id },
     req.body,
     {
       new: true,
@@ -99,7 +109,7 @@ exports.updateWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteWineProduct = catchAsync(async (req, res, next) => {
-  const wine = await WineProduct.findByIdAndDelete(req.params.id);
+  const wine = await WineProduct.findOneAndDelete({ id: req.params.id });
 
   if (!wine) {
     return next(new AppError("No wine found with that ID", 404));
@@ -112,7 +122,7 @@ exports.deleteWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.addToCart = catchAsync(async (req, res, next) => {
-  const wine = await WineProduct.findById(req.params.id);
+  const wine = await WineProduct.findOne({ id: req.params.id });
 
   if (!wine) {
     return next(new AppError("No wine found with that ID", 404));
@@ -160,7 +170,7 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
 
   const cart = await user.cart;
 
-  const wine = await WineProduct.findById(req.params.id);
+  const wine = await WineProduct.findOne({ id: req.params.id });
 
   if (!wine) {
     return next(new AppError("No wine found with that ID", 404));
