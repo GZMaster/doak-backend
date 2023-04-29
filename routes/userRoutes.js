@@ -7,7 +7,7 @@ router.post("/signup", userController.signup);
 
 router.post("/login", userController.login);
 
-router.get("/verifyEmail/:id", userController.verifyEmail);
+router.post("/verifyEmail/:id", userController.verifyEmail);
 
 router.get("/logout", userController.protect, userController.logout);
 
