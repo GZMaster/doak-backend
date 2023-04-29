@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
 const wineProductSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: [true, "A wine product must have an id"],
+    unique: true,
+  },
   name: {
     type: String,
     required: [true, "A wine product must have a name"],
