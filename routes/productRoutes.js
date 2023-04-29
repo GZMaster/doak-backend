@@ -1,5 +1,6 @@
 const express = require("express");
 const productController = require("../controllers/productController");
+const userController = require("../controllers/userController");
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.route("/cart").get(productController.getCart);
 
 router
   .route("/cart/:id")
-  .post(productController.addToCart)
-  .delete(productController.deleteFromCart);
+  .post(userController.protect, productController.addToCart)
+  .delete(userController.protect, productController.deleteFromCart);
 
 module.exports = router;
