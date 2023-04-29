@@ -134,7 +134,9 @@ exports.addToCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No user found with that ID", 404));
   }
 
-  const cart = await user.cart.push(wine);
+  const cart = await user.cart.push(wine.id);
+
+  await user.save({ validateBeforeSave: false });
 
   res.status(200).json({
     status: "success",
