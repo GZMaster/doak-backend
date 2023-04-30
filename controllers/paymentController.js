@@ -59,18 +59,17 @@ exports.createTransaction = catchAsync(async (req, res, next) => {
 });
 
 exports.chargeCard = catchAsync(async (req, res, next) => {
+  const tx_ref = uuidv4();
+
   const {
     card_number,
     cvv,
     expiry_month,
     expiry_year,
-    currency,
     amount,
-    redirect_url,
     fullname,
     email,
     phone_number,
-    tx_ref,
   } = req.body;
 
   const payload = {
@@ -78,9 +77,9 @@ exports.chargeCard = catchAsync(async (req, res, next) => {
     cvv,
     expiry_month,
     expiry_year,
-    currency,
+    currency: "NGN",
     amount: amount.toString(),
-    redirect_url,
+    redirect_url: "https://www.drinksofallkind.com",
     fullname,
     email,
     phone_number,

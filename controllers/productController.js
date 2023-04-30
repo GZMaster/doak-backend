@@ -180,6 +180,8 @@ exports.updateCart = catchAsync(async (req, res, next) => {
 
   await user.updateCart(wine.id, quantity);
 
+  user.save({ validateBeforeSave: false });
+
   const cart = await user.cart;
 
   res.status(200).json({
@@ -206,6 +208,8 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
   await user.deleteFromCart(wine.id);
 
   const cart = await user.cart;
+
+  user.save({ validateBeforeSave: false });
 
   res.status(200).json({
     status: "success",

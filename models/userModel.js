@@ -122,7 +122,7 @@ userSchema.methods.updateCartItem = function (id, quantity) {
     const item = cart[key];
     if (item.id === id) {
       if (quantity > 0) {
-        item.quantity = quantity;
+        item.quantity += quantity;
         itemUpdated = true;
       } else {
         itemUpdated = true;
@@ -139,7 +139,7 @@ userSchema.methods.updateCartItem = function (id, quantity) {
 
   // Set the cart to the updatedCart and return true
   this.cart = updatedCart;
-  return true;
+  return this.save({ validateBeforeSave: false });
 };
 
 userSchema.methods.deleteCartItem = function (id) {
@@ -164,7 +164,7 @@ userSchema.methods.deleteCartItem = function (id) {
 
   // Set the cart to the updatedCart and return true
   this.cart = updatedCart;
-  return true;
+  return this.save({ validateBeforeSave: false });
 };
 
 // Create a new Mongoose model for the user model
