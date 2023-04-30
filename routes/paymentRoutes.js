@@ -6,13 +6,13 @@ const userController = require("../controllers/userController");
 const router = express.Router();
 
 // Routes
+router.route("/payintent").post(userController.protect, payment.chargeCard);
+
 router
   .route("/transaction/:id")
   .post(userController.protect, payment.createTransaction)
   .get(userController.protect, payment.getTransactionsByUser)
   .patch(userController.protect, payment.verifyTransaction);
-
-router.route("/payintent").post(userController.protect, payment.chargeCard);
 
 router
   .route("/transaction")

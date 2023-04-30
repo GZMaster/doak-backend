@@ -59,18 +59,17 @@ exports.createTransaction = catchAsync(async (req, res, next) => {
 });
 
 exports.chargeCard = catchAsync(async (req, res, next) => {
+  const tx_ref = uuidv4();
+
   const {
     card_number,
     cvv,
     expiry_month,
     expiry_year,
-    currency,
     amount,
-    redirect_url,
     fullname,
     email,
     phone_number,
-    tx_ref,
   } = req.body;
 
   const payload = {
@@ -78,9 +77,9 @@ exports.chargeCard = catchAsync(async (req, res, next) => {
     cvv,
     expiry_month,
     expiry_year,
-    currency,
+    currency: "NGN",
     amount: amount.toString(),
-    redirect_url,
+    redirect_url: "https://www.drinksofallkind.com",
     fullname,
     email,
     phone_number,
@@ -94,20 +93,20 @@ exports.chargeCard = catchAsync(async (req, res, next) => {
     return next(new AppError(response.message, 400));
   }
 
-  const transaction = await Transaction.findOneAndUpdate(
-    { transactionId: tx_ref },
-    { flwRef: response.data.flw_ref, paymentStatus: "pending" },
-    { new: true }
-  );
+  // const transaction = await Transaction.findOneAndUpdate(
+  //   { transactionId: tx_ref },
+  //   { flwRef: response.data.flw_ref, paymentStatus: "pending" },
+  //   { new: true }
+  // );
 
-  if (!transaction) {
-    return next(new AppError("Something went wrong", 400));
-  }
+  // if (!transaction) {
+  //   return next(new AppError("Something went wrong", 400));
+  // }
 
   res.status(200).json({
     status: "success",
     data: {
-      transaction,
+      response,
     },
   });
 

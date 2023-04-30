@@ -17,8 +17,8 @@ const userSchema = new mongoose.Schema({
     validate: [validator.isEmail, "Please provide a valid email address!"],
   },
   cart: {
-    type: Array,
-    default: [],
+    type: Object,
+    default: {},
   },
   password: {
     type: String,
@@ -87,6 +87,84 @@ userSchema.methods.changedPasswordAfter = async function (tokenIssuedAt) {
 
   // False means NOT changed
   return false;
+};
+
+userSchema.methods.addToCart = function (id, quantity) {
+  const { cart } = this;
+  const updatedCart = {};
+
+  // data in the cart will be { id, quantity }
+  Object.keys(cart).forEach((key) => {
+    const item = cart[key];
+    if (item.id === id) {
+      item.quantity += quantity;
+    }
+    updatedCart[key] = item;
+  });
+
+  // If the item is not in the cart, add it
+  if (!updatedCart[id]) {
+    updatedCart[id] = { id, quantity };
+  }
+
+  // Set the cart to the updatedCart
+  this.cart = updatedCart;
+  return this.save({ validateBeforeSave: false });
+};
+
+userSchema.methods.updateCartItem = function (id, quantity) {
+  const { cart } = this;
+  const updatedCart = {};
+  let itemUpdated = false;
+
+  // data in the cart will be { id, quantity }
+  Object.keys(cart).forEach((key) => {
+    const item = cart[key];
+    if (item.id === id) {
+      if (quantity > 0) {
+        item.quantity += quantity;
+        itemUpdated = true;
+      } else {
+        itemUpdated = true;
+        return;
+      }
+    }
+    updatedCart[key] = item;
+  });
+
+  // If no item was updated, return false
+  if (!itemUpdated) {
+    return false;
+  }
+
+  // Set the cart to the updatedCart and return true
+  this.cart = updatedCart;
+  return this.save({ validateBeforeSave: false });
+};
+
+userSchema.methods.deleteCartItem = function (id) {
+  const { cart } = this;
+  const updatedCart = {};
+  let itemDeleted = false;
+
+  // data in the cart will be { id, quantity } delete the item if the id found
+  Object.keys(cart).forEach((key) => {
+    const item = cart[key];
+    if (item.id === id) {
+      itemDeleted = true;
+      return;
+    }
+    updatedCart[key] = item;
+  });
+
+  // If no item was deleted, return false
+  if (!itemDeleted) {
+    return false;
+  }
+
+  // Set the cart to the updatedCart and return true
+  this.cart = updatedCart;
+  return this.save({ validateBeforeSave: false });
 };
 
 // Create a new Mongoose model for the user model
