@@ -24,6 +24,8 @@ router.route("/cart").get(productController.getCart);
 router
   .route("/cart/:id")
   .post(userController.protect, productController.addToCart)
+  .patch(userController.protect, productController.updateCart)
+  .delete(userController.protect, productController.deleteFromCart)
   .delete(userController.protect, productController.deleteFromCart);
 
 module.exports = router;

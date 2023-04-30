@@ -123,6 +123,7 @@ exports.deleteWineProduct = catchAsync(async (req, res, next) => {
 
 exports.addToCart = catchAsync(async (req, res, next) => {
   const wine = await WineProduct.findOne({ id: req.params.id });
+  const { quantity } = req.body.quantity;
 
   if (!wine) {
     return next(new AppError("No wine found with that ID", 404));
@@ -134,14 +135,14 @@ exports.addToCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No user found with that ID", 404));
   }
 
-  const cart = await user.cart.push(wine.id);
+  const newUser = await user.addToCart(wine.id, quantity);
 
-  await user.save({ validateBeforeSave: false });
+  newUser.save({ validateBeforeSave: false });
 
   res.status(200).json({
     status: "success",
     data: {
-      cart,
+      cart: newUser.cart,
     },
   });
 });
@@ -163,14 +164,13 @@ exports.getCart = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteFromCart = catchAsync(async (req, res, next) => {
+exports.updateCart = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
+  const quantity = req.body ? req.body.quantity : 1;
 
   if (!user) {
     return next(new AppError("No user found with that ID", 404));
   }
-
-  const cart = await user.cart;
 
   const wine = await WineProduct.findOne({ id: req.params.id });
 
@@ -178,11 +178,34 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No wine found with that ID", 404));
   }
 
-  const index = cart.indexOf(wine);
+  await user.updateCart(wine.id, quantity);
 
-  if (index > -1) {
-    cart.splice(index, 1);
+  const cart = await user.cart;
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      cart,
+    },
+  });
+});
+
+exports.deleteFromCart = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    return next(new AppError("No user found with that ID", 404));
   }
+
+  const wine = await WineProduct.findOne({ id: req.params.id });
+
+  if (!wine) {
+    return next(new AppError("No wine found with that ID", 404));
+  }
+
+  await user.deleteFromCart(wine.id);
+
+  const cart = await user.cart;
 
   res.status(200).json({
     status: "success",
