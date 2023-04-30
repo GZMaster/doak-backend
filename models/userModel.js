@@ -89,7 +89,7 @@ userSchema.methods.changedPasswordAfter = async function (tokenIssuedAt) {
   return false;
 };
 
-userSchema.methods.addToCart = function (id, quantity = 1) {
+userSchema.methods.addToCart = function (id, quantity) {
   const { cart } = this;
   const updatedCart = {};
 
@@ -112,7 +112,7 @@ userSchema.methods.addToCart = function (id, quantity = 1) {
   return this.save({ validateBeforeSave: false });
 };
 
-userSchema.methods.updateCartItem = function (id, quantity = 0) {
+userSchema.methods.updateCartItem = function (id, quantity) {
   const { cart } = this;
   const updatedCart = {};
   let itemUpdated = false;

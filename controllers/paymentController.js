@@ -94,20 +94,20 @@ exports.chargeCard = catchAsync(async (req, res, next) => {
     return next(new AppError(response.message, 400));
   }
 
-  const transaction = await Transaction.findOneAndUpdate(
-    { transactionId: tx_ref },
-    { flwRef: response.data.flw_ref, paymentStatus: "pending" },
-    { new: true }
-  );
+  // const transaction = await Transaction.findOneAndUpdate(
+  //   { transactionId: tx_ref },
+  //   { flwRef: response.data.flw_ref, paymentStatus: "pending" },
+  //   { new: true }
+  // );
 
-  if (!transaction) {
-    return next(new AppError("Something went wrong", 400));
-  }
+  // if (!transaction) {
+  //   return next(new AppError("Something went wrong", 400));
+  // }
 
   res.status(200).json({
     status: "success",
     data: {
-      transaction,
+      response,
     },
   });
 

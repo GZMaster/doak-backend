@@ -123,7 +123,7 @@ exports.deleteWineProduct = catchAsync(async (req, res, next) => {
 
 exports.addToCart = catchAsync(async (req, res, next) => {
   const wine = await WineProduct.findOne({ id: req.params.id });
-  const { quantity } = req.body.quantity;
+  const { quantity } = req.body;
 
   if (!wine) {
     return next(new AppError("No wine found with that ID", 404));

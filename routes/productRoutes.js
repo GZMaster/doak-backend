@@ -13,19 +13,18 @@ router.route("/length").get(productController.getLength);
 
 router.route("/many").post(productController.createWineProductMany);
 
-router
-  .route("/:id")
-  .get(productController.getWineProduct)
-  .patch(productController.updateWineProduct)
-  .delete(productController.deleteWineProduct);
-
-router.route("/cart").get(productController.getCart);
+router.route("/cart").get(userController.protect, productController.getCart);
 
 router
   .route("/cart/:id")
   .post(userController.protect, productController.addToCart)
   .patch(userController.protect, productController.updateCart)
-  .delete(userController.protect, productController.deleteFromCart)
   .delete(userController.protect, productController.deleteFromCart);
+
+router
+  .route("/:id")
+  .get(productController.getWineProduct)
+  .patch(productController.updateWineProduct)
+  .delete(productController.deleteWineProduct);
 
 module.exports = router;
