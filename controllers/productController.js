@@ -178,7 +178,7 @@ exports.updateCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No wine found with that ID", 404));
   }
 
-  await user.updateCart(wine.id, quantity);
+  await user.updateCartItem(wine.id, quantity);
 
   user.save({ validateBeforeSave: false });
 
@@ -205,7 +205,7 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No wine found with that ID", 404));
   }
 
-  await user.deleteFromCart(wine.id);
+  await user.deleteCartItem(wine.id);
 
   const cart = await user.cart;
 

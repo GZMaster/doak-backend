@@ -6,7 +6,7 @@ const Order = require("../models/orderModel");
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { items, address } = req.body;
+  const { items, address, subtotal, deliveryFee = 0 } = req.body;
   const orderId = uuidv4();
 
   const order = await Order.create({
@@ -14,6 +14,8 @@ exports.createOrder = catchAsync(async (req, res, next) => {
     orderId,
     address,
     items,
+    subtotal,
+    deliveryFee,
   });
 
   if (!order) {
