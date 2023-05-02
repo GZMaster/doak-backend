@@ -5,12 +5,12 @@ const APIFeatures = require("../utils/apiFeatures");
 const Order = require("../models/orderModel");
 
 exports.createOrder = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+  const userId = req.user.id;
   const { items, address, subtotal, deliveryFee = 0 } = req.body;
   const orderId = uuidv4();
 
   const order = await Order.create({
-    userId: id,
+    userId,
     orderId,
     address,
     items,
@@ -52,7 +52,7 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
 });
 
 exports.getOrdersByUser = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+  const { id } = req.user;
 
   const features = new APIFeatures(Order.find({ userId: id }), req.query)
     .filter()

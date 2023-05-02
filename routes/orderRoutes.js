@@ -4,11 +4,10 @@ const orderController = require("../controllers/orderController");
 
 const router = express.Router();
 
-router.post(
-  "/createOrder/:id",
-  userController.protect,
-  orderController.createOrder
-);
+router
+  .route("/")
+  .get(userController.protect, orderController.getOrdersByUser)
+  .post(userController.protect, orderController.createOrder);
 
 router.get(
   "/getAllOrders",
@@ -22,12 +21,6 @@ router.post(
   userController.protect,
   userController.restrictTo("admin"),
   orderController.updateOrder
-);
-
-router.get(
-  "/getOrdersByUser/:id",
-  userController.protect,
-  orderController.getOrdersByUser
 );
 
 module.exports = router;

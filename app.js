@@ -10,6 +10,7 @@ const userRouter = require("./routes/userRoutes"); // User routes
 const wineProductRouter = require("./routes/productRoutes"); // Wine product routes
 const paymentRouter = require("./routes/paymentRoutes"); // Payment routes
 const orderRouter = require("./routes/orderRoutes"); // Order routes
+const addressRouter = require("./routes/addressRoutes"); // Address routes
 
 // Create a new instance of the Express application
 const app = express();
@@ -50,7 +51,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   if (req.method === "OPTIONS") {
     res.sendStatus(200);
@@ -65,6 +66,7 @@ app.use("/api/v1/wine", cors(), wineProductRouter);
 app.use("/api/v1/payment", cors(), paymentRouter);
 app.use("/api/v1/users", cors(), userRouter);
 app.use("/api/v1/orders", cors(), orderRouter);
+app.use("/api/v1/addresses", cors(), addressRouter);
 
 // Handle all undefined routes by throwing a custom error with a 404 status code
 app.all("*", (req, res, next) => {
