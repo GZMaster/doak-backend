@@ -173,7 +173,16 @@ exports.setDefaultAddress = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const userId = req.user.id;
 
-  const addressData = await Address.changeDefaultAddress(id, userId);
+  const updatedAddress = await Address.findOneAndUpdate(
+    { userId, _id: id },
+    { isDefault: true },
+    { new: true, runValidators: true }
+  );
+
+  // Turn all other addresses for the user to not default
+  await Address.updateMany({ userId, _id: { $ne: id } }, { isDefault: false });
+
+  const addressData = await Address.findById(updatedAddress._id);
 
   if (!addressData) {
     return next(new AppError("Address not updated", 400));

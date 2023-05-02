@@ -4,23 +4,16 @@ const orderController = require("../controllers/orderController");
 
 const router = express.Router();
 
-router.post(
-  "/createOrder",
-  userController.protect,
-  orderController.createOrder
-);
+router
+  .route("/")
+  .get(userController.protect, orderController.getOrdersByUser)
+  .post(userController.protect, orderController.createOrder);
 
 router.get(
   "/getAllOrders",
   userController.protect,
   userController.restrictTo("admin"),
   orderController.getAllOrders
-);
-
-router.get(
-  "/getOrdersByUser/",
-  userController.protect,
-  orderController.getOrdersByUser
 );
 
 router.post(

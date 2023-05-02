@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema(
       required: [true, "userId is required"],
     },
     orderId: {
-      type: Number,
+      type: String,
       trim: true,
       required: [true, "orderId is required"],
     },

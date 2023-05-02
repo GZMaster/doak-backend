@@ -12,6 +12,14 @@ router.get(
 );
 
 router
+  .route("/default")
+  .get(userController.protect, addressController.getDefaultAddress);
+
+router
+  .route("/default/:id")
+  .patch(userController.protect, addressController.setDefaultAddress);
+
+router
   .route("/")
   .post(userController.protect, addressController.createAddress)
   .get(userController.protect, addressController.getAddressByUser)

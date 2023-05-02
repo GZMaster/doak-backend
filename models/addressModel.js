@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const catchAsync = require("../utils/catchAsync");
 
 const addressSchema = new mongoose.Schema({
   userId: {
@@ -29,7 +28,6 @@ const addressSchema = new mongoose.Schema({
   },
   country: {
     type: String,
-    required: [true, "Please provide the country"],
   },
   zipCode: {
     type: String,
@@ -42,34 +40,6 @@ const addressSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
-
-addressSchema.statics.changeDefault = catchAsync(async (userId, addressId) => {
-  const session = await this.startSession();
-  session.startTransaction();
-
-  // Update the specified address as default
-  const updatedAddress = await this.findOneAndUpdate(
-    { userId, _id: addressId },
-    { isDefault: true },
-    { new: true, runValidators: true }
-  ).session(session);
-
-  // Turn all other addresses for the user to not default
-  const updateAddress = await this.updateMany(
-    { userId, _id: { $ne: addressId } },
-    { isDefault: false }
-  ).session(session);
-
-  if (!updatedAddress || !updateAddress) {
-    await session.abortTransaction();
-    session.endSession();
-    return false;
-  }
-
-  await session.commitTransaction();
-
-  return this.findById(updatedAddress._id);
 });
 
 module.exports = mongoose.model("Address", addressSchema);
