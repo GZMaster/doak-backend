@@ -29,11 +29,10 @@ const wineProductSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  imageCover: {
+  image: {
     type: String,
     required: [true, "A wine product must have a cover image"],
   },
-  images: [String],
   categories: [String],
   quantity: {
     type: Number,

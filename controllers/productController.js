@@ -1,4 +1,7 @@
 const { v4: uuidv4 } = require("uuid");
+// eslint-disable-next-line import/no-extraneous-dependencies
+const multer = require("multer");
+const path = require("path");
 const WineProduct = require("../models/wineProductModel");
 const User = require("../models/userModel");
 const APIFeatures = require("../utils/apiFeatures");
@@ -11,6 +14,47 @@ exports.aliasTopWineProducts = (req, res, next) => {
   req.query.fields = "name,price,summary,difficulty";
   next();
 };
+
+// Create Multer storage configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/images");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(
+      path.extname(file.originalname).toLowerCase()
+    );
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb("Error: Images Only!");
+  },
+});
+
+exports.getImage = (req, res, next) => {
+  const imagePath = path.join(
+    __dirname,
+    "..",
+    "public",
+    "images",
+    req.params.filename
+  );
+  res.sendFile(imagePath);
+
+  res.set("Cache-Control", "public, max-age=31557600");
+};
+
+// Middleware function to handle file uploads
+exports.uploadProductImage = upload.single("image");
 
 exports.getAllWineProducts = catchAsync(async (req, res, next) => {
   // EXECUTE QUERY
@@ -59,6 +103,10 @@ exports.createWineProduct = catchAsync(async (req, res, next) => {
   const newId = uuidv4();
 
   req.body.id = newId;
+
+  if (req.file) {
+    req.body.image = req.file.filename;
+  }
 
   const newWineProduct = await WineProduct.create(req.body);
 

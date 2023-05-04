@@ -100,3 +100,30 @@ exports.updateOrder = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.cancelOrder = catchAsync(async (req, res, next) => {
+  const orderId = req.params.id;
+  const userId = req.user.id;
+
+  const order = await Order.findOneAndUpdate(
+    { orderId, userId },
+    {
+      status: "cancelled",
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!order) {
+    return next(new AppError("Order not found", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      order,
+    },
+  });
+});

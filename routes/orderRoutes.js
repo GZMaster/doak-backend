@@ -16,6 +16,12 @@ router.get(
   orderController.getAllOrders
 );
 
+router.get(
+  "/cancelOrder/:id",
+  userController.protect,
+  orderController.cancelOrder
+);
+
 router.post(
   "/updateOrderStatus/:id",
   userController.protect,
