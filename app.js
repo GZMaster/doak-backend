@@ -11,6 +11,7 @@ const wineProductRouter = require("./routes/productRoutes"); // Wine product rou
 const paymentRouter = require("./routes/paymentRoutes"); // Payment routes
 const orderRouter = require("./routes/orderRoutes"); // Order routes
 const addressRouter = require("./routes/addressRoutes"); // Address routes
+const notificationRouter = require("./routes/notificationRoutes"); // Notification routes
 
 // Create a new instance of the Express application
 const app = express();
@@ -67,6 +68,7 @@ app.use("/api/v1/payment", cors(), paymentRouter);
 app.use("/api/v1/users", cors(), userRouter);
 app.use("/api/v1/orders", cors(), orderRouter);
 app.use("/api/v1/addresses", cors(), addressRouter);
+app.use("/api/v1/notifications", cors(), notificationRouter);
 
 // Handle all undefined routes by throwing a custom error with a 404 status code
 app.all("*", (req, res, next) => {
