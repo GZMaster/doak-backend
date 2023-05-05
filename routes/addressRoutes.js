@@ -22,10 +22,12 @@ router
 router
   .route("/")
   .post(userController.protect, addressController.createAddress)
-  .get(userController.protect, addressController.getAddressByUser)
+  .get(userController.protect, addressController.getAddressByUser);
+
+router
+  .route("/:id")
+  .get(userController.protect, addressController.getAddressById)
   .patch(userController.protect, addressController.updateAddress)
   .delete(userController.protect, addressController.deleteAddress);
-
-router.get("/:id", userController.protect, addressController.getAddressById);
 
 module.exports = router;
