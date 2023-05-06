@@ -60,7 +60,7 @@ exports.getOrderAddress = catchAsync(async (req, res, next) => {
       if (err) {
         return next(new AppError("Order not found", 404));
       }
-
+      console.log(order.addressId);
       return order.addressId;
     });
 
