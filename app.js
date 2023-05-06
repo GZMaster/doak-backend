@@ -12,6 +12,7 @@ const paymentRouter = require("./routes/paymentRoutes"); // Payment routes
 const orderRouter = require("./routes/orderRoutes"); // Order routes
 const addressRouter = require("./routes/addressRoutes"); // Address routes
 const notificationRouter = require("./routes/notificationRoutes"); // Notification routes
+const adminRouter = require("./routes/adminRoutes"); // Admin routes
 
 // Create a new instance of the Express application
 const app = express();
@@ -69,6 +70,7 @@ app.use("/api/v1/users", cors(), userRouter);
 app.use("/api/v1/orders", cors(), orderRouter);
 app.use("/api/v1/addresses", cors(), addressRouter);
 app.use("/api/v1/notifications", cors(), notificationRouter);
+app.use("/api/v1/admin", cors(), adminRouter);
 
 // Handle all undefined routes by throwing a custom error with a 404 status code
 app.all("*", (req, res, next) => {
