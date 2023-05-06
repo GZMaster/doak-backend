@@ -17,10 +17,10 @@ const orderSchema = new mongoose.Schema(
       enum: ["pending", "paid", "delivered", "cancelled"],
       default: "pending",
     },
-    address: {
-      type: String,
-      required: [true, "address is required"],
-      trim: true,
+    addressId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "address",
+      required: [true, "addressId is required"],
     },
     items: [
       {

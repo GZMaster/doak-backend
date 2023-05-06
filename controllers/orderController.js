@@ -6,13 +6,13 @@ const Order = require("../models/orderModel");
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
-  const { items, address, subtotal, deliveryFee = 0 } = req.body;
+  const { items, addressId, subtotal, deliveryFee = 0 } = req.body;
   const orderId = uuidv4();
 
   const order = await Order.create({
     userId,
     orderId,
-    address,
+    addressId,
     items,
     subtotal,
     deliveryFee,
@@ -47,6 +47,31 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
     status: "success",
     data: {
       orders,
+    },
+  });
+});
+
+exports.getOrderAddress = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const address = await Order.find({ orderId: id })
+    .populate("addressId")
+    .exec((err, order) => {
+      if (err) {
+        return next(new AppError("Order not found", 404));
+      }
+
+      return order.addressId;
+    });
+
+  if (!address) {
+    return next(new AppError("Order not found", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      address: address,
     },
   });
 });

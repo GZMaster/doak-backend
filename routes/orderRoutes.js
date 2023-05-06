@@ -16,6 +16,8 @@ router.get(
   orderController.getAllOrders
 );
 
+router.get("/getOrderAddress/:id", orderController.getOrderAddress);
+
 router.get(
   "/cancelOrder/:id",
   userController.protect,
