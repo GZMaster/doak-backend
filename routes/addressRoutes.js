@@ -11,6 +11,13 @@ router.get(
   addressController.getAllAddresses
 );
 
+router.get(
+  "/getAllAddresses/:id",
+  userController.protect,
+  userController.restrictTo("admin"),
+  addressController.getAddress
+);
+
 router
   .route("/default")
   .get(userController.protect, addressController.getDefaultAddress);
