@@ -5,30 +5,32 @@ const orderController = require("../controllers/orderController");
 const router = express.Router();
 
 router
+  .route("/getAllOrders/:id")
+  .get(userController.protect, orderController.getOrderAddress);
+
+router
   .route("/")
   .get(userController.protect, orderController.getOrdersByUser)
   .post(userController.protect, orderController.createOrder);
 
-router.get(
-  "/getAllOrders",
-  userController.protect,
-  userController.restrictTo("admin"),
-  orderController.getAllOrders
-);
+router
+  .route("/getAllOrders")
+  .get(
+    userController.protect,
+    userController.restrictTo("admin"),
+    orderController.getAllOrders
+  );
 
-router.get("/getOrderAddress/:id", orderController.getOrderAddress);
+router
+  .route("/cancelOrder/:id")
+  .get(userController.protect, orderController.cancelOrder);
 
-router.get(
-  "/cancelOrder/:id",
-  userController.protect,
-  orderController.cancelOrder
-);
-
-router.post(
-  "/updateOrderStatus/:id",
-  userController.protect,
-  userController.restrictTo("admin"),
-  orderController.updateOrder
-);
+router
+  .route("/updateOrderStatus/:id")
+  .post(
+    userController.protect,
+    userController.restrictTo("admin"),
+    orderController.updateOrder
+  );
 
 module.exports = router;

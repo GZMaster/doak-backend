@@ -56,6 +56,22 @@ exports.getImage = (req, res, next) => {
 // Middleware function to handle file uploads
 exports.uploadProductImage = upload.single("image");
 
+exports.searchWineProducts = catchAsync(async (req, res, next) => {
+  const { query } = req.query;
+
+  const wineProducts = await WineProduct.find({
+    $text: { $search: query },
+  });
+
+  res.status(200).json({
+    status: "success",
+    results: wineProducts.length,
+    data: {
+      wineProducts,
+    },
+  });
+});
+
 exports.getAllWineProducts = catchAsync(async (req, res, next) => {
   // EXECUTE QUERY
   const features = new APIFeatures(WineProduct.find(), req.query)

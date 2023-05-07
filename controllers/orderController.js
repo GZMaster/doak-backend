@@ -52,26 +52,25 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
 });
 
 exports.getOrderAddress = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+  const address = await Order.find({ orderId: req.params.id }).populate(
+    "addressId"
+  );
+  // .exec((err, order) => {
+  //   if (err) {
+  //     return next(new AppError("Order not found", 404));
+  //   }
 
-  const address = await Order.find({ orderId: id })
-    .populate("addressId")
-    .exec((err, order) => {
-      if (err) {
-        return next(new AppError("Order not found", 404));
-      }
-      console.log(order.addressId);
-      return order.addressId;
-    });
+  // return order.addressId;
+  // });
 
   if (!address) {
-    return next(new AppError("Order not found", 404));
+    return next(new AppError("Address not found", 404));
   }
 
   res.status(200).json({
     status: "success",
     data: {
-      address: address,
+      address,
     },
   });
 });
