@@ -68,34 +68,6 @@ orderSchema.methods.CalculateTotal = function () {
   this.total = this.subtotal + this.deliveryFee;
 };
 
-orderSchema.methods.GetOrderStatus = function () {
-  return this.orderStatus;
-};
-
-orderSchema.methods.GetOrderItems = function () {
-  return this.items;
-};
-
-orderSchema.methods.GetOrderSubtotal = function () {
-  return this.subtotal;
-};
-
-orderSchema.methods.GetOrderDeliveryFee = function () {
-  return this.deliveryFee;
-};
-
-orderSchema.methods.GetOrderTotal = function () {
-  return this.total;
-};
-
-orderSchema.methods.GetOrderDate = function () {
-  return this.date;
-};
-
-orderSchema.methods.GetOrderAddress = function () {
-  return this.address;
-};
-
 orderSchema.pre("save", function (next) {
   this.CalculateTotal();
   next();
