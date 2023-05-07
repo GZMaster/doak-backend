@@ -8,6 +8,8 @@ router
   .route("/")
   .get(productController.getAllWineProducts)
   .post(
+    userController.protect,
+    userController.restrictTo("admin"),
     productController.uploadProductImage,
     productController.createWineProduct
   );
@@ -17,6 +19,8 @@ router.route("/length").get(productController.getLength);
 router.route("/many").post(productController.createWineProductMany);
 
 router.route("/cart").get(userController.protect, productController.getCart);
+
+router.route("/search").get(productController.searchWineProducts);
 
 router.route("/image/:filename").get(productController.getImage);
 
@@ -29,7 +33,16 @@ router
 router
   .route("/:id")
   .get(productController.getWineProduct)
-  .patch(productController.updateWineProduct)
-  .delete(productController.deleteWineProduct);
+  .patch(
+    userController.protect,
+    userController.restrictTo("admin"),
+    productController.uploadProductImage,
+    productController.updateWineProduct
+  )
+  .delete(
+    userController.protect,
+    userController.restrictTo("admin"),
+    productController.deleteWineProduct
+  );
 
 module.exports = router;
