@@ -6,21 +6,15 @@ const userController = require("../controllers/userController");
 const router = express.Router();
 
 // Routes
-router.route("/payintent").post(userController.protect, payment.chargeCard);
-
 router
-  .route("/transaction/:id")
-  .post(userController.protect, payment.createTransaction)
-  .get(userController.protect, payment.getTransactionsByUser)
-  .patch(userController.protect, payment.verifyTransaction);
+  .route("/initialize-payment")
+  .post(userController.protect, payment.initializePayment);
 
-router
-  .route("/transaction")
-  .get(
-    userController.protect,
-    userController.restrictTo("admin"),
-    payment.getAllTransactions
-  );
+router.route("/webhook").post(payment.webhook);
+
+// router.route("/verify-payment").post(payment.verifyPayment);
+
+router.route("/get-all-transactions").get(payment.getAllTransactions);
 
 // Export the Express router
 module.exports = router;

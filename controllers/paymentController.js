@@ -1,192 +1,88 @@
-/* eslint-disable camelcase */
 const dotenv = require("dotenv");
-const Flutterwave = require("flutterwave-node-v3");
-const { v4: uuidv4 } = require("uuid");
+const https = require("https");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 const Transaction = require("../models/transactionModel");
+// const Order = require("../models/orderModel");
 
 dotenv.config({ path: "../config.env" });
 
-const flw = new Flutterwave(
-  process.env.FLW_PUBLIC_KEY,
-  process.env.FLW_SECRET_KEY
-);
+exports.initializePayment = catchAsync(async (req, res, next) => {
+  const { userId, orderId, email, amount } = req.body;
 
-// const payload = {
-//   card_number: "4242424242424242",
-//   cvv: "202",
-//   expiry_month: "04",
-//   expiry_year: "25",
-//   currency: "NGN",
-//   amount: "100",
-//   redirect_url: "https://www.google.com",
-//   fullname: "Flutterwave Developers",
-//   email: "developers@flutterwavego.com",
-//   phone_number: "08052026709",
-//   enckey: process.env.FLW_ENCRYPTION_KEY,
-//   tx_ref: "example01",
-// };
-
-exports.createTransaction = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const { name, email, phone, amount, currency } = req.body;
-
-  const transactionId = uuidv4();
-
+  // Create a new transaction
   const transaction = await Transaction.create({
-    userId: id,
-    transactionId,
-    name,
+    userId,
+    orderId,
     email,
-    phone,
     amount,
-    currency,
-    paymentGateway: "flutterwave",
   });
 
   if (!transaction) {
     return next(new AppError("Something went wrong", 400));
   }
 
-  res.status(201).json({
-    status: "success",
-    data: {
-      transaction,
-    },
+  const params = JSON.stringify({
+    email,
+    amount: `${amount}00`,
   });
-});
 
-exports.chargeCard = catchAsync(async (req, res, next) => {
-  const tx_ref = uuidv4();
-
-  const {
-    card_number,
-    cvv,
-    expiry_month,
-    expiry_year,
-    amount,
-    fullname,
-    email,
-    phone_number,
-  } = req.body;
-
-  const payload = {
-    card_number,
-    cvv,
-    expiry_month,
-    expiry_year,
-    currency: "NGN",
-    amount: amount.toString(),
-    redirect_url: "https://www.drinksofallkind.com",
-    fullname,
-    email,
-    phone_number,
-    enckey: process.env.FLW_ENCRYPTION_KEY,
-    tx_ref,
+  const options = {
+    hostname: "api.paystack.co",
+    port: 443,
+    path: "/transaction/initialize",
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.PAYSTACK_TESTKEY}`,
+      "Content-Type": "application/json",
+    },
   };
 
-  const response = await flw.Charge.card(payload);
+  const payReq = https
+    .request(options, (payRes) => {
+      let data = "";
 
-  if (response.status === "error") {
-    return next(new AppError(response.message, 400));
-  }
+      payRes.on("data", (chunk) => {
+        data += chunk;
+      });
 
-  // const transaction = await Transaction.findOneAndUpdate(
-  //   { transactionId: tx_ref },
-  //   { flwRef: response.data.flw_ref, paymentStatus: "pending" },
-  //   { new: true }
-  // );
+      payRes.on("end", () => {
+        console.log(JSON.parse(data));
+        res.json(JSON.parse(data)); // return the response from Paystack API to the client
+      });
+    })
+    .on("error", (error) => {
+      console.error(error);
+      next(new AppError("Something went wrong", 400));
+    });
 
-  // if (!transaction) {
-  //   return next(new AppError("Something went wrong", 400));
-  // }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      response,
-    },
-  });
-
-  // if (response.meta.authorization.mode === "pin") {
-  //   const payload2 = payload;
-  //   payload2.authorization = {
-  //     mode: "pin",
-  //     fields: ["pin"],
-  //     pin: 3310,
-  //   };
-  //   const reCallCharge = await flw.Charge.card(payload2);
-
-  //   // Add the OTP to authorize the transaction
-  //   const callValidate = await flw.Charge.validate({
-  //     otp: "12345",
-  //     flw_ref: reCallCharge.data.flw_ref,
-  //   });
-
-  //   console.log(callValidate);
-  // }
-  //   // For 3DS or VBV transactions, redirect users to their issue to authorize the transaction
-  //   if (response.meta.authorization.mode === "redirect") {
-  //     const url = response.meta.authorization.redirect;
-  //     // open(url);
-  //   }
-
-  // console.log(response);
+  payReq.write(params);
+  payReq.end();
 });
 
-exports.getTransaction = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+exports.webhook = catchAsync(async (req, res, next) => {
+  // Retrieve the request's body
+  const event = req.body;
 
-  const transaction = await Transaction.findById(id);
+  console.log(event);
 
-  if (!transaction) {
-    return next(new AppError("No transaction found with that ID", 404));
+  // Do something with event
+  switch (event.event) {
+    case "charge.success":
+      // The payment was successful, you can provision the value to your customer
+      console.log(event);
+      break;
+    case "charge.failed":
+      // The charge failed for some reason. If it was card declined, you can
+      // use event.data.raw_message to display the message to your customer.
+      console.log(event);
+      break;
+    default:
+      break;
   }
 
-  if (transaction.paymentStatus === "pending") {
-    return next(new AppError("Transaction is still pending", 400));
-  }
-
-  if (transaction.paymentStatus === "failed") {
-    return next(new AppError("Transaction failed", 400));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      transaction,
-    },
-  });
-});
-
-exports.verifyTransaction = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const transaction = await Transaction.findById(id);
-
-  if (!transaction) {
-    return next(new AppError("No transaction found with that ID", 404));
-  }
-
-  const response = await flw.Transaction.verify(transaction.flwRef);
-
-  if (response.status === "error") {
-    return next(new AppError(response.message, 400));
-  }
-
-  if (response.data.status === "successful") {
-    transaction.paymentStatus = "successful";
-    transaction.save();
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      transaction,
-    },
-  });
+  res.send(200);
 });
 
 exports.getAllTransactions = catchAsync(async (req, res, next) => {
@@ -199,30 +95,7 @@ exports.getAllTransactions = catchAsync(async (req, res, next) => {
   const transactions = await features.query;
 
   if (!transactions) {
-    return next(new AppError("No transactions found", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      transactions,
-    },
-  });
-});
-
-exports.getTransactionsByUser = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const features = new APIFeatures(Transaction.find({ userId: id }), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-
-  const transactions = await features.query;
-
-  if (!transactions) {
-    return next(new AppError("No transactions found", 404));
+    return next(new AppError("Something went wrong", 400));
   }
 
   res.status(200).json({
