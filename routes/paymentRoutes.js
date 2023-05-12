@@ -10,7 +10,9 @@ router
   .route("/initialize-payment")
   .post(userController.protect, payment.initializePayment);
 
-router.route("/verify-payment").get(payment.verifyPayment);
+router.route("/webhook").post(payment.webhook);
+
+// router.route("/verify-payment").post(payment.verifyPayment);
 
 router.route("/get-all-transactions").get(payment.getAllTransactions);
 

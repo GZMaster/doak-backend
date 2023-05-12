@@ -8,9 +8,6 @@ const Transaction = require("../models/transactionModel");
 
 dotenv.config({ path: "../config.env" });
 
-// eslint-disable-next-line import/no-extraneous-dependencies, import/order, node/no-extraneous-require
-// const paystack = require("paystack")(process.env.PAYSTACK_SECRET_KEY);
-
 exports.initializePayment = catchAsync(async (req, res, next) => {
   const { userId, orderId, email, amount } = req.body;
 
@@ -27,8 +24,8 @@ exports.initializePayment = catchAsync(async (req, res, next) => {
   }
 
   const params = JSON.stringify({
-    email: req.body.email,
-    amount: req.body.amount,
+    email,
+    amount: `${amount}00`,
   });
 
   const options = {
@@ -57,38 +54,35 @@ exports.initializePayment = catchAsync(async (req, res, next) => {
     })
     .on("error", (error) => {
       console.error(error);
-      res
-        .status(500)
-        .json({ error: "An error occurred while processing your request" }); // handle error and return a response to the client
+      next(new AppError("Something went wrong", 400));
     });
 
   payReq.write(params);
   payReq.end();
 });
 
-exports.verifyPayment = catchAsync(async (req, res, next) => {
-  // const { reference } = req.query;
-  // const verifyTransaction = await paystack.transaction.verify({ reference });
-  // if (!verifyTransaction) {
-  //   return next(new AppError("Something went wrong", 400));
-  // }
-  // const transaction = await Transaction.findOneAndUpdate(
-  //   { orderId: verifyTransaction.data.metadata.orderId },
-  //   { paymentStatus: "successful" },
-  //   { new: true }
-  // );
-  // if (!transaction) {
-  //   return next(new AppError("Something went wrong", 400));
-  // }
-  // const order = await Order.findOneAndUpdate(
-  //   { orderId: transaction.orderId },
-  //   { orderStatus: "paid" },
-  //   { new: true }
-  // );
-  // if (!order) {
-  //   return next(new AppError("Something went wrong", 400));
-  // }
-  // res.send("Payment successful");
+exports.webhook = catchAsync(async (req, res, next) => {
+  // Retrieve the request's body
+  const event = req.body;
+
+  console.log(event);
+
+  // Do something with event
+  switch (event.event) {
+    case "charge.success":
+      // The payment was successful, you can provision the value to your customer
+      console.log(event);
+      break;
+    case "charge.failed":
+      // The charge failed for some reason. If it was card declined, you can
+      // use event.data.raw_message to display the message to your customer.
+      console.log(event);
+      break;
+    default:
+      break;
+  }
+
+  res.send(200);
 });
 
 exports.getAllTransactions = catchAsync(async (req, res, next) => {
