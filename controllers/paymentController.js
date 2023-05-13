@@ -97,15 +97,7 @@ exports.getAllTransactions = catchAsync(async (req, res, next) => {
 
   // const transactions = await features.query;
 
-  const transactions = await Transaction.find()
-    .populate("orderId")
-    .exec((err, transaction) => {
-      if (err) {
-        return next(new AppError("Something went wrong", 400));
-      }
-
-      return transaction;
-    });
+  const transactions = await Transaction.find().populate("orderId").exec();
 
   if (!transactions) {
     return next(new AppError("Something went wrong", 400));
