@@ -26,6 +26,7 @@ exports.initializePayment = catchAsync(async (req, res, next) => {
   const params = JSON.stringify({
     email,
     amount: `${amount}00`,
+    reference: `${transaction._id}`,
   });
 
   const options = {
@@ -48,13 +49,11 @@ exports.initializePayment = catchAsync(async (req, res, next) => {
       });
 
       payRes.on("end", () => {
-        console.log(JSON.parse(data));
         res.json(JSON.parse(data)); // return the response from Paystack API to the client
       });
     })
     .on("error", (error) => {
-      console.error(error);
-      next(new AppError("Something went wrong", 400));
+      next(new AppError(`Something went wrong error: ${error}`, 400));
     });
 
   payReq.write(params);
@@ -65,24 +64,28 @@ exports.webhook = catchAsync(async (req, res, next) => {
   // Retrieve the request's body
   const event = req.body;
 
-  console.log(event);
+  const transaction = await Transaction.findById(event.data.reference);
+
+  if (!transaction) {
+    return next(new AppError("Something went wrong", 400));
+  }
 
   // Do something with event
   switch (event.event) {
     case "charge.success":
-      // The payment was successful, you can provision the value to your customer
-      console.log(event);
+      // The payment was successful, change transaction status to success
+      transaction.status = "success";
       break;
     case "charge.failed":
       // The charge failed for some reason. If it was card declined, you can
       // use event.data.raw_message to display the message to your customer.
-      console.log(event);
+      transaction.status = "failed";
       break;
     default:
       break;
   }
 
-  res.send(200);
+  res.sendStatus(200);
 });
 
 exports.getAllTransactions = catchAsync(async (req, res, next) => {

@@ -6,13 +6,15 @@ const Order = require("../models/orderModel");
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
-  const { items, addressId, subtotal, deliveryFee = 0 } = req.body;
+  const { items, address, subtotal, deliveryFee = 0 } = req.body;
   const orderId = uuidv4();
 
   const order = await Order.create({
     userId,
     orderId,
-    addressId,
+    contact: {
+      address,
+    },
     items,
     subtotal,
     deliveryFee,
@@ -52,25 +54,14 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
 });
 
 exports.getOrderAddress = catchAsync(async (req, res, next) => {
-  const address = await Order.find({ orderId: req.params.id }).populate(
-    "addressId"
-  );
-  // .exec((err, order) => {
-  //   if (err) {
-  //     return next(new AppError("Order not found", 404));
-  //   }
+  const { id } = req.params;
 
-  // return order.addressId;
-  // });
-
-  if (!address) {
-    return next(new AppError("Address not found", 404));
-  }
+  const orders = await Order.find({ userId: id });
 
   res.status(200).json({
     status: "success",
     data: {
-      address,
+      orders,
     },
   });
 });
@@ -102,7 +93,7 @@ exports.getOrdersByUser = catchAsync(async (req, res, next) => {
 exports.updateOrder = catchAsync(async (req, res, next) => {
   const { orderId, userId, status } = req.body;
 
-  const order = await Order.findByIdAndUpdate(
+  const order = await Order.findOneAndUpdate(
     { orderId, userId },
     {
       status,

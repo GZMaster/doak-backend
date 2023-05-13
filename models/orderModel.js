@@ -1,5 +1,38 @@
 const mongoose = require("mongoose");
 
+const addressSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "Please provide the name"],
+  },
+  email: {
+    type: String,
+    required: [true, "Please provide the email"],
+  },
+  address: {
+    type: String,
+    required: [true, "Please provide the address"],
+  },
+  city: {
+    type: String,
+    required: [true, "Please provide the city"],
+  },
+  phoneNumber: {
+    type: String,
+    required: [true, "Please provide the phone number"],
+  },
+  state: {
+    type: String,
+    required: [true, "Please provide the state"],
+  },
+  country: {
+    type: String,
+  },
+  zipCode: {
+    type: String,
+  },
+});
+
 const orderSchema = new mongoose.Schema(
   {
     userId: {
@@ -17,10 +50,8 @@ const orderSchema = new mongoose.Schema(
       enum: ["pending", "paid", "delivered", "cancelled"],
       default: "pending",
     },
-    addressId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Address",
-      required: [true, "addressId is required"],
+    contact: {
+      address: addressSchema,
     },
     items: [
       {
