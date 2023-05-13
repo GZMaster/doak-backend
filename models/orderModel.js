@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "Please provide the name"],
+  },
+  email: {
+    type: String,
+    required: [true, "Please provide the email"],
+  },
   address: {
     type: String,
     required: [true, "Please provide the address"],

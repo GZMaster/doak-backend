@@ -56,10 +56,7 @@ exports.getAllOrders = catchAsync(async (req, res, next) => {
 exports.getOrderAddress = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const orders = await Order.find({ userId: id }).populate(
-    "userId",
-    "name email"
-  );
+  const orders = await Order.find({ userId: id });
 
   res.status(200).json({
     status: "success",
