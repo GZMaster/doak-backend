@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 const https = require("https");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
-const APIFeatures = require("../utils/apiFeatures");
+// const APIFeatures = require("../utils/apiFeatures");
 const Transaction = require("../models/transactionModel");
 // const Order = require("../models/orderModel");
 
@@ -74,12 +74,12 @@ exports.webhook = catchAsync(async (req, res, next) => {
   switch (event.event) {
     case "charge.success":
       // The payment was successful, change transaction status to success
-      transaction.status = "success";
+      transaction.paymentStatus = "success";
       break;
     case "charge.failed":
       // The charge failed for some reason. If it was card declined, you can
       // use event.data.raw_message to display the message to your customer.
-      transaction.status = "failed";
+      transaction.paymentStatus = "failed";
       break;
     default:
       break;
@@ -89,13 +89,23 @@ exports.webhook = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllTransactions = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Transaction.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
+  // const features = new APIFeatures(Transaction.find(), req.query)
+  //   .filter()
+  //   .sort()
+  //   .limitFields()
+  //   .paginate();
 
-  const transactions = await features.query;
+  // const transactions = await features.query;
+
+  const transactions = await Transaction.find()
+    .populate("orderId")
+    .exec((err, transaction) => {
+      if (err) {
+        return next(new AppError("Something went wrong", 400));
+      }
+
+      return transaction;
+    });
 
   if (!transactions) {
     return next(new AppError("Something went wrong", 400));

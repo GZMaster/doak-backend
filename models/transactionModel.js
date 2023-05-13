@@ -4,16 +4,11 @@ const transactionSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
+      ref: "User",
     },
     orderId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "order",
-    },
-    email: {
-      type: String,
-      required: [true, "email is required"],
-      trim: true,
+      ref: "Order",
     },
     amount: {
       type: Number,

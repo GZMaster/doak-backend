@@ -14,7 +14,13 @@ router.route("/webhook").post(payment.webhook);
 
 // router.route("/verify-payment").post(payment.verifyPayment);
 
-router.route("/get-all-transactions").get(payment.getAllTransactions);
+router
+  .route("/get-all-transactions")
+  .get(
+    userController.protect,
+    userController.restrictTo("admin"),
+    payment.getAllTransactions
+  );
 
 // Export the Express router
 module.exports = router;
