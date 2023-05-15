@@ -62,9 +62,9 @@ exports.initializePayment = catchAsync(async (req, res, next) => {
 
 exports.webhook = catchAsync(async (req, res, next) => {
   // Retrieve the request's body
-  const event = req.body;
+  const { event, data } = req;
 
-  const transaction = await Transaction.findById(event.data.reference);
+  const transaction = await Transaction.findById(data.reference);
 
   if (!transaction) {
     return next(new AppError("Something went wrong", 400));
@@ -77,7 +77,7 @@ exports.webhook = catchAsync(async (req, res, next) => {
   }
 
   // Do something with event
-  switch (event.event) {
+  switch (event) {
     case "charge.success":
       // The payment was successful, change transaction status to success
       transaction.paymentStatus = "success";
