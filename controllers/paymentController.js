@@ -4,7 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 // const APIFeatures = require("../utils/apiFeatures");
 const Transaction = require("../models/transactionModel");
-// const Order = require("../models/orderModel");
+const Order = require("../models/orderModel");
 
 dotenv.config({ path: "../config.env" });
 
@@ -70,16 +70,36 @@ exports.webhook = catchAsync(async (req, res, next) => {
     return next(new AppError("Something went wrong", 400));
   }
 
+  const order = await Order.findById(transaction.orderId);
+
+  if (!order) {
+    return next(new AppError("Something went wrong", 400));
+  }
+
   // Do something with event
   switch (event.event) {
     case "charge.success":
       // The payment was successful, change transaction status to success
       transaction.paymentStatus = "success";
+      order.orderStatus = "paid";
+
+      // Save the transaction
+      await transaction.save();
+      await order.save();
+
+      res.sendStatus(200);
       break;
     case "charge.failed":
       // The charge failed for some reason. If it was card declined, you can
       // use event.data.raw_message to display the message to your customer.
       transaction.paymentStatus = "failed";
+      order.orderStatus = "cancelled";
+
+      // Save the transaction
+      await transaction.save();
+      await order.save();
+
+      res.sendStatus(200);
       break;
     default:
       break;
