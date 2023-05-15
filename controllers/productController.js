@@ -60,7 +60,7 @@ exports.searchWineProducts = catchAsync(async (req, res, next) => {
   const { query } = req.query;
 
   const wineProducts = await WineProduct.find({
-    $text: { $search: query },
+    name: { $regex: query, $options: "i" },
   });
 
   res.status(200).json({
