@@ -170,6 +170,11 @@ userSchema.methods.deleteCartItem = function (id) {
   return this.save({ validateBeforeSave: false });
 };
 
+userSchema.methods.clearCart = function () {
+  this.cart = {};
+  return this.save({ validateBeforeSave: false });
+};
+
 // Create a new Mongoose model for the user model
 const User = mongoose.model("User", userSchema);
 

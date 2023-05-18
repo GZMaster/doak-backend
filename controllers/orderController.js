@@ -26,10 +26,18 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   }
 
   // empty cart
-  const userCart = await User.findOneAndUpdate({ userId }, { cart: [] });
+  const user = await User.findById(userId);
 
-  if (!userCart) {
-    return next(new AppError("Cart not found", 404));
+  if (!user) {
+    return next(new AppError("User not found", 404));
+  }
+
+  user.cart = {};
+
+  const savedChange = await user.save({ validateBeforeSave: false });
+
+  if (!savedChange) {
+    return next(new AppError("Cart not emptied", 400));
   }
 
   res.status(201).json({
