@@ -3,6 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 const Order = require("../models/orderModel");
+const User = require("../models/userModel");
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
@@ -22,6 +23,13 @@ exports.createOrder = catchAsync(async (req, res, next) => {
 
   if (!order) {
     return next(new AppError("Order not created", 400));
+  }
+
+  // empty cart
+  const userCart = await User.findOneAndUpdate({ userId }, { cart: [] });
+
+  if (!userCart) {
+    return next(new AppError("Cart not found", 404));
   }
 
   res.status(201).json({
