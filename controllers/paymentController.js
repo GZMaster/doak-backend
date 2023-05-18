@@ -62,7 +62,7 @@ exports.initializePayment = catchAsync(async (req, res, next) => {
 
 exports.webhook = catchAsync(async (req, res, next) => {
   // Retrieve the request's body
-  const { event, data } = req;
+  const { data } = req.body;
 
   const transaction = await Transaction.findById(data.reference);
 
@@ -77,10 +77,10 @@ exports.webhook = catchAsync(async (req, res, next) => {
   }
 
   // Do something with event
-  switch (event) {
-    case "charge.success":
+  switch (data.status) {
+    case "success":
       // The payment was successful, change transaction status to success
-      transaction.paymentStatus = "success";
+      transaction.paymentStatus = "successful";
       order.orderStatus = "paid";
 
       // Save the transaction
@@ -89,7 +89,7 @@ exports.webhook = catchAsync(async (req, res, next) => {
 
       res.sendStatus(200);
       break;
-    case "charge.failed":
+    case "failed":
       // The charge failed for some reason. If it was card declined, you can
       // use event.data.raw_message to display the message to your customer.
       transaction.paymentStatus = "failed";
@@ -104,8 +104,6 @@ exports.webhook = catchAsync(async (req, res, next) => {
     default:
       break;
   }
-
-  res.sendStatus(200);
 });
 
 exports.getAllTransactions = catchAsync(async (req, res, next) => {
