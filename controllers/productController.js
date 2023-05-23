@@ -187,7 +187,7 @@ exports.deleteWineProduct = catchAsync(async (req, res, next) => {
 
 exports.addToCart = catchAsync(async (req, res, next) => {
   const wine = await WineProduct.findOne({ id: req.params.id });
-  const { quantity } = req.body;
+  const { quantity, price } = req.body;
 
   if (!wine) {
     return next(new AppError("No wine found with that ID", 404));
@@ -199,7 +199,7 @@ exports.addToCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No user found with that ID", 404));
   }
 
-  const newUser = await user.addToCart(wine.id, quantity);
+  const newUser = await user.addToCart(wine.id, quantity, price);
 
   newUser.save({ validateBeforeSave: false });
 
@@ -230,7 +230,7 @@ exports.getCart = catchAsync(async (req, res, next) => {
 
 exports.updateCart = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  const quantity = req.body ? req.body.quantity : 1;
+  const { price, quantity } = req.body;
 
   if (!user) {
     return next(new AppError("No user found with that ID", 404));
@@ -242,7 +242,7 @@ exports.updateCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No wine found with that ID", 404));
   }
 
-  await user.updateCartItem(wine.id, quantity);
+  await user.updateCartItem(wine.id, quantity, price);
 
   user.save({ validateBeforeSave: false });
 
