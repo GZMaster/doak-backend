@@ -126,6 +126,10 @@ exports.createWineProduct = catchAsync(async (req, res, next) => {
 
   const newWineProduct = await WineProduct.create(req.body);
 
+  if (!newWineProduct) {
+    return next(new AppError("No wineProduct found with that ID", 404));
+  }
+
   res.status(201).json({
     status: "success",
     data: {
