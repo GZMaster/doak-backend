@@ -64,7 +64,11 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-    origin: "https://drinksofallkind.com", // Allow requests from this origin
+    origin: [
+      "https://drinksofallkind.com",
+      "http://localhost:3000",
+      "http://localhost:3001",
+    ], // Allow requests from this origin
   })
 );
 
