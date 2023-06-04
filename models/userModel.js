@@ -92,7 +92,7 @@ userSchema.methods.changedPasswordAfter = async function (tokenIssuedAt) {
   return false;
 };
 
-userSchema.methods.addToCart = function (id, quantity) {
+userSchema.methods.addToCart = function (id, name, quantity, price) {
   const { cart } = this;
   const updatedCart = {};
 
@@ -100,14 +100,16 @@ userSchema.methods.addToCart = function (id, quantity) {
   Object.keys(cart).forEach((key) => {
     const item = cart[key];
     if (item.id === id) {
+      item.name = name;
       item.quantity += quantity;
+      item.price = price;
     }
     updatedCart[key] = item;
   });
 
   // If the item is not in the cart, add it
   if (!updatedCart[id]) {
-    updatedCart[id] = { id, quantity };
+    updatedCart[id] = { id, quantity, price };
   }
 
   // Set the cart to the updatedCart
@@ -115,7 +117,7 @@ userSchema.methods.addToCart = function (id, quantity) {
   return this.save({ validateBeforeSave: false });
 };
 
-userSchema.methods.updateCartItem = function (id, quantity) {
+userSchema.methods.updateCartItem = function (id, name, quantity, price) {
   const { cart } = this;
   const updatedCart = {};
   let itemUpdated = false;
@@ -125,13 +127,16 @@ userSchema.methods.updateCartItem = function (id, quantity) {
     const item = cart[key];
     if (item.id === id) {
       if (quantity > 0) {
+        item.name = name;
         item.quantity += quantity;
+        item.price = price;
         itemUpdated = true;
       } else {
         itemUpdated = true;
         return;
       }
     }
+
     updatedCart[key] = item;
   });
 
