@@ -62,15 +62,21 @@ app.use((req, res, next) => {
   }
 });
 
+app.use(
+  cors({
+    origin: "https://drinksofallkind.com", // Allow requests from this origin
+  })
+);
+
 // Routes
 // Add CORS handling middleware to allow cross-origin requests to the API
-app.use("/api/v1/wine", cors(), wineProductRouter);
-app.use("/api/v1/payment", cors(), paymentRouter);
-app.use("/api/v1/users", cors(), userRouter);
-app.use("/api/v1/orders", cors(), orderRouter);
-app.use("/api/v1/addresses", cors(), addressRouter);
-app.use("/api/v1/notifications", cors(), notificationRouter);
-app.use("/api/v1/admin", cors(), adminRouter);
+app.use("/api/v1/wine", wineProductRouter);
+app.use("/api/v1/payment", paymentRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/addresses", addressRouter);
+app.use("/api/v1/notifications", notificationRouter);
+app.use("/api/v1/admin", adminRouter);
 
 // Handle all undefined routes by throwing a custom error with a 404 status code
 app.all("*", (req, res, next) => {
