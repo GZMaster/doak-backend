@@ -109,7 +109,7 @@ userSchema.methods.addToCart = function (id, name, quantity, price) {
 
   // If the item is not in the cart, add it
   if (!updatedCart[id]) {
-    updatedCart[id] = { id, quantity, price };
+    updatedCart[id] = { id, name, quantity, price };
   }
 
   // Set the cart to the updatedCart

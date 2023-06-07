@@ -203,7 +203,7 @@ exports.addToCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No user found with that ID", 404));
   }
 
-  const newUser = await user.addToCart(wine.id, wine.name, quantity, price);
+  const newUser = await user.addToCart(wine._id, wine.name, quantity, price);
 
   newUser.save({ validateBeforeSave: false });
 
