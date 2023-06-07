@@ -19,6 +19,13 @@ const transactionSchema = new mongoose.Schema(
       enum: ["successful", "pending", "failed"],
       default: "pending",
     },
+    paymentReference: {
+      type: String,
+      required: [true, "paymentReference is required"],
+    },
+    transactionId: {
+      type: String,
+    },
   },
   {
     timestamps: true,
