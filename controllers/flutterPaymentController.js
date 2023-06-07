@@ -4,8 +4,8 @@ const Flutterwave = require("flutterwave-node-v3");
 const { v4: uuidv4 } = require("uuid");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
-const APIFeatures = require("../utils/apiFeatures");
 const Transaction = require("../models/transactionModel");
+const Order = require("../models/orderModel");
 
 dotenv.config({ path: "../config.env" });
 
@@ -29,37 +29,44 @@ const flw = new Flutterwave(
 //   tx_ref: "example01",
 // };
 
-exports.createTransaction = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const { name, email, phone, amount, currency } = req.body;
-
-  const transactionId = uuidv4();
-
-  const transaction = await Transaction.create({
-    userId: id,
-    transactionId,
-    name,
-    email,
-    phone,
-    amount,
-    currency,
-    paymentGateway: "flutterwave",
-  });
+const transactionVerificationQueue = catchAsync(async (transactionId) => {
+  const transaction = await Transaction.findOne({ transactionId });
+  const order = await Order.findOne({ _id: transaction.orderId });
 
   if (!transaction) {
-    return next(new AppError("Something went wrong", 400));
+    return new AppError("Something went wrong", 400);
   }
 
-  res.status(201).json({
-    status: "success",
-    data: {
-      transaction,
-    },
+  const verifyPayment = await flw.Transaction.verify({
+    id: transactionId,
   });
+
+  if (verifyPayment.data.status === "successful") {
+    // Update the transaction
+    transaction.paymentStatus = "successful";
+    await transaction.save();
+
+    // Update the order
+    order.paymentStatus = "paid";
+    await order.save();
+  }
+
+  if (verifyPayment.data.status === "pending") {
+    // Update the transaction
+    transaction.paymentStatus = "pending";
+    await transaction.save();
+
+    // Schedule a job that polls for the status of the payment every 10 minutes
+    transactionVerificationQueue.add({
+      id: transactionId,
+    });
+  }
 });
 
-exports.chargeCard = catchAsync(async (req, res, next) => {
+exports.initializeTransaction = catchAsync(async (req, res, next) => {
   const tx_ref = uuidv4();
+
+  const userId = req.user._id;
 
   const {
     card_number,
@@ -70,7 +77,27 @@ exports.chargeCard = catchAsync(async (req, res, next) => {
     fullname,
     email,
     phone_number,
+    pin,
+    city,
+    address,
+    state,
+    country,
+    zip_code,
+    orderId,
   } = req.body;
+
+  // Create a new transaction
+  const transaction = await Transaction.create({
+    userId,
+    orderId,
+    email,
+    amount,
+    tx_ref,
+  });
+
+  if (!transaction) {
+    return next(new AppError("Something went wrong", 400));
+  }
 
   const payload = {
     card_number,
@@ -79,12 +106,12 @@ exports.chargeCard = catchAsync(async (req, res, next) => {
     expiry_year,
     currency: "NGN",
     amount: amount.toString(),
-    redirect_url: "https://www.drinksofallkind.com",
     fullname,
     email,
     phone_number,
-    enckey: process.env.FLW_ENCRYPTION_KEY,
     tx_ref,
+    redirect_url: "https://www.drinksofallkind.com",
+    enckey: process.env.FLW_ENCRYPTION_KEY,
   };
 
   const response = await flw.Charge.card(payload);
@@ -93,136 +120,394 @@ exports.chargeCard = catchAsync(async (req, res, next) => {
     return next(new AppError(response.message, 400));
   }
 
-  // const transaction = await Transaction.findOneAndUpdate(
-  //   { transactionId: tx_ref },
-  //   { flwRef: response.data.flw_ref, paymentStatus: "pending" },
-  //   { new: true }
-  // );
+  switch (response.meta.authorization.mode) {
+    case "pin":
+      req.session.charge_payload = payload;
+      req.session.pin = pin;
+      break;
+    case "avs_noauth": {
+      // Store the current payload
+      req.session.charge_payload = payload;
+      // Now we'll show the user a form to enter
+      // the requested fields (PIN or billing details)
+      req.session.auth_fields = [city, address, state, country, zip_code];
+      req.session.auth_mode = response.meta.authorization.mode;
+      break;
+    }
+    case "redirect": {
+      // Store the transaction ID
+      // so we can look it up later with the flw_ref
+      await Transaction.findByIdAndUpdate(transaction._id, {
+        transactionId: response.data.id,
+      });
+      // Auth type is redirect,
+      // so just redirect to the customer's bank
+      const authUrl = response.meta.authorization.redirect;
 
-  // if (!transaction) {
-  //   return next(new AppError("Something went wrong", 400));
-  // }
+      return res.redirect(authUrl);
+    }
+    default: {
+      // No authorization needed; just verify the payment
+      const transactionId = response.data.id;
+      const verifyPayment = await flw.Transaction.verify({
+        id: transactionId,
+      });
 
-  res.status(200).json({
-    status: "success",
-    data: {
-      response,
-    },
-  });
+      if (verifyPayment.data.status === "successful") {
+        // Update the transaction
+        transaction.paymentStatus = "successful";
+        await transaction.save();
 
-  // if (response.meta.authorization.mode === "pin") {
-  //   const payload2 = payload;
-  //   payload2.authorization = {
-  //     mode: "pin",
-  //     fields: ["pin"],
-  //     pin: 3310,
-  //   };
-  //   const reCallCharge = await flw.Charge.card(payload2);
+        // Update the order
+        const order = await Order.findOne({ _id: transaction.orderId });
+        order.paymentStatus = "paid";
+        await order.save();
 
-  //   // Add the OTP to authorize the transaction
-  //   const callValidate = await flw.Charge.validate({
-  //     otp: "12345",
-  //     flw_ref: reCallCharge.data.flw_ref,
-  //   });
+        return res.status(200).json({
+          status: "success",
+          message: "Payment successful",
+        });
+      }
 
-  //   console.log(callValidate);
-  // }
-  //   // For 3DS or VBV transactions, redirect users to their issue to authorize the transaction
-  //   if (response.meta.authorization.mode === "redirect") {
-  //     const url = response.meta.authorization.redirect;
-  //     // open(url);
-  //   }
+      if (verifyPayment.data.status === "pending") {
+        // Update the transaction
+        transaction.paymentStatus = "pending";
+        await transaction.save();
 
-  // console.log(response);
+        // Schedule a job that polls for the status of the payment every 10 minutes
+        transactionVerificationQueue.add({
+          id: transactionId,
+        });
+
+        return res.status(200).json({
+          status: "success",
+          message: "Payment pending",
+        });
+      }
+
+      return res.status(400).json({
+        status: "error",
+        message: "Payment failed",
+      });
+    }
+  }
+
+  next();
 });
 
-exports.getTransaction = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+// The route where we send the user's auth details (Step 4)
+exports.authorize = catchAsync(async (req, res, next) => {
+  const payload = req.session.charge_payload;
+  // Add the auth mode and requested fields to the payload,
+  // then call chargeCard again
+  payload.authorization = {
+    mode: req.session.auth_mode,
+  };
+  req.session.auth_fields.forEach((field) => {
+    payload.authorization.field = req.body[field];
+  });
 
-  const transaction = await Transaction.findById(id);
+  const transaction = await Transaction.findOne({ tx_ref: payload.tx_ref });
 
-  if (!transaction) {
-    return next(new AppError("No transaction found with that ID", 404));
+  const response = await flw.Charge.card(payload);
+
+  switch (response.meta.authorization.mode) {
+    case "otp": {
+      // Show the user a form to enter the OTP
+      req.session.flw_ref = response.data.flw_ref;
+
+      return res.status(200).json({
+        status: "success",
+        message: "Enter OTP",
+      });
+    }
+    case "redirect": {
+      const authUrl = response.meta.authorization.redirect;
+
+      return res.status(200).json({
+        status: "success",
+        message: "Redirecting to bank",
+        authUrl,
+      });
+    }
+    default: {
+      // No validation needed; just verify the payment
+      const transactionId = response.data.id;
+      const verifyTransaction = await flw.Transaction.verify({
+        id: transactionId,
+      });
+
+      if (verifyTransaction.data.status === "successful") {
+        // Update the transaction
+        transaction.paymentStatus = "successful";
+        await transaction.save();
+
+        // Update the order
+        const order = await Order.findOne({ _id: transaction.orderId });
+        order.paymentStatus = "paid";
+        await order.save();
+
+        return res.status(200).json({
+          status: "success",
+          message: "Payment successful",
+        });
+      }
+
+      if (verifyTransaction.data.status === "pending") {
+        // Update the transaction
+        transaction.paymentStatus = "pending";
+        await transaction.save();
+
+        // Schedule a job that polls for the status of the payment every 10 minutes
+        transactionVerificationQueue.add({
+          id: transactionId,
+        });
+
+        return res.status(200).json({
+          status: "success",
+          message: "Payment pending",
+        });
+      }
+
+      return res.status(400).json({
+        status: "error",
+        message: "Payment failed",
+      });
+    }
+  }
+});
+
+// The route where we validate and verify the payment (Steps 5 - 6)
+exports.validate = catchAsync(async (req, res, next) => {
+  const transaction = await Transaction.findOne({ tx_ref: req.body.tx_ref });
+
+  const response = await flw.Charge.validate({
+    otp: req.body.otp,
+    flw_ref: req.session.flw_ref,
+  });
+
+  if (
+    response.data.status === "successful" ||
+    response.data.status === "pending"
+  ) {
+    // Verify the payment
+    const transactionId = response.data.id;
+    const verifyTransaction = flw.Transaction.verify({
+      id: transactionId,
+    });
+
+    if (verifyTransaction.data.status === "successful") {
+      // Update the transaction
+      transaction.paymentStatus = "successful";
+      await transaction.save();
+
+      // Update the order
+      const order = await Order.findOne({ _id: transaction.orderId });
+      order.paymentStatus = "paid";
+      await order.save();
+
+      return res.status(200).json({
+        status: "success",
+        message: "Payment successful",
+      });
+    }
+
+    if (verifyTransaction.data.status === "pending") {
+      // Update the transaction
+      transaction.paymentStatus = "pending";
+      await transaction.save();
+
+      // Schedule a job that polls for the status of the payment every 10 minutes
+      transactionVerificationQueue.add({
+        id: transactionId,
+      });
+
+      return res.status(200).json({
+        status: "success",
+        message: "Payment pending",
+      });
+    }
   }
 
-  if (transaction.paymentStatus === "pending") {
-    return next(new AppError("Transaction is still pending", 400));
+  return res.redirect("/payment-failed");
+});
+
+// Our redirect_url. For 3DS payments, Flutterwave will redirect here after authorization,
+// and we can verify the payment (Step 6)
+exports.redirect = catchAsync(async (req, res) => {
+  if (req.query.status === "successful" || req.query.status === "pending") {
+    // Verify the payment
+    const txRef = req.query.tx_ref;
+    const transaction = await Transaction.findOne({ tx_ref: txRef });
+
+    if (!transaction) {
+      return res.status(404).json({
+        status: "error",
+        message: "Transaction not found",
+      });
+    }
+
+    const verifyTransaction = flw.Transaction.verify({
+      id: transaction.transactionId,
+    });
+
+    if (verifyTransaction.data.status === "successful") {
+      // Update the transaction
+      transaction.paymentStatus = "successful";
+      await transaction.save();
+
+      // Update the order
+      const order = await Order.findOne({ _id: transaction.orderId });
+      order.paymentStatus = "paid";
+      await order.save();
+
+      return res.status(200).json({
+        status: "success",
+        message: "Payment successful",
+      });
+    }
+
+    if (verifyTransaction.data.status === "pending") {
+      // Update the transaction
+      transaction.paymentStatus = "pending";
+      await transaction.save();
+
+      // Schedule a job that polls for the status of the payment every 10 minutes
+      transactionVerificationQueue.add({
+        id: transaction.transactionId,
+      });
+
+      return res.status(200).json({
+        status: "success",
+        message: "Payment pending",
+      });
+    }
   }
 
-  if (transaction.paymentStatus === "failed") {
-    return next(new AppError("Transaction failed", 400));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      transaction,
-    },
+  return res.status(400).json({
+    status: "error",
+    message: "Payment failed",
   });
 });
 
-exports.verifyTransaction = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
+// The route where we poll for the status of the payment (Step 7)
+exports.verify = catchAsync(async (req, res, next) => {
+  const transaction = await Transaction.findOne({ tx_ref: req.body.tx_ref });
 
-  const transaction = await Transaction.findById(id);
+  const verifyTransaction = flw.Transaction.verify({
+    id: transaction.transactionId,
+  });
 
-  if (!transaction) {
-    return next(new AppError("No transaction found with that ID", 404));
-  }
-
-  const response = await flw.Transaction.verify(transaction.flwRef);
-
-  if (response.status === "error") {
-    return next(new AppError(response.message, 400));
-  }
-
-  if (response.data.status === "successful") {
+  if (verifyTransaction.data.status === "successful") {
+    // Update the transaction
     transaction.paymentStatus = "successful";
-    transaction.save();
+    await transaction.save();
+
+    // Update the order
+    const order = await Order.findOne({ _id: transaction.orderId });
+    order.paymentStatus = "paid";
+    await order.save();
+
+    return res.status(200).json({
+      status: "success",
+      message: "Payment successful",
+    });
   }
 
-  res.status(200).json({
-    status: "success",
-    data: {
-      transaction,
-    },
+  if (verifyTransaction.data.status === "pending") {
+    // Update the transaction
+    transaction.paymentStatus = "pending";
+    await transaction.save();
+
+    // Schedule a job that polls for the status of the payment every 10 minutes
+    transactionVerificationQueue.add({
+      id: transaction.transactionId,
+    });
+
+    return res.status(200).json({
+      status: "success",
+      message: "Payment pending",
+    });
+  }
+
+  return res.status(400).json({
+    status: "error",
+    message: "Payment failed",
   });
+});
+
+exports.webhook = catchAsync(async (req, res, next) => {
+  const secreatHash = req.headers["verif-hash"];
+
+  if (!secreatHash) {
+    return next(new AppError("Invalid request", 400));
+  }
+
+  if (secreatHash !== process.env.FLW_WEBHOOK_HASH) {
+    return next(new AppError("Invalid request", 400));
+  }
+
+  const { event, data } = req.body;
+
+  if (event === "charge.completed") {
+    const transaction = await Transaction.findOne({ tx_ref: data.tx_ref });
+
+    if (!transaction) {
+      return next(new AppError("Transaction not found", 404));
+    }
+
+    switch (data.status) {
+      case "successful": {
+        // Update the transaction
+        transaction.paymentStatus = "successful";
+        await transaction.save();
+
+        // Update the order
+        const order = await Order.findOne({ _id: transaction.orderId });
+        order.paymentStatus = "paid";
+        await order.save();
+
+        res.sendStatus(200);
+        break;
+      }
+      case "pending": {
+        transaction.paymentStatus = "pending";
+        await transaction.save();
+
+        // Schedule a job that polls for the status of the payment every 10 minutes
+        transactionVerificationQueue.add({
+          id: transaction.transactionId,
+        });
+
+        res.sendStatus(200);
+        break;
+      }
+      case "failed":
+        transaction.paymentStatus = "failed";
+        await transaction.save();
+
+        res.sendStatus(200);
+        break;
+      default:
+        res.sendStatus(400);
+        break;
+    }
+  }
 });
 
 exports.getAllTransactions = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Transaction.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
+  // const features = new APIFeatures(Transaction.find(), req.query)
+  //   .filter()
+  //   .sort()
+  //   .limitFields()
+  //   .paginate();
 
-  const transactions = await features.query;
+  // const transactions = await features.query;
 
-  if (!transactions) {
-    return next(new AppError("No transactions found", 404));
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      transactions,
-    },
-  });
-});
-
-exports.getTransactionsByUser = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const features = new APIFeatures(Transaction.find({ userId: id }), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-
-  const transactions = await features.query;
+  const transactions = await Transaction.find().populate("orderId").exec();
 
   if (!transactions) {
-    return next(new AppError("No transactions found", 404));
+    return next(new AppError("Something went wrong", 400));
   }
 
   res.status(200).json({
