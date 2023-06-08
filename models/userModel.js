@@ -132,9 +132,16 @@ userSchema.methods.updateCartItem = function (id, name, quantity, price) {
         item.price = price;
         itemUpdated = true;
       } else {
-        itemUpdated = true;
+        updatedCart[key] = item;
         return;
       }
+    } else {
+      updatedCart[key] = {
+        id,
+        name,
+        quantity,
+        price,
+      };
     }
 
     updatedCart[key] = item;

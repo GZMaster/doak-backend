@@ -21,7 +21,6 @@ const transactionSchema = new mongoose.Schema(
     },
     paymentReference: {
       type: String,
-      required: [true, "paymentReference is required"],
     },
     transactionId: {
       type: String,
