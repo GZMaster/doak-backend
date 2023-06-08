@@ -234,7 +234,7 @@ exports.getCart = catchAsync(async (req, res, next) => {
 
 exports.updateCart = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
-  const { price, quantity } = req.body;
+  const { quantity } = req.body;
 
   if (!user) {
     return next(new AppError("No user found with that ID", 404));
@@ -246,16 +246,17 @@ exports.updateCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No wine found with that ID", 404));
   }
 
-  await user.updateCartItem(wine.id, wine.name, quantity, price);
-
-  user.save({ validateBeforeSave: false });
-
-  const cart = await user.cart;
+  const updatedCart = await user.updateCartItem(
+    wine.id,
+    wine.name,
+    quantity,
+    wine.price
+  );
 
   res.status(200).json({
     status: "success",
     data: {
-      cart,
+      updatedCart,
     },
   });
 });

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 const dotenv = require("dotenv");
 const Flutterwave = require("flutterwave-node-v3");
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const Transaction = require("../models/transactionModel");
@@ -64,8 +64,6 @@ const transactionVerificationQueue = catchAsync(async (transactionId) => {
 });
 
 exports.initializeTransaction = catchAsync(async (req, res, next) => {
-  const tx_ref = uuidv4();
-
   const userId = req.user._id;
 
   const {
@@ -92,7 +90,6 @@ exports.initializeTransaction = catchAsync(async (req, res, next) => {
     orderId,
     email,
     amount,
-    tx_ref,
   });
 
   if (!transaction) {
@@ -106,12 +103,12 @@ exports.initializeTransaction = catchAsync(async (req, res, next) => {
     expiry_year,
     currency: "NGN",
     amount: amount.toString(),
+    redirect_url: "https://www.drinksofallkind.com",
     fullname,
     email,
     phone_number,
-    tx_ref,
-    redirect_url: "https://www.drinksofallkind.com",
     enckey: process.env.FLW_ENCRYPTION_KEY,
+    tx_ref: transaction._id.toString(),
   };
 
   const response = await flw.Charge.card(payload);
