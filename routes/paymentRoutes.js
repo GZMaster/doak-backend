@@ -20,6 +20,8 @@ router.route("/redirect").get(flutterPayment.redirect);
 
 router.route("/verify").post(userController.protect, flutterPayment.verify);
 
+router.route("/webhook").post(flutterPayment.webhook);
+
 router.route("/").get(flutterPayment.getAllTransactions);
 
 // Export the Express router
