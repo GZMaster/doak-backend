@@ -319,3 +319,18 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+exports.validateToken = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      user,
+    },
+  });
+});
