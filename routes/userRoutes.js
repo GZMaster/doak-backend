@@ -23,4 +23,10 @@ router.patch(
 
 router.patch("/updateMe", userController.protect, userController.updateMe);
 
+router.post(
+  "/validateToken",
+  userController.protect,
+  userController.validateToken
+);
+
 module.exports = router;
