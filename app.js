@@ -3,7 +3,7 @@ const express = require("express");
 const compression = require("compression"); // External middleware for compressing responses
 const helmet = require("helmet"); // External middleware for setting HTTP response headers
 const morgan = require("morgan");
-const cors = require("cors"); // External middleware for handling Cross-Origin Resource Sharing (CORS)
+// const cors = require("cors"); // External middleware for handling Cross-Origin Resource Sharing (CORS)
 const AppError = require("./utils/appError"); // Custom error handling utility
 const globalErrorHandler = require("./controllers/errorController"); // Global error handling middleware
 const userRouter = require("./routes/userRoutes"); // User routes
@@ -52,7 +52,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  // res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   if (req.method === "OPTIONS") {
@@ -62,16 +62,16 @@ app.use((req, res, next) => {
   }
 });
 
-app.use(
-  cors({
-    origin: [
-      "https://drinksofallkind.com",
-      "https://doak-admin.netlify.app",
-      "http://localhost:3000",
-      "http://localhost:3001",
-    ], // Allow requests from this origin
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "https://drinksofallkind.com",
+//       "https://doak-admin.netlify.app",
+//       "http://localhost:3000",
+//       "http://localhost:3001",
+//     ], // Allow requests from this origin
+//   })
+// );
 
 // Routes
 // Add CORS handling middleware to allow cross-origin requests to the API
