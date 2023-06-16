@@ -66,6 +66,7 @@ app.use(
   cors({
     origin: [
       "https://drinksofallkind.com",
+      "https://doak-admin.netlify.app",
       "http://localhost:3000",
       "http://localhost:3001",
     ], // Allow requests from this origin
