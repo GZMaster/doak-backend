@@ -274,11 +274,7 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No wine found with that ID", 404));
   }
 
-  await user.deleteCartItem(wine.id);
-
-  const cart = await user.cart;
-
-  user.save({ validateBeforeSave: false });
+  const cart = await user.deleteCartItem(wine.id);
 
   res.status(200).json({
     status: "success",
