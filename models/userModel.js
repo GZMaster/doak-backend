@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-
 // Create a new Mongoose schema for the user model
 const userSchema = new mongoose.Schema({
   name: {
@@ -160,26 +159,21 @@ userSchema.methods.updateCartItem = function (id, name, quantity, price) {
 userSchema.methods.deleteCartItem = function (id) {
   const { cart } = this;
   const updatedCart = {};
-  let itemDeleted = false;
 
-  // data in the cart will be { id, quantity } delete the item if the id found
+  // remove the item from the cart
   Object.keys(cart).forEach((key) => {
     const item = cart[key];
-    if (item.id === id) {
-      itemDeleted = true;
-      return;
+    if (item.id !== id) {
+      updatedCart[key] = item;
     }
-    updatedCart[key] = item;
   });
 
-  // If no item was deleted, return false
-  if (!itemDeleted) {
-    return false;
-  }
-
-  // Set the cart to the updatedCart and return true
+  // Set the cart to the updatedCart
   this.cart = updatedCart;
-  return this.save({ validateBeforeSave: false });
+
+  this.save({ validateBeforeSave: false });
+
+  return updatedCart;
 };
 
 userSchema.methods.clearCart = function () {
