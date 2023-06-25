@@ -45,6 +45,9 @@ app.use(express.json());
 // Serve static files from a directory
 app.use(express.static(`${__dirname}/public`));
 
+// handle form data
+app.use(express.urlencoded({ extended: true }));
+
 // Add middleware that adds a `requestTime` property to the request object with the current date and time
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -82,6 +85,7 @@ app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/addresses", addressRouter);
 app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/admin", adminRouter);
+app.use("images", express.static(`${__dirname}/public/images`));
 
 // Handle all undefined routes by throwing a custom error with a 404 status code
 app.all("*", (req, res, next) => {

@@ -22,7 +22,7 @@ router.route("/cart").get(userController.protect, productController.getCart);
 
 router.route("/search").get(productController.searchWineProducts);
 
-router.route("/image/:filename").get(productController.getImage);
+// router.route("/image/:filename").get(productController.getImage);
 
 router
   .route("/cart/:id")
