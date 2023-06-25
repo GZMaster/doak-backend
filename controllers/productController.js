@@ -1,5 +1,4 @@
 const { v4: uuidv4 } = require("uuid");
-// eslint-disable-next-line import/no-extraneous-dependencies
 const multer = require("multer");
 const path = require("path");
 const WineProduct = require("../models/wineProductModel");
@@ -8,53 +7,50 @@ const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, `./public/images`);
+  },
+  filename: function (req, file, cb) {
+    // cb(null, `${uuidv4()}-${file.originalname}`);
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(
+      null,
+      `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`
+    );
+  },
+});
+
+const fileFilter = (req, file, cb) => {
+  // reject a file
+  if (
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/png" ||
+    file.mimetype === "image/webp"
+  ) {
+    return cb(null, true);
+  }
+  return cb(
+    new AppError("Not an image! Please upload only images.", 400),
+    false
+  );
+};
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 5 },
+  fileFilter: fileFilter,
+});
+
+exports.uploadProductImage = upload.single("image");
+
 exports.aliasTopWineProducts = (req, res, next) => {
   req.query.limit = "10";
   req.query.sort = "price";
   req.query.fields = "name,price,summary,difficulty";
   next();
 };
-
-// Create Multer storage configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
-
-const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png/;
-    const mimetype = filetypes.test(file.mimetype);
-    const extname = filetypes.test(
-      path.extname(file.originalname).toLowerCase()
-    );
-    if (mimetype && extname) {
-      return cb(null, true);
-    }
-    cb("Error: Images Only!");
-  },
-});
-
-exports.getImage = (req, res, next) => {
-  const imagePath = path.join(
-    __dirname,
-    "..",
-    "public",
-    "images",
-    req.params.filename
-  );
-  res.sendFile(imagePath);
-
-  res.set("Cache-Control", "public, max-age=31557600");
-};
-
-// Middleware function to handle file uploads
-exports.uploadProductImage = upload.single("image");
 
 exports.searchWineProducts = catchAsync(async (req, res, next) => {
   const { query } = req.query;
@@ -116,13 +112,13 @@ exports.getWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.createWineProduct = catchAsync(async (req, res, next) => {
-  const newId = uuidv4();
+  const { file } = req;
 
-  req.body.id = newId;
-
-  if (req.file) {
-    req.body.image = req.file.filename;
+  if (!file) {
+    return next(new AppError("Please upload an image", 400));
   }
+
+  req.body.image = file.path.replace("C:\\fakepath\\", "");
 
   const newWineProduct = await WineProduct.create(req.body);
 
@@ -155,6 +151,11 @@ exports.createWineProductMany = catchAsync(async (req, res, next) => {
 });
 
 exports.updateWineProduct = catchAsync(async (req, res, next) => {
+  if (req.file) {
+    // req.body.image = req.file.path;
+    req.body.image = req.file.path.replace("C:\\fakepath\\", "");
+  }
+
   const updatedWine = await WineProduct.findOneAndUpdate(
     { id: req.params.id },
     req.body,
