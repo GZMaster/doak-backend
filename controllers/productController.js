@@ -9,7 +9,7 @@ const AppError = require("../utils/appError");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/image/");
+    cb(null, `./public/images`);
   },
   filename: function (req, file, cb) {
     cb(null, `${uuidv4()}-${file.originalname}`);
