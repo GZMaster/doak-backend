@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
-// const path = require("path");
+const path = require("path");
 const WineProduct = require("../models/wineProductModel");
 const User = require("../models/userModel");
 const APIFeatures = require("../utils/apiFeatures");
@@ -12,7 +12,12 @@ const storage = multer.diskStorage({
     cb(null, `./public/images`);
   },
   filename: function (req, file, cb) {
-    cb(null, `${uuidv4()}-${file.originalname}`);
+    // cb(null, `${uuidv4()}-${file.originalname}`);
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(
+      null,
+      `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`
+    );
   },
 });
 
@@ -113,7 +118,7 @@ exports.createWineProduct = catchAsync(async (req, res, next) => {
     return next(new AppError("Please upload an image", 400));
   }
 
-  req.body.image = file.path;
+  req.body.image = file.path.replace("C:\\fakepath\\", "");
 
   const newWineProduct = await WineProduct.create(req.body);
 
@@ -147,7 +152,8 @@ exports.createWineProductMany = catchAsync(async (req, res, next) => {
 
 exports.updateWineProduct = catchAsync(async (req, res, next) => {
   if (req.file) {
-    req.body.image = req.file.path;
+    // req.body.image = req.file.path;
+    req.body.image = req.file.path.replace("C:\\fakepath\\", "");
   }
 
   const updatedWine = await WineProduct.findOneAndUpdate(

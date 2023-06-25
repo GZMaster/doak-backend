@@ -65,16 +65,16 @@ app.use((req, res, next) => {
   }
 });
 
-app.use(
-  cors({
-    origin: [
-      "https://drinksofallkind.com",
-      "https://doak-admin.netlify.app",
-      "http://localhost:3000",
-      "http://localhost:3001",
-    ], // Allow requests from this origin
-  })
-);
+app.use(cors());
+
+// {
+//   origin: [
+//     "https://drinksofallkind.com",
+//     "https://doak-admin.netlify.app",
+//     "http://localhost:3000",
+//     "http://localhost:3001",
+//   ], // Allow requests from this origin
+// }
 
 // Routes
 // Add CORS handling middleware to allow cross-origin requests to the API
