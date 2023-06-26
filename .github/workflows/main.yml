@@ -1,4 +1,4 @@
-name: Upload build folder to cPanel
+name: Upload to cPanel
 
 on:
   push:
@@ -13,17 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: yarn
-
-      - name: Build project
-        run: yarn build
-
-      - name: Upload build folder
+      - name: Upload folder
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./build/
-          server-dir: /frontend/
+          local-dir: ./
+          server-dir: /backend/
