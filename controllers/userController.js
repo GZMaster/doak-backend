@@ -3,12 +3,45 @@ const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 // const bcrypt = require("bcryptjs");
 // const { v4: uuidv4 } = require("uuid");
-// const nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
 dotenv.config({ path: "./config.env" });
+
+const sendEmail = catchAsync(async (email, otp) => {
+  const transporter = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
+    },
+    tls: {
+      ciphers: "TLSv1.2",
+    },
+  });
+
+  const info = await transporter
+    .sendMail({
+      from: "Drinks Of All Kind",
+      to: email,
+      subject: "OTP for Confirmation",
+      html: `<h1>OTP for Confirmation</h1>
+    <p>Your OTP is ${otp}</p>`,
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  if (info) {
+    return true;
+  }
+
+  return false;
+});
 
 const generateOtp = () => {
   const otp = Math.floor(100000 + Math.random() * 900000);
@@ -70,24 +103,6 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
 exports.signup = catchAsync(async (req, res, next) => {
   const otp = generateOtp();
 
-  // Send the otp to email
-  // const transporter = nodemailer.createTransport({
-  //   service: process.env.COMPANY_EMAIL_SERVICE,
-  //   auth: {
-  //     user: process.env.COMPANY_EMAIL,
-  //     pass: process.env.COMPANY_PASSWORD,
-  //   },
-  // });
-
-  // const mailOptions = {
-  //   to: req.body.email,
-  //   from: process.env.COMPANY_EMAIL,
-  //   subject: "OTP for email verification",
-  //   text: `Your OTP for email verification is ${otp}`,
-  // };
-
-  // await transporter.sendMail(mailOptions);
-
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -100,6 +115,12 @@ exports.signup = catchAsync(async (req, res, next) => {
   newUser.password = undefined;
 
   const { token, cookieOptions } = createSendToken(newUser);
+
+  const sendingMail = await sendEmail(newUser.email, otp);
+
+  if (!sendingMail) {
+    return next(new AppError("Error sending email", 500));
+  }
 
   res.status(201).json({
     status: "success",
@@ -213,23 +234,12 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  // Send the password reset email
-  // const transporter = nodemailer.createTransport({
-  //   service: "Gmail",
-  //   auth: {
-  //     user: "your_email@gmail.com",
-  //     pass: "your_password",
-  //   },
-  // });
+  // Send it to user's email
+  const sendmail = await sendEmail(user.email, resetToken);
 
-  // const mailOptions = {
-  //   to: user.email,
-  //   from: "your_email@gmail.com",
-  //   subject: "Password Reset",
-  //   text: `Hi ${user.name},\n\nYou are receiving this email because you (or someone else) has requested a password reset for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://localhost:3000/reset/${resetToken}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n\nBest regards,\nThe App Team`,
-  // };
-
-  // await transporter.sendMail(mailOptions);
+  if (!sendmail) {
+    throw new Error("There was an error sending the email. Try again later");
+  }
 
   res.status(200).json({
     status: "success",
