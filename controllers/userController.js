@@ -10,18 +10,18 @@ dotenv.config({ path: "./config.env" });
 
 const sendEmail = catchAsync(async (email, otp) => {
   const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
+    host: `${process.env.EMAIL_HOST}`,
+    port: `${process.env.EMAIL_PORT}`,
     secure: true,
     auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
+      user: `${process.env.EMAIL_USERNAME}`,
+      pass: `${process.env.EMAIL_PASSWORD}`,
     },
   });
 
   const info = await transporter
     .sendMail({
-      from: process.env.EMAIL_USERNAME,
+      from: `${process.env.EMAIL_USERNAME}`,
       to: email,
       subject: "OTP for Confirmation",
       html: `<h1>OTP for Confirmation</h1>
@@ -30,7 +30,7 @@ const sendEmail = catchAsync(async (email, otp) => {
     .then((message) => message)
     .catch(() => false);
 
-  if (info.response.includes("OK")) {
+  if (info !== false) {
     return true;
   }
 
@@ -107,6 +107,13 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
 exports.signup = catchAsync(async (req, res, next) => {
   const otp = generateOtp();
 
+  //check if user already exists
+  const user = await User.findOne({ email: req.body.email });
+
+  if (user) {
+    await User.findByIdAndDelete(user._id);
+  }
+
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -149,6 +156,10 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // 2) Check if user exists && password is correct
   const user = await User.findOne({ email }).select("+password");
+
+  if (user.verified === false) {
+    return next(new AppError("Please verify your email", 400));
+  }
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError("Incorrect email or password", 401));
