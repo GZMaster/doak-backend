@@ -54,37 +54,37 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  if (req.method === "OPTIONS") {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   if (req.method === "OPTIONS") {
+//     res.sendStatus(200);
+//   } else {
+//     next();
+//   }
+// });
 
-// app.use(cors());
-
-// {
-//   origin: [
-//     "https://drinksofallkind.com",
-//     "https://doak-admin.netlify.app",
-//     "http://localhost:3000",
-//     "http://localhost:3001",
-//   ], // Allow requests from this origin
-// }
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PATCH", "DELETE"], // Allow these HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
+    credentials: true, // Allow credentials to be shared between origins
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  })
+);
 
 // Routes
 // Add CORS handling middleware to allow cross-origin requests to the API
 app.use("/api/v1/wine", wineProductRouter);
-app.use("/api/v1/payment", cors(), paymentRouter);
-app.use("/api/v1/users", cors(), userRouter);
-app.use("/api/v1/orders", cors(), orderRouter);
-app.use("/api/v1/addresses", cors(), addressRouter);
-app.use("/api/v1/notifications", cors(), notificationRouter);
-app.use("/api/v1/admin", cors(), adminRouter);
+app.use("/api/v1/payment", paymentRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/addresses", addressRouter);
+app.use("/api/v1/notifications", notificationRouter);
+app.use("/api/v1/admin", adminRouter);
 app.use("images", express.static(`${__dirname}/public/images`));
 
 // Handle all undefined routes by throwing a custom error with a 404 status code

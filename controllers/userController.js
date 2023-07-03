@@ -1,8 +1,6 @@
 const dotenv = require("dotenv");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
-// const bcrypt = require("bcryptjs");
-// const { v4: uuidv4 } = require("uuid");
 const nodemailer = require("nodemailer");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
@@ -19,24 +17,20 @@ const sendEmail = catchAsync(async (email, otp) => {
       user: process.env.EMAIL_USERNAME,
       pass: process.env.EMAIL_PASSWORD,
     },
-    tls: {
-      ciphers: "TLSv1.2",
-    },
   });
 
   const info = await transporter
     .sendMail({
-      from: "Drinks Of All Kind",
+      from: process.env.EMAIL_USERNAME,
       to: email,
       subject: "OTP for Confirmation",
       html: `<h1>OTP for Confirmation</h1>
     <p>Your OTP is ${otp}</p>`,
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then((message) => message)
+    .catch(() => false);
 
-  if (info) {
+  if (info.response.includes("OK")) {
     return true;
   }
 
@@ -83,14 +77,24 @@ exports.verifyEmail = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { otp } = req.body;
 
-  const user = await User.findById(id, otp);
+  const user = await User.findById(id);
 
   if (!user) {
     return next(new AppError("Invalid user", 400));
   }
 
-  user.otp = undefined;
-  user.verified = true;
+  if (user.otp !== otp) {
+    return next(new AppError("Invalid OTP", 400));
+  }
+
+  if (user.otp === otp && user.verified === true) {
+    return next(new AppError("Email already verified", 400));
+  }
+
+  if (user.otp === otp) {
+    user.otp = undefined;
+    user.verified = true;
+  }
 
   await user.save({ validateBeforeSave: false });
 
@@ -111,14 +115,16 @@ exports.signup = catchAsync(async (req, res, next) => {
     otp: otp,
   });
 
-  // Remove the password from the output
+  // Remove the password and otp from the output
   newUser.password = undefined;
+  newUser.otp = undefined;
 
   const { token, cookieOptions } = createSendToken(newUser);
 
   const sendingMail = await sendEmail(newUser.email, otp);
 
-  if (!sendingMail) {
+  if (sendingMail === false) {
+    await User.findByIdAndDelete(newUser._id);
     return next(new AppError("Error sending email", 500));
   }
 
@@ -237,7 +243,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // Send it to user's email
   const sendmail = await sendEmail(user.email, resetToken);
 
-  if (!sendmail) {
+  if (sendmail === false) {
     throw new Error("There was an error sending the email. Try again later");
   }
 
