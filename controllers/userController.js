@@ -30,8 +30,6 @@ const sendEmail = catchAsync(async (email, otp) => {
     .then((message) => message)
     .catch(() => false);
 
-  console.log(info);
-
   if (info !== false) {
     return true;
   }
