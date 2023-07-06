@@ -4,11 +4,32 @@ const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 const Order = require("../models/orderModel");
 const User = require("../models/userModel");
+const WineProduct = require("../models/wineProductModel");
+
+exports.subtractItemsFromWine = catchAsync(async (items) => {
+  const wineIds = items.map((item) => item.productId);
+  const wines = await WineProduct.find({ _id: { $in: wineIds } });
+
+  wines.forEach(async (wine) => {
+    const wineItem = items.find(
+      (item) => item.productId === wine._id.toString()
+    );
+    wine.quantity -= wineItem.quantity;
+    await wine.save();
+  });
+});
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
   const { items, address, subtotal, deliveryFee = 0 } = req.body;
   const orderId = uuidv4();
+
+  // subtract items from wine
+  const subtractQuantity = await this.subtractItemsFromWine(items);
+
+  if (subtractQuantity) {
+    return next(new AppError("Quantity not subtracted", 400));
+  }
 
   const order = await Order.create({
     userId,
