@@ -276,7 +276,6 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
   }
 
   const cart = await user.deleteCartItem(wine.id);
-  console.log(cart);
 
   res.status(200).json({
     status: "success",
