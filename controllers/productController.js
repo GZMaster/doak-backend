@@ -275,7 +275,22 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
     return next(new AppError("No wine found with that ID", 404));
   }
 
-  const cart = await user.deleteCartItem(wine.id);
+  // const cart = await user.deleteCartItem(wine.id.toString());
+
+  const { cart } = user;
+
+  // Remove the item from the cart based on productId
+  const updatedCart = {};
+
+  Object.keys(cart).forEach((productId) => {
+    if (productId !== req.params.id) {
+      updatedCart[productId] = cart[productId];
+    }
+  });
+
+  // Save the updated cart
+  user.cart = updatedCart;
+  await user.save({ validateBeforeSave: false });
 
   res.status(200).json({
     status: "success",
