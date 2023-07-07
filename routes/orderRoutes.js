@@ -27,7 +27,7 @@ router
 
 router
   .route("/updateOrderStatus/:id")
-  .post(
+  .patch(
     userController.protect,
     userController.restrictTo("admin"),
     orderController.updateOrder

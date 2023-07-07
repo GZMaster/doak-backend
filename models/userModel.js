@@ -98,7 +98,7 @@ userSchema.methods.addToCart = function (id, name, quantity, price) {
   // data in the cart will be { id, quantity }
   Object.keys(cart).forEach((key) => {
     const item = cart[key];
-    if (item.id === id) {
+    if (key === id) {
       item.name = name;
       item.quantity += quantity;
       item.price = price;
@@ -124,7 +124,7 @@ userSchema.methods.updateCartItem = function (id, name, quantity, price) {
   // data in the cart will be { id, quantity }
   Object.keys(cart).forEach((key) => {
     const item = cart[key];
-    if (item.id === id) {
+    if (key === id) {
       if (quantity > 0) {
         item.name = name;
         item.quantity += quantity;
@@ -163,7 +163,7 @@ userSchema.methods.deleteCartItem = function (id) {
   // remove the item from the cart
   Object.keys(cart).forEach((key) => {
     const item = cart[key];
-    if (item.id !== id) {
+    if (key !== id) {
       updatedCart[key] = item;
     }
   });
@@ -171,9 +171,8 @@ userSchema.methods.deleteCartItem = function (id) {
   // Set the cart to the updatedCart
   this.cart = updatedCart;
 
-  this.save({ validateBeforeSave: false });
-
-  return updatedCart;
+  // Save the updated cart and return it
+  return this.save({ validateBeforeSave: false }).then(() => updatedCart);
 };
 
 userSchema.methods.clearCart = function () {

@@ -1,14 +1,137 @@
 const { v4: uuidv4 } = require("uuid");
+const dotenv = require("dotenv");
+const nodemailer = require("nodemailer");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const APIFeatures = require("../utils/apiFeatures");
 const Order = require("../models/orderModel");
 const User = require("../models/userModel");
+const WineProduct = require("../models/wineProductModel");
+
+dotenv.config({ path: "./config.env" });
+
+const sendEmailOrderDelivered = catchAsync(
+  async (
+    email,
+    customerName,
+    orderId,
+    orderDate,
+    orderTotal,
+    deliveryAddress
+  ) => {
+    const transporter = nodemailer.createTransport({
+      host: `${process.env.EMAIL_HOST}`,
+      port: `${process.env.EMAIL_PORT}`,
+      secure: true,
+      auth: {
+        user: `${process.env.EMAIL_USERNAME}`,
+        pass: `${process.env.EMAIL_PASSWORD}`,
+      },
+    });
+
+    const info = await transporter
+      .sendMail({
+        from: `${process.env.EMAIL_USERNAME}`,
+        to: email,
+        subject: "",
+        html: `
+              <h1>Order Delivered</h1>
+              <p>Dear ${customerName},</p>
+              <p>We are pleased to inform you that your order has been delivered to the following address:</p>
+              <p>${deliveryAddress}</p>
+              <p>Order Details:</p>
+              <ul>
+                <li>Order ID: ${orderId}</li>
+                <li>Order Date: ${orderDate}</li>
+                <li>Order Total: ${orderTotal}</li>
+              </ul>
+              <p>Thank you for shopping with us!</p>
+      `,
+      })
+      .then((message) => message)
+      .catch(() => false);
+
+    if (info !== false) {
+      return true;
+    }
+
+    return false;
+  }
+);
+
+const sendEmailOrderPaid = catchAsync(
+  async (
+    email,
+    customerName,
+    orderId,
+    orderDate,
+    orderTotal,
+    deliveryAddress
+  ) => {
+    const transporter = nodemailer.createTransport({
+      host: `${process.env.EMAIL_HOST}`,
+      port: `${process.env.EMAIL_PORT}`,
+      secure: true,
+      auth: {
+        user: `${process.env.EMAIL_USERNAME}`,
+        pass: `${process.env.EMAIL_PASSWORD}`,
+      },
+    });
+
+    const info = await transporter
+      .sendMail({
+        from: `${process.env.EMAIL_USERNAME}`,
+        to: email,
+        subject: "",
+        html: `
+      <h1>Order Confirmation</h1>
+      <p>Dear ${customerName},</p>
+      <p>We are pleased to inform you that your order has been successfully paid and is being processed for delivery.</p>
+      <p>Order Details:</p>
+      <ul>
+        <li>Order ID: ${orderId}</li>
+        <li>Order Date: ${orderDate}</li>
+        <li>Order Total: ${orderTotal}</li>
+        <li>Delivery Address: ${deliveryAddress}</li>
+      </ul>
+      <p>Thank you for shopping with us!</p>
+      `,
+      })
+      .then((message) => message)
+      .catch(() => false);
+
+    if (info !== false) {
+      return true;
+    }
+
+    return false;
+  }
+);
+
+exports.subtractItemsFromWine = catchAsync(async (items) => {
+  const wineIds = items.map((item) => item.productId);
+  const wines = await WineProduct.find({ _id: { $in: wineIds } });
+
+  wines.forEach(async (wine) => {
+    const wineItem = items.find(
+      (item) => item.productId === wine._id.toString()
+    );
+    wine.quantity -= wineItem.quantity;
+    await wine.save();
+  });
+});
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
   const { items, address, subtotal, deliveryFee = 0 } = req.body;
   const orderId = uuidv4();
+
+  // subtract items from wine
+  const subtractQuantity = await this.subtractItemsFromWine(items);
+
+  if (subtractQuantity) {
+    return next(new AppError("Quantity not subtracted", 400));
+  }
 
   const order = await Order.create({
     userId,
@@ -107,12 +230,12 @@ exports.getOrdersByUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateOrder = catchAsync(async (req, res, next) => {
-  const { orderId, userId, status } = req.body;
+  const { orderId, userId, orderStatus } = req.body;
 
   const order = await Order.findOneAndUpdate(
     { orderId, userId },
     {
-      status,
+      orderStatus,
     },
     {
       new: true,
@@ -157,4 +280,11 @@ exports.cancelOrder = catchAsync(async (req, res, next) => {
       order,
     },
   });
+});
+
+exports.sendStatusMail = catchAsync(async (req, res, next) => {
+  await sendEmailOrderDelivered();
+  await sendEmailOrderPaid();
+
+  next();
 });
