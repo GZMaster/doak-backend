@@ -179,6 +179,43 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.adminLogin = catchAsync(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // 1) Check if email and password exist
+  if (!email || !password) {
+    return next(new AppError("Please provide email and password!", 400));
+  }
+
+  // 2) Check if user exists && password is correct
+  const user = await User.findOne({ email }).select("+password");
+
+  if (user.verified === false) {
+    return next(new AppError("Please verify your email", 400));
+  }
+
+  if (!user || !(await user.correctPassword(password, user.password))) {
+    return next(new AppError("Incorrect email or password", 401));
+  }
+
+  if (user.role !== "admin") {
+    return next(new AppError("You are not an admin", 401));
+  }
+
+  // 3) If everything ok, send token to client
+  const { token, cookieOptions } = createSendToken(user);
+
+  res.status(200).json({
+    status: "success",
+    message: "Logged in successfully",
+    data: {
+      user,
+      token,
+      cookieOptions,
+    },
+  });
+});
+
 exports.protect = catchAsync(async (req, res, next) => {
   // 1) Getting token and check of it's there
   let token;
