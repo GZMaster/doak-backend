@@ -121,10 +121,47 @@ exports.subtractItemsFromWine = catchAsync(async (items) => {
   });
 });
 
+exports.validateItems = catchAsync(async (items) => {
+  const wineIds = items.map((item) => item.productId);
+  const wines = await WineProduct.find({ _id: { $in: wineIds } });
+
+  const invalidItems = wines.filter((wine) => {
+    const wineItem = items.find(
+      (item) => item.productId === wine._id.toString()
+    );
+    return wineItem.quantity > wine.quantity;
+  });
+
+  if (invalidItems.length > 0) {
+    return false;
+  }
+
+  // Check if the price of the items in the cart is the same as the price of the items in the database
+  const invalidPrice = wines.filter((wine) => {
+    const wineItem = items.find(
+      (item) => item.productId === wine._id.toString()
+    );
+    return wineItem.price !== wine.price;
+  });
+
+  if (invalidPrice > 0) {
+    return false;
+  }
+
+  return true;
+});
+
 exports.createOrder = catchAsync(async (req, res, next) => {
   const userId = req.user.id;
-  const { items, address, subtotal, deliveryFee = 0 } = req.body;
+  const { items, address, subtotal, deliveryFee, deliveryMethod } = req.body;
   const orderId = uuidv4();
+
+  // validate items
+  const validateItems = await this.validateItems(items);
+
+  if (validateItems === false) {
+    return next(new AppError("Invalid items", 400));
+  }
 
   // subtract items from wine
   const subtractQuantity = await this.subtractItemsFromWine(items);
@@ -142,6 +179,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
     items,
     subtotal,
     deliveryFee,
+    deliveryMethod,
   });
 
   if (!order) {

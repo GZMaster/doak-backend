@@ -8,8 +8,39 @@ const Order = require("../models/orderModel");
 
 dotenv.config({ path: "../config.env" });
 
+exports.validateAmount = catchAsync(async (orderId, amount) => {
+  const order = await Order.findOne({ orderId });
+
+  if (!order) {
+    return false;
+  }
+
+  if (order.subTotal + order.deliveryFee !== amount) {
+    return false;
+  }
+
+  return true;
+});
+
 exports.initializePayment = catchAsync(async (req, res, next) => {
   const { userId, orderId, email, amount } = req.body;
+
+  // validate the request body
+  if (!userId || !orderId || !email || !amount) {
+    return next(new AppError("Invalid request body", 400));
+  }
+
+  // check if the order exists
+  if (!(await Order.findOne({ orderId, userId }))) {
+    return next(new AppError("Order not found", 404));
+  }
+
+  // validate the amount
+  const validateAmount = await this.validateAmount(orderId, amount);
+
+  if (!validateAmount) {
+    return next(new AppError("Invalid amount", 400));
+  }
 
   // Create a new transaction
   const transaction = await Transaction.create({

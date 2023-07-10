@@ -1,0 +1,658 @@
+[
+  {
+    "categories": ["wines"],
+    "name": "4th street wine",
+    "price": 200000,
+    "summary": "Fourth Street wine is a delicious blend of red grapes that boasts a rich, full-bodied flavor with hints of blackberry and vanilla.",
+    "description": "Fourth Street wine is a delicious blend of red grapes that boasts a rich, full-bodied flavor with hints of blackberry and vanilla. This wine is the perfect choice for any occasion, whether you're celebrating with friends or enjoying a quiet night in. It pairs well with a variety of dishes, from grilled meats to pasta and even pizza. One sip of Fourth Street wine is all it takes to transport your taste buds to a world of pure pleasure.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Agor Red wine",
+    "price": 200000,
+    "summary": "Agor red wine is a rich and flavorful blend of red grapes, offering a taste experience that is both bold and smooth.",
+    "description": "Agor red wine is a rich and flavorful blend of red grapes, offering a taste experience that is both bold and smooth. With its notes of blackberry, plum, and a hint of spice, this wine is a perfect match for your favorite grilled meats, such as steak or hamburgers. It also pairs well with pizza and pasta dishes, making it a versatile choice for any meal. Whether you're enjoying a glass of Agor red wine on its own or paired with a delicious dinner, this wine is sure to impress with its full-bodied flavor and smooth finish.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Carlo Rossi",
+    "price": 200000,
+    "summary": "Carlo Rossi is a smooth and easy-to-drink wine that's perfect for any occasion.",
+    "description": "Carlo Rossi is a smooth and easy-to-drink wine that's perfect for any occasion. Made from carefully selected grapes, this wine offers a balanced taste that's both refreshing and approachable. Whether you're enjoying it on its own or pairing it with your favorite meal, Carlo Rossi is a wine that everyone can appreciate.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Four Cousins",
+    "price": 200000,
+    "summary": "our Cousins wine is a delightful blend of tradition and innovation.",
+    "description": "our Cousins wine is a delightful blend of tradition and innovation. Made by the Four Cousins, a group of brothers who grew up on a farm in South Africa, this wine is a testament to the power of family and the pursuit of excellence. Each bottle is crafted with care, using the finest grapes and the most innovative techniques, resulting in a wine that's both classic and modern. The taste of Four Cousins wine is a celebration of life, with its playful and refreshing character that's reminiscent of warm summer days and good times shared with loved ones. Its bright and lively flavors are a reflection of the unique terroir of the Western Cape region of South Africa, where the grapes are grown. With its distinctive taste and charming character, Four Cousins wine is a true original that's sure to delight and inspire.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Rich Lady",
+    "price": 200000,
+    "summary": "Rich Lady is a wine that exudes elegance and sophistication. This bold and flavorful wine is made from carefully selected grapes, grown in the finest vineyards.",
+    "description": "Rich Lady is a wine that exudes elegance and sophistication. This bold and flavorful wine is made from carefully selected grapes, grown in the finest vineyards. The result is a wine that's rich in color, aroma, and taste. Each sip of Rich Lady is a journey, with layers of flavor that unfold like a story. Its complex yet balanced taste is a tribute to the skill and passion of the winemakers who crafted it. Rich Lady is the perfect accompaniment to a fine meal or a special occasion, and it's sure to impress even the most discerning wine connoisseur. With its luxurious taste and exquisite character, Rich Lady is a wine that's worthy of its name, and a true pleasure to experience.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Castilo Grande",
+    "price": 200000,
+    "summary": "Castillo Grande wine is a majestic tribute to the art of winemaking.",
+    "description": "Castillo Grande wine is a majestic tribute to the art of winemaking. Its name, meaning 'Great Castle' in Spanish, evokes the image of a grand fortress, standing tall and proud amidst the vineyards. This wine is made from a blend of carefully selected grapes, grown in the sun-drenched vineyards of Spain. Its deep ruby color is a feast for the eyes, while its aromas of dark fruit, vanilla, and spices are a delight for the senses. The taste is both bold and smooth, with layers of flavors that dance on the tongue. With its silky texture and long finish, Castillo Grande is a wine that's worthy of its name. It's the perfect complement to hearty dishes like roasted meats or stews and is sure to impress your dinner guests. With its regal character and sumptuous taste, Castillo Grande is a wine fit for a king or queen.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Maison Castel",
+    "price": 200000,
+    "summary": "Maison Castel wine is a true masterpiece of French winemaking.",
+    "description": "Maison Castel wine is a true masterpiece of French winemaking. Each bottle is a tribute to the passion and expertise of the winemakers who crafted it. This wine is made from a blend of the finest grapes, grown in the sun-kissed vineyards of France. Its delicate aromas of ripe fruit and flowers are a prelude to the rich and complex flavors that await. The taste is both refined and full-bodied, with notes of blackberry, cherry, and a hint of oak. The finish is long and smooth, leaving a pleasant aftertaste that lingers on the palate.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Sweet Lips Red Wine",
+    "price": 200000,
+    "summary": "Sweet Lips Red wine is a blissful delight for the senses, with its rich, fruity aromas and luscious sweetness.",
+    "description": "Sweet Lips Red wine is a blissful delight for the senses, with its rich, fruity aromas and luscious sweetness. This wine is made from a blend of carefully selected grapes, picked at the peak of ripeness to ensure maximum flavor and sweetness. Its bright, ruby-red color is a feast for the eyes, while its aromas of ripe berries and cherries are a delight for the nose. The taste is both sweet and refreshing, with notes of strawberry and raspberry that dance on the tongue. The finish is smooth and satisfying, leaving a sweet aftertaste that lingers on the palate. Sweet Lips wine is the perfect accompaniment to any occasion, from romantic dinners to casual get-togethers with friends. It pairs well with a variety of dishes, from light salads to rich desserts. With its irresistible sweetness and lively character, Sweet Lips wine is sure to make any moment sweeter.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Sweet Lips white wine",
+    "price": 200000,
+    "summary": "Sweet Lips white wine is a crisp and refreshing white wine that boasts a unique blend of fruity and floral notes.",
+    "description": "Sweet Lips white wine is a crisp and refreshing white wine that boasts a unique blend of fruity and floral notes. This wine is made from a blend of carefully selected white grape varieties, with each variety adding its own distinct flavor and aroma to the final product. On the nose, the wine offers enticing aromas of tropical fruits, citrus, and white flowers, while on the palate it is crisp and well-balanced, with a medium body and a refreshing finish. Sweet Lips is a versatile wine that pairs well with a wide range of foods, including seafood, salads, and light pasta dishes. It is the perfect wine for warm summer days, relaxing evenings, or any occasion that calls for a refreshing and delicious white wine.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Sweet Lips Rose Wine",
+    "price": 200000,
+    "summary": "Sweet Lips is a refreshing and fruity rose wine that is perfect for any occasion.",
+    "description": "Sweet Lips is a refreshing and fruity rose wine that is perfect for any occasion. This wine is made from a blend of carefully selected grapes that are grown in the best vineyards, resulting in a wine that is bursting with flavor. The grapes are harvested at the perfect ripeness to ensure that the wine has a delicate balance of acidity and sweetness. The aroma of Sweet Lips is filled with the scents of red berries, cherries, and a hint of flowers. On the palate, the wine is light and crisp, with flavors of strawberries, raspberries, and a hint of citrus. The finish is clean and refreshing, making it the perfect choice for a summer day or a fun night out with friends. Enjoy Sweet Lips chilled on its own, or pair it with light snacks, salads, and seafood dishes.",
+    "quantity": 20
+  },
+  {
+    "categories": ["wines"],
+    "name": "Robertson",
+    "price": 200000,
+    "summary": "Robertson is a wine brand that was founded in South Africa in 1941, and has since become known for producing premium wines that capture the unique character of the country's winelands.",
+    "description": "Robertson is a wine brand that was founded in South Africa in 1941, and has since become known for producing premium wines that capture the unique character of the country's winelands. Their wines are made using traditional methods, with a focus on preserving the natural flavors and aromas of the grapes. Robertson offers a wide range of varietals, from rich and full-bodied reds to crisp and refreshing whites, all of which are crafted with care and attention to detail. Whether you're a wine connoisseur or just looking for a delicious bottle to share with friends, Robertson is a brand that is sure to impress.",
+    "quantity": 20
+  },
+  {
+    "categories": ["liquor"],
+    "name": "Amarula",
+    "price": 200000,
+    "summary": "Amarula liquor is a sweet and creamy indulgence that's perfect for sipping on special occasions or sharing with friends.",
+    "description": "Amarula liquor is a sweet and creamy indulgence that's perfect for sipping on special occasions or sharing with friends. This premium South African liqueur is made from the ripe, creamy fruit of the marula tree, which grows only in sub-Saharan Africa. The marula fruit is carefully harvested and distilled into a smooth and velvety liqueur, with rich aromas of vanilla, caramel, and wild fruits. The taste is both sweet and complex, with notes of tropical fruits, nuts, and a hint of spice. Its smooth and silky texture makes it the perfect choice for an after-dinner treat or a nightcap. Amarula liquor is also versatile, and can be used to create delicious cocktails, or drizzled over ice cream for a decadent dessert. With its unique flavor profile and rich history, Amarula liquor is a luxurious and unforgettable addition to any bar.",
+    "quantity": 20
+  },
+  {
+    "categories": ["liquor"],
+    "name": "Campari",
+    "price": 200000,
+    "summary": "Campari liquor is a bold and bittersweet Italian aperitif, perfect for sipping on a warm evening or using as a key ingredient in your favorite cocktail.",
+    "description": "Campari liquor is a bold and bittersweet Italian aperitif, perfect for sipping on a warm evening or using as a key ingredient in your favorite cocktail. Made from a secret blend of aromatic herbs and spices, including bitter orange and rhubarb, it has a refreshing hint of citrus and a spicy kick that lingers on the palate. Enjoy it over ice, mixed with soda water, or as a key ingredient in the classic Negroni cocktail. With its unique flavor and versatility, Campari is a staple in any home bar.",
+    "quantity": 20
+  },
+  {
+    "categories": ["liquor"],
+    "name": "Best cream",
+    "price": 200000,
+    "summary": "Indulge in the velvety smoothness of the best cream liquor, perfect for those who love their drinks with a touch of luxury.",
+    "description": "Indulge in the velvety smoothness of the best cream liquor, perfect for those who love their drinks with a touch of luxury. This decadent liqueur is made from the finest cream, blended with premium spirits and natural flavorings to create a rich and luscious drink that's perfect for sipping on special occasions. The taste is creamy and delicate, with a perfect balance of sweetness and a smooth, silky finish that leaves a delicious aftertaste. Enjoy it over ice, or mix it with your favorite coffee, hot chocolate, or dessert for a truly decadent treat. With its versatile and indulgent flavor, the best cream liquor is a must-have for any drinks cabinet and is sure to impress even the most discerning palates.",
+    "quantity": 20
+  },
+  {
+    "categories": ["liquor"],
+    "name": "Bailey’s",
+    "price": 200000,
+    "summary": "Bailey's liquor is the perfect indulgence for anyone looking for a deliciously creamy and luxurious drink.",
+    "description": "Bailey's liquor is the perfect indulgence for anyone looking for a deliciously creamy and luxurious drink. This iconic Irish cream liqueur is made with the finest ingredients, including fresh Irish dairy cream, premium spirits, and natural flavors, resulting in a velvety smooth, and rich taste. With its distinctive notes of cocoa and vanilla, Bailey's is a versatile drink that can be enjoyed neat, over ice, or as a key ingredient in a variety of cocktails and desserts. Whether you're sipping it after dinner or indulging in a boozy coffee, Bailey's is the perfect way to add a touch of indulgence to any occasion.",
+    "quantity": 20
+  },
+  {
+    "categories": ["liquor"],
+    "name": "Jägermeister",
+    "price": 200000,
+    "summary": "Jägermeister is the ultimate drink for those who dare to be bold and adventurous.",
+    "description": "Jägermeister is the ultimate drink for those who dare to be bold and adventurous. This dark and mysterious German liqueur is made with a secret blend of 56 herbs, fruits, roots, and spices, resulting in a complex and robust flavor that's unmistakably Jägermeister. With its distinctive taste of bitter orange, licorice, and cinnamon, this spirit is perfect for sipping neat or over ice and is also a favorite ingredient in a variety of classic cocktails. Whether you're looking for a unique shot to get the party started or a smooth sipper to unwind with after a long day, Jägermeister is a perfect choice.",
+    "quantity": 20
+  },
+  {
+    "categories": ["sparkling wine"],
+    "name": "Andre Brut",
+    "price": 200000,
+    "summary": "Andre Sparkling wine is the perfect choice for anyone looking for a light, refreshing, and affordable way to add some sparkle to any occasion.",
+    "description": "Andre Sparkling wine is the perfect choice for anyone looking for a light, refreshing, and affordable way to add some sparkle to any occasion. With its bright and bubbly effervescence, this crisp and refreshing wine is perfect for toasting to life's everyday moments, big and small. Its fruity and floral aromas and flavors make it a delightful accompaniment to a variety of foods, from fresh seafood to charcuterie boards. Whether you're hosting a backyard barbecue or enjoying a night out with friends, Andre Sparkling wine is the perfect way to elevate any celebration. So, pop open a bottle and raise a glass to life's everyday moments with the light and lively taste of Andre Sparkling wine.",
+    "quantity": 20
+  },
+  {
+    "categories": ["sparkling wine"],
+    "name": "Martini Rose",
+    "price": 200000,
+    "summary": "Martini Rose is the perfect drink for those who crave a taste of the luxurious and exotic.",
+    "description": "Martini Rose is the perfect drink for those who crave a taste of the luxurious and exotic. This Italian sparkling wine is a delicious blend of fragrant botanicals and crisp, refreshing wine that come together in a symphony of flavors and aromas. The infusion of natural rose extract adds a subtle sweetness to the wine, while the botanicals provide a delicate balance of bitterness and herbaceousness. Whether you're sipping it on its own or mixing it into a cocktail, Martini Rose is a versatile and sophisticated choice. Its vibrant pink hue and elegant bottle design make it an eye-catching addition to any party or event. So, indulge in a little bit of luxury and treat yourself to the exquisite taste of Martini Rose",
+    "quantity": 20
+  },
+  {
+    "categories": ["sparkling wine"],
+    "name": "Whispering Angel",
+    "price": 200000,
+    "summary": "Whispering Angel is a rosé wine that evokes the beauty and tranquility of the French countryside.",
+    "description": "Whispering Angel is a rosé wine that evokes the beauty and tranquility of the French countryside. This Provence-style wine is a delicate blend of Grenache, Cinsault, and Vermentino grapes, creating a crisp, refreshing, and floral flavor profile. With its subtle aromas of red berries and white peach, Whispering Angel is perfect for enjoying on a warm summer day or pairing with a light meal. Its delicate pink color and elegant bottle design make it a beautiful addition to any occasion, from an intimate dinner party to a sophisticated gathering.",
+    "quantity": 20
+  },
+  {
+    "categories": ["sparkling wine"],
+    "name": "Belaire Rose",
+    "price": 200000,
+    "summary": "Belaire Rose is a luxurious sparkling wine that combines the finest French craftsmanship with a modern sensibility.",
+    "description": "Belaire Rose is a luxurious sparkling wine that combines the finest French craftsmanship with a modern sensibility. This vibrant pink wine is made from a blend of Grenache, Cinsault, and Syrah grapes, creating a bold and fruity flavor profile. Its crisp and refreshing taste is perfect for celebrating life's special moments or for simply sipping on a warm summer day. The bottle itself is a work of art, with its sleek and elegant design, featuring a black and pink label and a unique shape that stands out from the crowd. Whether you're enjoying it on its own or using it as the star ingredient in a sparkling cocktail, Belaire Rose is a symbol of elegance, sophistication, and celebration.",
+    "quantity": 20
+  },
+  {
+    "categories": ["sparkling wine"],
+    "name": "Veuve de vernay",
+    "price": 200000,
+    "summary": "Veuve de Vernay is a sparkling wine that embodies the spirit of Parisian elegance and joie de vivre.",
+    "description": "Veuve de Vernay is a sparkling wine that embodies the spirit of Parisian elegance and joie de vivre. This effervescent blend of Chardonnay and Chenin Blanc grapes offers a crisp and refreshing taste with subtle hints of green apple, citrus, and toasted brioche. The light and airy bubbles create a luxurious mouthfeel that dances on the tongue, making it the perfect complement to any celebration. Veuve de Vernay's bottle design is just as chic and sophisticated as its taste, with its iconic Parisian label featuring a graceful swan and the Eiffel Tower in the background.",
+    "quantity": 20
+  },
+  {
+    "categories": ["champagne"],
+    "name": "Andre Rose",
+    "price": 200000,
+    "summary": "Andre Rose is a sparkling wine that radiates elegance and exuberance with its beautiful pink hue and effervescent bubbles.",
+    "description": "Andre Rose is a sparkling wine that radiates elegance and exuberance with its beautiful pink hue and effervescent bubbles. This delicious blend of Chardonnay and Pinot Noir grapes offers a refreshing taste with subtle hints of strawberry, raspberry, and peach. The light and airy bubbles create a luxurious mouthfeel that delights the senses, making it perfect for any festive occasion. Whether you're celebrating a special milestone or just enjoying a casual brunch with friends, Andre Rose is the perfect choice to add some sparkle to your day. The beautifully designed bottle is just as captivating as its taste, with its classic label and sleek shape.",
+    "quantity": 20
+  },
+  {
+    "categories": ["champagne"],
+    "name": "Moet&chandon",
+    "price": 200000,
+    "summary": "Moet & Chandon is the epitome of luxury and sophistication in the world of champagne.",
+    "description": "Moet & Chandon is the epitome of luxury and sophistication in the world of champagne. The iconic brand has been synonymous with celebration and style for centuries, and its exquisite taste is a testament to the dedication and skill of its expert winemakers. The signature champagne of Moet & Chandon is the Moet Imperial, a blend of three grape varieties that exudes finesse and elegance with its golden color and lively bubbles. Its taste is characterized by notes of brioche, honey, and citrus fruits, with a long and complex finish that lingers on the palate. Whether you're sipping it at a fancy gala or toasting a special moment with loved ones, Moet & Chandon is the perfect choice to elevate any occasion. The brand's commitment to excellence is reflected not only in its taste but also in its exquisite packaging, with its iconic label and elegant bottle design that exudes luxury and sophistication. Moet & Chandon is truly the embodiment of champagne that celebrates the art of living.",
+    "quantity": 20
+  },
+  {
+    "categories": ["champagne"],
+    "name": "Dom Perignon",
+    "price": 200000,
+    "summary": "The signature champagne of Dom Perignon is the Dom Perignon Vintage, which is only produced in the best years and is a true expression of the brand's philosophy of excellence.",
+    "description": "The signature champagne of Dom Perignon is the Dom Perignon Vintage, which is only produced in the best years and is a true expression of the brand's philosophy of excellence. Its taste is characterized by its depth, complexity, and richness, with notes of honey, almonds, and dried fruits, followed by a long and silky finish that lingers on the palate. Each sip is a journey through the history and tradition of champagne-making and a testament to the artistry and passion of the Dom Perignon winemakers. Dom Perignon is the perfect champagne for any occasion that calls for luxury and celebration, from weddings and anniversaries to corporate events and VIP parties. Its sleek and elegant packaging, with its iconic label and signature bottle design, only adds to the allure and prestige of this legendary brand. Dom Perignon is truly a champagne that celebrates the art of living and is a symbol of the finest taste and style.",
+    "quantity": 20
+  },
+  {
+    "categories": ["champagne"],
+    "name": "Laurent-perrier",
+    "price": 200000,
+    "summary": "This champagne is a true expression of the art of blending, with a complex and harmonious flavor profile that is both rich and refined.",
+    "description": "This champagne is a true expression of the art of blending, with a complex and harmonious flavor profile that is both rich and refined. With its distinctive bottle shape and elegant label design, Laurent-Perrier is a champagne that is not only exquisite in taste but also a work of art. It is the ultimate symbol of luxury and sophistication, and the perfect way to elevate any celebration or special occasion.",
+    "quantity": 20
+  },
+  {
+    "categories": ["rum"],
+    "name": "Bambu Original Rum",
+    "price": 200000,
+    "summary": "Bambu Original Rum is a premium rum that captures the spirit of the Caribbean with every sip.",
+    "description": "Bambu Original Rum is a premium rum that captures the spirit of the Caribbean with every sip. Made from the finest sugarcane molasses and distilled in the Dominican Republic, this exquisite rum boasts a rich and complex flavor profile that is sure to delight even the most discerning palate. Its unique blend of aged rums, ranging from three to eight years, gives it a smooth and mellow taste, with notes of caramel, vanilla, and oak that linger on the tongue. Whether you're sipping it neat or using it to craft your favorite cocktail, Bambu Original Rum is the perfect choice for any occasion. Its deep amber color and rich aroma make it a standout on any bar, and its versatile flavor makes it an ideal complement to a wide range of mixers. Whether you're hosting a party, enjoying a nightcap, or simply looking to unwind after a long day, Bambu Original Rum is sure to satisfy.",
+    "quantity": 20
+  },
+  {
+    "categories": ["non alcoholic wine"],
+    "name": "Chamdor",
+    "price": 200000,
+    "summary": "Chamdor is a premium sparkling grape juice that brings a touch of luxury and sophistication to any occasion.",
+    "description": "Chamdor is a premium sparkling grape juice that brings a touch of luxury and sophistication to any occasion. Made from the finest hand-picked grapes, Chamdor offers a crisp and refreshing taste that is perfect for those who love a non-alcoholic alternative to champagne. With its delicate bubbles and beautiful golden color, Chamdor is a true celebration in a glass. What makes Chamdor even more special is that it is not only delicious, but also healthy. It is packed with natural antioxidants and nutrients that are essential for a healthy lifestyle. This means that you can enjoy the delicious taste of Chamdor guilt-free, knowing that you are doing something good for your body. Whether you are looking for a non-alcoholic option for a special occasion or simply want to indulge in something delicious and healthy, Chamdor is the perfect choice.",
+    "quantity": 20
+  },
+  {
+    "categories": ["non alcoholic wine"],
+    "name": "J&W",
+    "price": 200000,
+    "summary": "J&W wine is a brand that delivers quality and consistency with every bottle.",
+    "description": "J&W wine is a brand that delivers quality and consistency with every bottle. Known for its approachable taste and affordable price point, J&W wine is a go-to choice for those seeking a delicious and satisfying wine experience. The J&W wine collection offers a range of varietals, from the light and refreshing Pinot Grigio to the rich and complex Cabernet Sauvignon. Each wine is crafted with care and attention to detail, using only the finest grapes and traditional winemaking techniques. With its smooth and balanced flavors, J&W wine is a versatile choice that can be enjoyed on its own or paired with a variety of foods. Whether you're sharing a bottle with friends or enjoying a glass on your own, J&W wine is the perfect companion for any occasion.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Chivas Regal",
+    "price": 200000,
+    "summary": "Chivas Regal is a blend of malt and grain whiskies aged for at least 12 years.",
+    "description": "Crafted from a unique blend of malt and grain whiskies aged for at least 12 years, Chivas Regal boasts a deep amber color and a rich, full-bodied taste. With notes of honey, vanilla, and ripe fruit, followed by a long, creamy finish, it is a whisky that is meant to be savored and enjoyed slowly. Whether sipped neat, on the rocks, or mixed in a classic cocktail, Chivas Regal is the perfect choice for any occasion that calls for elegance and style. Its iconic packaging, with its signature crest and elegant bottle design, only adds to its timeless appeal. Chivas Regal is a whisky that represents the very best of Scottish tradition and craftsmanship, and a true symbol of the art of fine whisky-making.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Claymore",
+    "price": 200000,
+    "summary": "Claymore Whiskey is a true testament to the craftsmanship and passion of its Scottish distillers.",
+    "description": "Claymore Whiskey is a true testament to the craftsmanship and passion of its Scottish distillers. Made with only the finest grains and aged for years in oak barrels, this whiskey embodies the rich history and tradition of Scottish whiskey-making. Its taste is characterized by a smooth and velvety texture, with notes of vanilla, honey, and oak that are perfectly balanced by a subtle smokiness. Each sip is a journey through the rugged Scottish landscape and a celebration of the artistry and skill of the Claymore distillery. Whether enjoyed neat or mixed into a classic cocktail, Claymore Whiskey is a bold and sophisticated addition to any drink collection.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Glenfiddich 12",
+    "price": 200000,
+    "summary": "Glenfiddich 12 is a legendary single malt scotch whisky that has been crafted using traditional methods and techniques for over a century.",
+    "description": "Glenfiddich 12 is a legendary single malt scotch whisky that has been crafted using traditional methods and techniques for over a century. This exquisite spirit is aged for 12 years in oak casks, giving it a rich and complex flavor profile that is beloved by whisky aficionados around the world. On the palate, Glenfiddich 12 offers a delicate balance of sweetness and spice, with notes of pear, honey, and vanilla followed by a subtle hint of smoke. The finish is long and smooth, leaving a warm and satisfying sensation in the mouth. Whether enjoyed neat, on the rocks, or in a classic whisky cocktail, Glenfiddich 12 is a timeless classic that never fails to impress.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Glenfiddich 15",
+    "price": 200000,
+    "summary": "Glenfiddich 15 is a single malt Scotch whisky that has been aged in American oak casks for 15 years, resulting in a rich and complex flavor profile that is both smooth and satisfying.",
+    "description": "Glenfiddich 15 is a single malt Scotch whisky that has been aged in American oak casks for 15 years, resulting in a rich and complex flavor profile that is both smooth and satisfying. This whisky is part of Glenfiddich's Solera Vat range, which is a unique process where whiskies of different ages are matured together in large oak vats, creating a harmonious blend of flavors. The Glenfiddich 15 boasts aromas of honey, vanilla, and oak, with hints of spiced apple and cinnamon. On the palate, it is rich and creamy, with flavors of toffee, vanilla, and dried fruit, followed by a long and warming finish with a touch of spice. The Solera Vat aging process gives this whisky a distinct character that sets it apart from other single malts, making it a great choice for whisky lovers looking for something unique and full of flavor.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Glenfiddich 18",
+    "price": 200000,
+    "summary": "Glenfiddich 18 is a single malt Scotch whisky that has been aged for a minimum of 18 years in a combination of American oak casks and European oak sherry casks.",
+    "description": "Glenfiddich 18 is a single malt Scotch whisky that has been aged for a minimum of 18 years in a combination of American oak casks and European oak sherry casks. This aging process gives the whisky a rich and complex flavor profile with notes of honey, vanilla, and dried fruit. The sherry casks also impart a subtle spiciness and a hint of oak, adding to the depth of the flavor. What sets Glenfiddich 18 apart is its long and smooth finish, which leaves a lingering warmth and sweetness on the palate. It is a sophisticated and elegant whisky that is perfect for sipping and savoring, and is often considered a benchmark for quality in the world of single malt Scotch whisky. With its impeccable balance of flavors and aromas, Glenfiddich 18 is a true masterpiece of the distiller's art.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Glenfiddich 21",
+    "price": 200000,
+    "summary": "Glenfiddich 21 is a luxurious single malt Scotch whiskey that has been aged for a minimum of 21 years to perfection.",
+    "description": "Glenfiddich 21 is a luxurious single malt Scotch whiskey that has been aged for a minimum of 21 years to perfection. Its rich and complex flavor profile is the result of aging in a combination of bourbon and sherry casks, creating a perfect harmony of sweet and spicy notes. On the nose, it has a bouquet of ripe peaches, toffee, and cinnamon spice, leading to a palate of honeyed fruitcakes, toasted almonds, and a hint of dark chocolate. Its finish is long and satisfying, with a delicate balance of sweetness and oakiness that lingers on the tongue.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Glenmorangie",
+    "price": 200000,
+    "summary": "Glenmorangie is a highly acclaimed single malt Scotch whisky that is renowned for its complex and delicate flavors.",
+    "description": "Glenmorangie is a highly acclaimed single malt Scotch whisky that is renowned for its complex and delicate flavors. Distilled in the Scottish Highlands, this whisky is made from the finest barley and water, and aged in a combination of ex-bourbon and ex-sherry casks for a minimum of 10 years. The result is a smooth, rich and flavorful whisky that is highly sought after by connoisseurs around the world.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Jameson",
+    "price": 200000,
+    "summary": "Jameson is one of the world's most recognizable Irish whiskeys, known for its smoothness, complexity, and distinctive flavor.",
+    "description": "Jameson is one of the world's most recognizable Irish whiskeys, known for its smoothness, complexity, and distinctive flavor. Crafted in Midleton, Ireland, using a blend of malted and unmalted grains and pure spring water, Jameson is aged in bourbon and sherry casks for a minimum of 4 years, resulting in a rich and full-bodied whiskey with notes of vanilla, honey, and toasted oak.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "John Bannermans",
+    "price": 200000,
+    "summary": "John Bannerman's Whiskey is a smooth and rich blend of carefully selected malt and grain whiskies from some of the finest distilleries in Scotland.",
+    "description": "John Bannerman's Whiskey is a smooth and rich blend of carefully selected malt and grain whiskies from some of the finest distilleries in Scotland. This premium whiskey is aged for a minimum of three years in oak barrels, which gives it its distinctive aroma and complex flavor profile. The nose is filled with notes of vanilla, toffee, and a hint of smoke, while the palate is dominated by flavors of honey, fruit, and spices. The finish is long and warm, with a pleasant and lingering sweetness that is both satisfying and refreshing.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Johnnie Walker Red Label",
+    "price": 200000,
+    "summary": "Johnnie Walker Red Label is a classic blended Scotch whiskey that has been enjoyed around the world for over a century.",
+    "description": "Johnnie Walker Red Label is a classic blended Scotch whiskey that has been enjoyed around the world for over a century. The signature flavor of Red Label is characterized by a bold, smoky taste that is well-balanced by notes of spices and fruit. This whiskey is made by blending up to 35 different single malt and grain whiskies from all over Scotland, resulting in a complex and dynamic flavor profile that is characterized by notes of vanilla, smoke, and oak, with a hint of sweetness that lingers on the palate.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Johnnie Walker Black Label",
+    "price": 200000,
+    "summary": "Johnnie Walker Black Label whiskey is an iconic blended Scotch whiskey that has been enjoyed by whiskey lovers around the world for over a century.",
+    "description": "Johnnie Walker Black Label whiskey is an iconic blended Scotch whiskey that has been enjoyed by whiskey lovers around the world for over a century. It is a rich and smooth whiskey that is expertly crafted using a blend of over 40 whiskies, each aged for a minimum of 12 years. The result is a perfectly balanced and complex flavor profile that is characterized by notes of vanilla, smoke, and oak, with a hint of sweetness that lingers on the palate.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Label 5 Black",
+    "price": 200000,
+    "summary": "Label 5 Black is a premium blended Scotch whiskey that is known for its rich and complex flavors.",
+    "description": "Label 5 Black is a premium blended Scotch whiskey that is known for its rich and complex flavors. Created using a blend of the finest grain and malt whiskies, Label 5 Black offers a smooth and well-balanced taste that is perfect for sipping neat or mixing in cocktails. The whiskey is aged for a minimum of three years, giving it a depth and complexity that is characteristic of Scotch whiskies. Its distinctive bottle, with its sleek and modern design, adds to the allure and sophistication of this premium whiskey. Label 5 Black is a versatile and stylish addition to any whiskey lover's collection.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Monkey Shoulder",
+    "price": 200000,
+    "summary": "Monkey Shoulder is a premium blended Scotch whiskey that is known for its rich and complex flavors.",
+    "description": "Monkey Shoulder is a premium blended Scotch whiskey that is known for its rich and complex flavors. Created using a blend of the finest grain and malt whiskies, Monkey Shoulder offers a smooth and well-balanced taste that is perfect for sipping neat or mixing in cocktails. The whiskey is aged for a minimum of three years, giving it a depth and complexity that is characteristic of Scotch whiskies. Its distinctive bottle, with its sleek and modern design, adds to the allure and sophistication of this premium whiskey. Monkey Shoulder is a versatile and stylish addition to any whiskey lover's collection.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "The Observatory",
+    "price": 200000,
+    "summary": "\"The Observatory\" is a highly sought-after whiskey produced by the Westland Distillery in Seattle, Washington.",
+    "description": "\"The Observatory\" is a highly sought-after whiskey produced by the Westland Distillery in Seattle, Washington. This limited edition release is the culmination of years of experimentation and is a testament to the skill and expertise of the Westland distillers. The whiskey is named after the Hubble Space Telescope and its focus on exploration and discovery. \"The Observatory\" is a blend of five different single malts, each aged in a different barrel and chosen for their unique flavor profiles. The resulting whiskey is complex, with notes of vanilla, caramel, honey, and spice, and a long, smooth finish. It's a perfect choice for whiskey enthusiasts who are looking for something special and distinctive.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "The Singleton",
+    "price": 200000,
+    "summary": "The Singleton is a premium brand of single malt Scotch whiskey that is known for its smooth and rich taste.",
+    "description": "The Singleton is a premium brand of single malt Scotch whiskey that is known for its smooth and rich taste. Crafted in the heart of Speyside, Scotland, The Singleton is made with only the finest ingredients and traditional methods of whiskey-making, resulting in a sophisticated and refined spirit that is perfect for sipping and savoring. The brand offers a range of expressions, each with their own unique characteristics and flavors, from the sweet and fruity Singleton of Dufftown to the smoky and complex Singleton of Glen Ord. The Singleton is a whiskey that embodies the spirit of Scottish tradition and craftsmanship, making it a must-try for any whiskey lover looking for a premium and luxurious drinking experience.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Tullamore Dew Irish Whiskey",
+    "price": 200000,
+    "summary": "Tullamore D.E.W. Irish Whiskey is a triple-distilled blended Irish whiskey that has been crafted with the finest ingredients and a rich history dating back to 1829.",
+    "description": "Tullamore D.E.W. Irish Whiskey is a triple-distilled blended Irish whiskey that has been crafted with the finest ingredients and a rich history dating back to 1829. The whiskey is made from a blend of malted and unmalted barley, which is triple-distilled in copper pot stills and aged in oak casks for at least three years. The result is a smooth and mellow whiskey with notes of vanilla, honey, and spice. Tullamore D.E.W. is a versatile whiskey that can be enjoyed neat, on the rocks, or in a variety of cocktails. Whether you're a seasoned whiskey drinker or just starting out, Tullamore D.E.W. is a great introduction to the world of Irish whiskey.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "William Lawson Scotch Whisky",
+    "price": 200000,
+    "summary": "William Lawson's is a blended Scotch whisky that offers a smooth and mellow taste with a hint of sweetness.",
+    "description": "William Lawson's is a blended Scotch whisky that offers a smooth and mellow taste with a hint of sweetness. It is a well-balanced blend of Highland, Speyside, and Lowland whiskies, which are carefully selected and aged to perfection. With a pale golden color and a delicate aroma of citrus and honey, this whisky has a light and refreshing taste with notes of vanilla, toffee, and caramel, followed by a warm and lingering finish. William Lawson's is a versatile whisky that can be enjoyed neat, on the rocks, or in a variety of cocktails, making it a perfect choice for any occasion. Whether you're a seasoned whisky drinker or just starting out, William Lawson's is a great introduction to the world of Scotch whisky.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Best Whiskey (Big&small)",
+    "price": 200000,
+    "summary": "When it comes to classic whiskey, nothing beats the smooth and rich flavor of the \"Best Classic Whiskey.\"",
+    "description": "When it comes to classic whiskey, nothing beats the smooth and rich flavor of the \"Best Classic Whiskey.\" This whiskey is carefully crafted using traditional methods and aged for years to achieve the perfect balance of flavor and aroma. It has a deep amber color and a complex flavor profile that features notes of caramel, vanilla, and oak. The whiskey has a long and satisfying finish that leaves a warm, lingering sensation on the palate. It's the perfect choice for those who appreciate the art of whiskey-making and want to experience the classic taste of well-crafted whiskey. Whether you prefer it neat, on the rocks, or in a cocktail, the Best Classic Whiskey is a timeless favorite that never goes out of style.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Wild Turkey",
+    "price": 200000,
+    "summary": "Wild Turkey is a classic American whiskey that has been distilled for over 150 years.",
+    "description": "Wild Turkey is a classic American whiskey that has been distilled for over 150 years. With its bold, robust flavor profile and smooth finish, it's a favorite of whiskey lovers around the world. Made from a high percentage of corn and aged for at least six years in new charred oak barrels, Wild Turkey boasts notes of caramel, vanilla, and spice, making it the perfect sipping whiskey. It also adds depth and character to any cocktail, from the classic Old Fashioned to the trendy Whiskey Sour. Whether you're a seasoned whiskey drinker or just starting to explore the world of American whiskey, Wild Turkey is a brand that is sure to impress.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Macallan",
+    "price": 200000,
+    "summary": "Macallan whiskey is a luxurious and high-end Scottish single malt whiskey that has captured the hearts of whiskey lovers around the world.",
+    "description": "Macallan whiskey is a luxurious and high-end Scottish single malt whiskey that has captured the hearts of whiskey lovers around the world. The brand is renowned for its exceptional quality, smoothness, and distinctive flavor that has been perfected over centuries of craftsmanship. The Macallan whiskey range offers a diverse range of flavors, from sweet and fruity to rich and smoky, making it an ideal choice for whiskey enthusiasts of all tastes. The brand's commitment to using only the finest oak casks for maturation ensures that each bottle of Macallan is a true masterpiece, with its own unique character and complexity. Whether you're sipping it neat or using it in a cocktail, Macallan whiskey is a luxurious and unforgettable experience.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Red Label Blended Scoth",
+    "price": 200000,
+    "summary": "Red Label is a blended Scotch whiskey that has become an iconic spirit worldwide.",
+    "description": "Red Label is a blended Scotch whiskey that has become an iconic spirit worldwide. The blend contains up to 30 different malt and grain whiskies, carefully selected and blended to create a well-balanced and full-bodied flavor. With its distinctive smoky and spicy notes, Red Label has a rich and complex taste that has been enjoyed by whiskey lovers for over a century. This versatile whiskey can be enjoyed neat, on the rocks, or as a key ingredient in classic whiskey cocktails. Whether you're sipping it after a long day or sharing a toast with friends, Red Label is sure to leave a lasting impression.",
+    "quantity": 20
+  },
+  {
+    "categories": ["whiskey"],
+    "name": "Grant’s 12 Years",
+    "price": 200000,
+    "summary": "Grant's 12 Year Old is a premium blended Scotch whiskey crafted from some of the finest single malt and grain whiskies aged for at least 12 years in oak casks.",
+    "description": "Grant's 12 Year Old is a premium blended Scotch whiskey crafted from some of the finest single malt and grain whiskies aged for at least 12 years in oak casks. The result is a smooth and mellow whiskey with notes of vanilla, honey, and spice. Grant's 12 Year Old is a versatile whiskey that can be enjoyed neat, on the rocks, or in a variety of cocktails. Whether you're a seasoned whiskey drinker or just starting out, Grant's 12 Year Old is a great introduction to the world of Scotch whisky.",
+    "quantity": 20
+  },
+  {
+    "categories": ["beer"],
+    "name": "Guinness",
+    "price": 200000,
+    "summary": "With a rich history dating back to 1759, Guinness is an iconic Irish stout known for its distinct dark color and creamy head.",
+    "description": "With a rich history dating back to 1759, Guinness is an iconic Irish stout known for its distinct dark color and creamy head. Brewed using a unique blend of roasted barley and hops, Guinness has a smooth and complex flavor with hints of coffee and chocolate. It's a classic beer that's perfect for sipping on a cool evening.",
+    "quantity": 20
+  },
+  {
+    "categories": ["beer"],
+    "name": "Goldberg",
+    "price": 200000,
+    "summary": "Goldberg is a German-style pilsner that's brewed with high-quality ingredients and a dedication to craftsmanship.",
+    "description": "Goldberg is a German-style pilsner that's brewed with high-quality ingredients and a dedication to craftsmanship. It has a light and refreshing flavor with a crisp finish that's perfect for pairing with a variety of foods. Goldberg is a popular choice for those who appreciate traditional German brewing techniques and a high level of attention to detail.",
+    "quantity": 20
+  },
+  {
+    "categories": ["beer"],
+    "name": "Heineken",
+    "price": 200000,
+    "summary": "Founded in Amsterdam in 1864, Heineken is a premium lager that's known for its smooth and balanced flavor.",
+    "description": "Founded in Amsterdam in 1864, Heineken is a premium lager that's known for its smooth and balanced flavor. Brewed using only the finest ingredients, Heineken has a distinct hoppy aroma and a crisp, refreshing taste that's perfect for any occasion. It's a classic beer that's enjoyed around the world.",
+    "quantity": 20
+  },
+  {
+    "categories": ["beer"],
+    "name": "Star",
+    "price": 200000,
+    "summary": "Star is a popular beer in Southeast Asia, known for its crisp and refreshing taste.",
+    "description": "Star is a popular beer in Southeast Asia, known for its crisp and refreshing taste. Brewed using high-quality ingredients and a dedication to quality. Star has a light and clean flavor that's perfect for pairing with spicy foods. It's a great choice for those who want to try something new and different.",
+    "quantity": 20
+  },
+  {
+    "categories": ["bitters"],
+    "name": "4Horses",
+    "price": 200000,
+    "summary": "4Horses Bitters is a premium herbal bitter that adds a unique flavor profile to any cocktail.",
+    "description": "4Horses Bitters is a premium herbal bitter that adds a unique flavor profile to any cocktail. Infused with natural ingredients like bitter orange, gentian root, and wormwood, these bitters blend creates a complex and aromatic taste with a pleasing balance of bitter and sweet notes. Whether you're making a classic cocktail or experimenting with a new recipe, adding a few dashes of 4Horses Bitters can elevate your drink to the next level. With its rich history and artisanal craftsmanship, 4Horses Bitters is a must-have ingredient for any home bartender or professional mixologist looking to create a truly memorable cocktail experience.",
+    "quantity": 20
+  },
+  {
+    "categories": ["bitters"],
+    "name": "Kolaq Alagbo Bitters",
+    "price": 200000,
+    "summary": "Kolaq Alagbo Bitters is a unique and authentic blend of natural herbs and spices with a rich history and cultural significance in Africa.",
+    "description": "Kolaq Alagbo Bitters is a unique and authentic blend of natural herbs and spices with a rich history and cultural significance in Africa. This bitters is made using traditional methods and recipes, resulting in a potent and flavorful elixir that has been used for generations to support overall wellness and vitality. Kolaq Alagbo bitters is known for its bold and complex flavor profile, featuring notes of bitter roots, aromatic spices, and a touch of sweetness. Whether enjoyed neat, on the rocks, or in a cocktail, Kolaq Alagbo bitters is a versatile and delicious addition to any drinks collection.",
+    "quantity": 20
+  },
+  {
+    "categories": ["bitters"],
+    "name": "Origin Biters",
+    "price": 200000,
+    "summary": "Origin bitters is a premium bitters brand that takes its inspiration from the rich history and diversity of the spice trade.",
+    "description": "Origin bitters is a premium bitters brand that takes its inspiration from the rich history and diversity of the spice trade. Handcrafted in small batches, Origin bitters are made from the finest botanicals sourced from around the world, including rare and exotic ingredients like grains of paradise, cardamom, and gentian root. The result is a complex and nuanced flavor profile that adds depth and dimension to any cocktail. Whether you're a professional mixologist or a home bartender, Origin bitters are the perfect way to elevate your drink game and take your cocktails to the next level.",
+    "quantity": 20
+  },
+  {
+    "categories": ["bitters"],
+    "name": "Campari Bitters",
+    "price": 200000,
+    "summary": "Campari is an iconic and versatile Italian bitters with a bold, bitter and refreshing taste.",
+    "description": "Campari is an iconic and versatile Italian bitters with a bold, bitter and refreshing taste. It is a secret blend of more than 60 different herbs, spices, and fruits, including bitter orange, rhubarb, and ginseng, which are infused in alcohol and water. Campari has a deep red color and a complex aroma that is both floral and fruity, with a hint of herbs and spices. It is often used in classic cocktails like the Negroni and the Americano, but can also be enjoyed on its own over ice or with soda water. The bitterness of Campari is perfectly balanced by its sweetness, making it a popular choice for those who enjoy a complex and sophisticated taste.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Sprite",
+    "price": 2000,
+    "summary": "Sprite is a refreshing lemon-lime flavored soda that has been enjoyed by people all over the world since 1961.",
+    "description": "Sprite is a refreshing lemon-lime flavored soda that has been enjoyed by people all over the world since 1961. With its crisp, clean taste and effervescence, Sprite is the perfect thirst quencher on a hot day. What sets Sprite apart from other soft drinks is its lack of caffeine and its emphasis on natural flavors, which gives it a bright, refreshing taste. Whether you're sipping it on its own or mixing it with your favorite adult beverage, Sprite is a classic soda that's sure to satisfy you.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Coca-cola",
+    "price": 2000,
+    "summary": "Coca-Cola is an iconic carbonated soft drink that has been enjoyed around the world for over a century.",
+    "description": "Coca-Cola is an iconic carbonated soft drink that has been enjoyed around the world for over a century. With its signature red and white branding, Coca-Cola is instantly recognizable and has become a cultural phenomenon. Made with a secret blend of natural flavors and carbonated water, Coca-Cola has a unique taste that is both refreshing and satisfying. It's perfect for any occasion, whether you're enjoying it with a meal or as a refreshing pick-me-up during a busy day. With its long history and widespread popularity, Coca-Cola has become more than just a drink - it's a symbol of fun, happiness, and togetherness.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Fanta",
+    "price": 2000,
+    "summary": "Fanta is a fun and fruity carbonated soft drink that has been enjoyed by people around the world for over 75 years.",
+    "description": "Fanta is a fun and fruity carbonated soft drink that has been enjoyed by people around the world for over 75 years. Originally created in Germany during World War II, Fanta is now available in over 190 countries and has a wide range of delicious flavors, including orange, strawberry, grape, and pineapple. With its bold colors and refreshing taste, Fanta is the perfect choice for those looking to add a little excitement to their beverage selection.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Eva Water",
+    "price": 2000,
+    "summary": "Eva Water is refreshing and pure mineral water that comes from a natural spring in Nigeria.",
+    "description": "Eva Water is refreshing and pure mineral water that comes from a natural spring in Nigeria. Its unique filtration process removes impurities while preserving essential minerals, providing a clean and crisp taste. Eva Water is a popular choice for those who want to stay hydrated and healthy, and it is available in a variety of sizes to suit different needs. Whether you're at home, at work, or on the go, Eva Water is a convenient and delicious way to stay hydrated and refreshed throughout the day.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Cranberry",
+    "price": 2000,
+    "summary": "Cranberry is a vibrant and refreshing fruit known for its tartness and tangy flavor.",
+    "description": "Cranberry is a vibrant and refreshing fruit known for its tartness and tangy flavor. This small, red fruit is packed with antioxidants, vitamin C, and other nutrients that are great for your health. Cranberry juice is a popular beverage made from cranberries, and it's enjoyed for its delicious taste and potential health benefits. Whether you're looking for a tasty drink or a nutritious boost, cranberry is an excellent choice.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Coke Zero",
+    "price": 2000,
+    "summary": "Coke Zero is a sugar-free and calorie-free soft drink from the Coca-Cola Company.",
+    "description": "Coke Zero is a sugar-free and calorie-free soft drink from the Coca-Cola Company. It has a similar taste to the classic Coca-Cola but without added sugars and calories. This makes it a popular choice for people who are looking to reduce their sugar and calorie intake while still enjoying a refreshing and fizzy drink. Coke Zero has also been marketed towards men, with its sleek and modern design and 'zero compromise' slogan. Whether you're trying to watch your sugar intake or simply enjoy the taste of Coca-Cola without guilt, Coke Zero is a great option.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Five alive pulpy orange",
+    "price": 2000,
+    "summary": "Five Alive Pulpy Orange is a refreshing juice drink that bursts with the flavor of freshly squeezed oranges.",
+    "description": "Five Alive Pulpy Orange is a refreshing juice drink that bursts with the flavor of freshly squeezed oranges. Its unique blend of five different fruit juices gives it a sweet and tangy taste that is perfect for any time of day. This drink is made with real fruit pulp and contains no added preservatives, making it a healthier choice than other sugary drinks. Whether you're looking for a refreshing drink to quench your thirst or a tasty treat to enjoy with a meal, Five Alive Pulpy Orange is sure to satisfy you.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Tonic water",
+    "price": 2000,
+    "summary": "Tonic water is a carbonated beverage that is often used as a mixer in cocktails.",
+    "description": "Tonic water is a carbonated beverage that is often used as a mixer in cocktails. It has a distinctively bitter taste, derived from quinine, which was originally used as a malaria treatment. Tonic water is also known for its effervescence and slight sweetness, which makes it a popular choice to pair with gin or vodka. In addition to being a mixer, tonic water is sometimes enjoyed on its own as a refreshing and low-calorie alternative to other soft drinks.",
+    "quantity": 20
+  },
+  {
+    "categories": ["pet drinks"],
+    "name": "Maltina",
+    "price": 2000,
+    "summary": "Maltina is a non-alcoholic malt drink that is popular in many parts of Africa, particularly Nigeria.",
+    "description": "Maltina is a non-alcoholic malt drink that is popular in many parts of Africa, particularly Nigeria. It is made from a blend of malted barley, sorghum, and other natural ingredients that give it a unique and refreshing taste. Maltina is rich in vitamins and minerals and is a great source of energy, making it a popular choice for people who need a quick pick-me-up during the day. It is also a great alternative to alcoholic beverages for those who want to enjoy a flavorful drink without the buzz.",
+    "quantity": 20
+  },
+  {
+    "categories": ["energy drinks"],
+    "name": "Power Horse",
+    "price": 200000,
+    "summary": "Power Horse is a popular energy drink that provides a boost of energy and mental alertness.",
+    "description": "Power Horse is a popular energy drink that provides a boost of energy and mental alertness. It contains a unique blend of caffeine, taurine, B vitamins, and other natural ingredients that work together to help increase endurance, reduce fatigue, and enhance overall performance. With its refreshing taste and revitalizing effects, Power Horse is the perfect drink for anyone looking to stay energized and focused throughout the day, whether at work, school, or during physical activity.",
+    "quantity": 20
+  },
+  {
+    "categories": ["energy drinks"],
+    "name": "RedBull",
+    "price": 200000,
+    "summary": "Red Bull is an energy drink that has become synonymous with boosting energy and enhancing performance.",
+    "description": "Red Bull is an energy drink that has become synonymous with boosting energy and enhancing performance. Its unique blend of caffeine, taurine, and B vitamins provides a quick burst of energy, making it a popular choice among athletes, students, and professionals alike. The brand has a distinctive, bold design and is often associated with extreme sports and high-octane activities. With its iconic slogan, 'Red Bull gives you wings', the drink has become a cultural phenomenon and a symbol of pushing boundaries and achieving the impossible.",
+    "quantity": 20
+  },
+  {
+    "categories": ["energy drinks"],
+    "name": "Monster",
+    "price": 200000,
+    "summary": "Monster is a high-energy drink that has gained a cult following among young people and extreme sports enthusiasts.",
+    "description": "Monster is a high-energy drink that has gained a cult following among young people and extreme sports enthusiasts. With its signature green can and distinctive logo, Monster packs a serious punch with a combination of caffeine, taurine, and other energy-boosting ingredients. Known for its bold and intense flavors, Monster offers a range of varieties, from classic Monster Energy to zero-sugar options and fruit-flavored Monster Ultra. Whether you need a boost for a long day at work, a study session, or an adrenaline-fueled adventure, Monster is the perfect pick-me-up for those who want to live life to the fullest.",
+    "quantity": 20
+  },
+  {
+    "categories": ["energy drinks"],
+    "name": "Climax",
+    "price": 200000,
+    "summary": "Climax energy drink is a refreshingly bold beverage that packs a punch.",
+    "description": "Climax energy drink is a refreshingly bold beverage that packs a punch. With its unique blend of stimulating ingredients, including caffeine and taurine, this drink provides an instant boost of energy to help you power through your day. Its delicious fruity flavor and carbonation make it a great alternative to traditional soft drinks, and its convenient size makes it perfect for on-the-go hydration. Whether you need a pick-me-up during a long day at work or an extra burst of energy before a workout, Climax energy drink is the perfect choice.",
+    "quantity": 20
+  },
+  {
+    "categories": ["gin"],
+    "name": "Gordons Moringa",
+    "price": 200000,
+    "summary": "Gordons Moringa is a refreshing and unique beverage that combines the classic taste of gin with the nutrient-rich properties of moringa leaves.",
+    "description": "Gordons Moringa is a refreshing and unique beverage that combines the classic taste of gin with the nutrient-rich properties of moringa leaves. This gin is distilled with a blend of botanicals and moringa leaves, which are known for their antioxidant and anti-inflammatory benefits. The result is a smooth and flavorful gin with a subtle hint of earthy moringa that can be enjoyed neat or in a variety of cocktails. Gordons Moringa is a perfect choice for those who want to elevate their gin experience and enjoy a drink that not only tastes good but is also good for them.",
+    "quantity": 20
+  },
+  {
+    "categories": ["cognac"],
+    "name": "Hennessy VSOP",
+    "price": 200000,
+    "summary": "Hennessy VSOP is a sophisticated blend of eaux-de-vie aged for up to 15 years from the four best-growing regions in Cognac, France.",
+    "description": "Hennessy VSOP is a sophisticated blend of eaux-de-vie aged for up to 15 years from the four best-growing regions in Cognac, France. With a deep amber color and aromas of vanilla, oak, and a hint of spice, this fine cognac delivers a smooth and velvety taste on the palate, with flavors of honey, candied fruit, and cinnamon. The long finish leaves a satisfying warmth that lingers, making it a great choice for sipping on its own or mixed into a classic cocktail. Hennessy VSOP is a true classic in the world of cognac and a must-try for any whiskey or brandy enthusiast.",
+    "quantity": 20
+  },
+  {
+    "categories": ["cognac"],
+    "name": "Hennessy XO",
+    "price": 200000,
+    "summary": "Hennessy XO is an exceptional blend of up to 100 eaux-de-vie, each aged for at least 10 years, resulting in a rich, complex and intense cognac.",
+    "description": "Hennessy XO is an exceptional blend of up to 100 eaux-de-vie, each aged for at least 10 years, resulting in a rich, complex and intense cognac. With a deep amber color and a robust aroma of candied fruit, vanilla, and oak, this cognac delivers a full-bodied and velvety texture on the palate, with a long-lasting finish that lingers pleasantly. It's a symbol of excellence and prestige, perfect for savoring on its own or in a classic cocktail.",
+    "quantity": 20
+  },
+  {
+    "categories": ["cognac"],
+    "name": "Martell Blue Swift",
+    "price": 200000,
+    "summary": "Martell Blue Swift is a unique cognac that combines the traditional elegance of Martell with a modern twist.",
+    "description": "Martell Blue Swift is a unique cognac that combines the traditional elegance of Martell with a modern twist. It is aged in French oak casks and finished in bourbon casks, giving it a rich and smooth flavor with notes of vanilla, caramel, and oak. The Blue Swift is a tribute to Martell's legacy of innovation and daring spirit. It is best served chilled or on the rocks, and its versatility makes it an excellent choice for cocktails. The bottle's sleek and stylish design makes it a great addition to any bar or collection.",
+    "quantity": 20
+  },
+  {
+    "categories": ["cognac"],
+    "name": "Martell VS",
+    "price": 200000,
+    "summary": "Martell VS is a classic Cognac that has been enjoyed for generations.",
+    "description": "Martell VS is a classic Cognac that has been enjoyed for generations. The exquisite blend of eaux-de-vie from the finest growing regions of Cognac creates a delicate balance of flavors that is perfect for sipping or mixing in cocktails. With its rich amber color, floral aroma, and notes of vanilla, caramel, and oak, Martell VS is a luxurious and smooth Cognac that is perfect for any occasion. Whether you're celebrating a special event or simply relaxing at home, Martell VS is the perfect choice for those who appreciate the finer things in life.",
+    "quantity": 20
+  },
+  {
+    "categories": ["cognac"],
+    "name": "Remy Martin 1738",
+    "price": 200000,
+    "summary": "Remy Martin 1738 is a premium cognac with a rich and complex flavor profile.",
+    "description": "Remy Martin 1738 is a premium cognac with a rich and complex flavor profile. Named after the year that the House of Remy Martin was founded, this blend of cognac features notes of dried fruit, vanilla, and oak. The 1738 is aged in French oak casks for a minimum of 4 years, giving it a smooth and mellow character that is perfect for sipping neat or on the rocks. With a long and satisfying finish, Remy Martin 1738 is a great choice for those looking for a luxurious and refined cognac experience.",
+    "quantity": 20
+  },
+  {
+    "categories": ["cognac"],
+    "name": "Remy Martin VSOP",
+    "price": 200000,
+    "summary": "Remy Martin VSOP is a premium French cognac that has been aged in oak barrels for at least four years, resulting in a smooth and refined flavor profile.",
+    "description": "Remy Martin VSOP is a premium French cognac that has been aged in oak barrels for at least four years, resulting in a smooth and refined flavor profile. This VSOP expression offers a balanced blend of fruity notes, vanilla, and spices that make it perfect for sipping neat, over ice, or as a key ingredient in a variety of cocktails. The rich and complex taste of Remy Martin VSOP is sure to satisfy the most discerning of palates, making it a must-try for any cognac enthusiast.",
+    "quantity": 20
+  },
+  {
+    "categories": ["cognac"],
+    "name": "Remy Martin XO",
+    "price": 200000,
+    "summary": "Remy Martin XO is a truly exceptional cognac that offers a rich and complex flavor profile.",
+    "description": "Remy Martin XO is a truly exceptional cognac that offers a rich and complex flavor profile. This luxurious spirit is crafted from a blend of up to 400 different eaux-de-vie, aged for a minimum of 10 years, resulting in a smooth and velvety texture with notes of ripe fruit, vanilla, and oak. Its distinctive amber color and long finish make it a favorite among cognac enthusiasts, perfect for sipping on its own or paired with a fine cigar. Remy Martin XO is the epitome of sophistication and elegance, making it a must-have for any connoisseur's collection.",
+    "quantity": 20
+  },
+  {
+    "categories": ["spirits"],
+    "name": "Smirnoff",
+    "price": 200000,
+    "summary": "Smirnoff vodka is a timeless classic that has been enjoyed for over a century. Distilled from premium grains and filtered through charcoal, it delivers a smooth and crisp taste with a hint of sweetness. Smirnoff vodka is versatile and mixes well with a variety of drinks, making it a popular choice among bartenders and cocktail enthusiasts alike. Whether you prefer it on the rocks, in a classic martini, or as the base for a fruity cocktail, Smirnoff vodka is sure to satisfy your taste buds and leave you feeling refreshed.",
+    "description": "Smirnoff vodka is a timeless classic that has been enjoyed for over a century. Distilled from premium grains and filtered through charcoal, it delivers a smooth and crisp taste with a hint of sweetness. Smirnoff vodka is versatile and mixes well with a variety of drinks, making it a popular choice among bartenders and cocktail enthusiasts alike. Whether you prefer it on the rocks, in a classic martini, or as the base for a fruity cocktail, Smirnoff vodka is sure to satisfy your taste buds and leave you feeling refreshed.",
+    "quantity": 20
+  },
+  {
+    "categories": ["spirits"],
+    "name": "St Remy VSOP",
+    "price": 200000,
+    "summary": "St Remy VSOP is a premium French brandy that offers a smooth and well-balanced taste, with notes of vanilla, dried fruit, and oak. Made with a blend of eaux-de-vie from the finest wine-growing regions in France, this brandy is aged for a minimum of four years in oak casks to achieve its distinctive flavor and aroma. St Remy VSOP is perfect for sipping neat or on the rocks, and also adds depth and complexity to cocktails. As a versatile and sophisticated spirit, St Remy VSOP is a must-try for brandy lovers and connoisseurs alike.",
+    "description": "St Remy VSOP is a premium French brandy that offers a smooth and well-balanced taste, with notes of vanilla, dried fruit, and oak. Made with a blend of eaux-de-vie from the finest wine-growing regions in France, this brandy is aged for a minimum of four years in oak casks to achieve its distinctive flavor and aroma. St Remy VSOP is perfect for sipping neat or on the rocks, and also adds depth and complexity to cocktails. As a versatile and sophisticated spirit, St Remy VSOP is a must-try for brandy lovers and connoisseurs alike.",
+    "quantity": 20
+  },
+  {
+    "categories": ["spirits"],
+    "name": "St Remy XO",
+    "price": 200000,
+    "summary": "St Remy XO is a premium brandy that is smooth and full of flavor. Aged for a minimum of 10 years, this exquisite blend of eaux-de-vie delivers a rich, complex taste with notes of vanilla, honey, and oak. It's a perfect choice for sipping neat, on the rocks, or as an ingredient in a luxurious cocktail. St Remy XO is the epitome of French expertise and craftsmanship, making it a top choice for brandy lovers worldwide.",
+    "description": "St Remy XO is a premium brandy that is smooth and full of flavor. Aged for a minimum of 10 years, this exquisite blend of eaux-de-vie delivers a rich, complex taste with notes of vanilla, honey, and oak. It's a perfect choice for sipping neat, on the rocks, or as an ingredient in a luxurious cocktail. St Remy XO is the epitome of French expertise and craftsmanship, making it a top choice for brandy lovers worldwide.",
+    "quantity": 20
+  }
+]

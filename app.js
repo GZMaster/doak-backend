@@ -13,6 +13,7 @@ const orderRouter = require("./routes/orderRoutes"); // Order routes
 const addressRouter = require("./routes/addressRoutes"); // Address routes
 const notificationRouter = require("./routes/notificationRoutes"); // Notification routes
 const adminRouter = require("./routes/adminRoutes"); // Admin routes
+const deliveryRouter = require("./routes/deliveryRoutes"); // Delivery routes
 
 // Create a new instance of the Express application
 const app = express();
@@ -85,6 +86,7 @@ app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/addresses", addressRouter);
 app.use("/api/v1/notifications", notificationRouter);
 app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/deliveries", deliveryRouter);
 app.use("images", express.static(`${__dirname}/public/images`));
 
 // Handle all undefined routes by throwing a custom error with a 404 status code
