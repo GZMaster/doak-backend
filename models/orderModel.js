@@ -86,6 +86,11 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    deliveryMethod: {
+      type: String,
+      enum: ["pickup", "delivery"],
+      default: "pickup",
+    },
     total: {
       type: Number,
     },
