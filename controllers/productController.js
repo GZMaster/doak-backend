@@ -53,10 +53,10 @@ exports.aliasTopWineProducts = (req, res, next) => {
 };
 
 exports.searchWineProducts = catchAsync(async (req, res, next) => {
-  const { query } = req.query;
+  const { search } = req.query;
 
   const wineProducts = await WineProduct.find({
-    name: { $regex: query, $options: "i" },
+    name: { $regex: search, $options: "i" },
   });
 
   res.status(200).json({
