@@ -159,7 +159,7 @@ exports.createOrder = catchAsync(async (req, res, next) => {
   // validate items
   const validateItems = await this.validateItems(items);
 
-  if (!validateItems) {
+  if (validateItems === false) {
     return next(new AppError("Invalid items", 400));
   }
 

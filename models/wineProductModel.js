@@ -23,7 +23,6 @@ const wineProductSchema = new mongoose.Schema({
   summary: {
     type: String,
     trim: true,
-    required: [true, "A wine product must have a description"],
   },
   description: {
     type: String,
@@ -31,7 +30,6 @@ const wineProductSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: [true, "A wine product must have a cover image"],
   },
   categories: [String],
   quantity: {
