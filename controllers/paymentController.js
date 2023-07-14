@@ -1,45 +1,62 @@
 const dotenv = require("dotenv");
-const https = require("https");
+// eslint-disable-next-line import/no-extraneous-dependencies
+const axios = require("axios");
+const Flutterwave = require("flutterwave-node-v3");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
-// const APIFeatures = require("../utils/apiFeatures");
 const Transaction = require("../models/transactionModel");
 const Order = require("../models/orderModel");
 
 dotenv.config({ path: "../config.env" });
 
-exports.validateAmount = catchAsync(async (orderId, amount) => {
-  const order = await Order.findOne({ orderId });
+const flw = new Flutterwave(
+  process.env.FLW_PUBLIC_KEY,
+  process.env.FLW_SECRET_KEY
+);
 
-  if (!order) {
-    return false;
+const transactionVerificationQueue = catchAsync(async (transactionId) => {
+  const transaction = await Transaction.findOne({ transactionId });
+  const order = await Order.findOne({ _id: transaction.orderId });
+
+  if (!transaction) {
+    return new AppError("Something went wrong", 400);
   }
 
-  if (order.subTotal + order.deliveryFee !== amount) {
-    return false;
+  const verifyPayment = await flw.Transaction.verify({
+    id: transactionId,
+  });
+
+  if (verifyPayment.data.status === "successful") {
+    // Update the transaction
+    transaction.paymentStatus = "successful";
+    await transaction.save();
+
+    // Update the order
+    order.orderStatus = "paid";
+    await order.save();
   }
 
-  return true;
+  if (verifyPayment.data.status === "pending") {
+    // Update the transaction
+    transaction.paymentStatus = "pending";
+    await transaction.save();
+
+    // Schedule a job that polls for the status of the payment every 10 minutes
+    transactionVerificationQueue.add({
+      id: transactionId,
+    });
+  }
 });
 
-exports.initializePayment = catchAsync(async (req, res, next) => {
-  const { userId, orderId, email, amount } = req.body;
+exports.initializeTransaction = catchAsync(async (req, res, next) => {
+  const userId = req.user._id;
 
-  // validate the request body
-  if (!userId || !orderId || !email || !amount) {
-    return next(new AppError("Invalid request body", 400));
-  }
+  const { orderId, email, amount, name, phonenumber } = req.body;
 
-  // check if the order exists
-  if (!(await Order.findOne({ orderId, userId }))) {
+  const order = await Order.findById(orderId);
+
+  if (!order) {
     return next(new AppError("Order not found", 404));
-  }
-
-  // validate the amount
-  const validateAmount = await this.validateAmount(orderId, amount);
-
-  if (!validateAmount) {
-    return next(new AppError("Invalid amount", 400));
   }
 
   // Create a new transaction
@@ -54,86 +71,148 @@ exports.initializePayment = catchAsync(async (req, res, next) => {
     return next(new AppError("Something went wrong", 400));
   }
 
-  const params = JSON.stringify({
-    email,
-    amount: `${amount}00`,
-    reference: `${transaction._id}`,
-  });
+  const headers = {
+    Authorization: `Bearer ${process.env.FLW_SECRET_KEY}`,
+  };
 
-  const options = {
-    hostname: "api.paystack.co",
-    port: 443,
-    path: "/transaction/initialize",
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.PAYSTACK_TESTKEY}`,
-      "Content-Type": "application/json",
+  const data = {
+    tx_ref: transaction._id.toString(),
+    amount: transaction.amount,
+    currency: "NGN",
+    redirect_url: "https://drinksofallkind.com",
+    meta: {
+      consumer_id: userId,
+    },
+    customer: {
+      email,
+      phonenumber,
+      name,
+    },
+    customizations: {
+      title: "Drinks of all kind",
+      logo: "https://admin.drinksofallkind.com/images/logo.svg",
     },
   };
 
-  const payReq = https
-    .request(options, (payRes) => {
-      let data = "";
+  const results = await axios
+    .post("https://api.flutterwave.com/v3/payments", data, { headers })
+    .then((response) => {
+      if (response.status === "error") {
+        return next(new AppError(response.message, 400));
+      }
 
-      payRes.on("data", (chunk) => {
-        data += chunk;
-      });
-
-      payRes.on("end", () => {
-        res.json(JSON.parse(data)); // return the response from Paystack API to the client
-      });
+      return response.data;
     })
-    .on("error", (error) => {
-      next(new AppError(`Something went wrong error: ${error}`, 400));
+    .catch((error) => {
+      next(new AppError(error.message, 400));
     });
 
-  payReq.write(params);
-  payReq.end();
+  res.status(200).json({
+    status: "redirect",
+    message: results.message,
+    redirectUrl: results.data.link,
+  });
 });
 
-exports.webhook = catchAsync(async (req, res, next) => {
-  // Retrieve the request's body
-  const { data } = req.body;
+exports.verify = catchAsync(async (req, res, next) => {
+  const { transactionId } = req.body;
 
-  const transaction = await Transaction.findById(data.reference);
+  const transaction = await Transaction.findById(transactionId);
 
   if (!transaction) {
-    return next(new AppError("Something went wrong", 400));
+    return next(new AppError("Transaction not found", 404));
   }
 
   const order = await Order.findById(transaction.orderId);
 
-  if (!order) {
-    return next(new AppError("Something went wrong", 400));
+  const response = await flw.Transaction.verify({ id: transactionId });
+
+  if (
+    response.status === "successful" &&
+    response.data.amount === transaction.amount &&
+    response.data.currency === "NGN"
+  ) {
+    transaction.paymentStatus = "successful";
+    await transaction.save();
+
+    order.orderStatus = "paid";
+    await order.save();
+  } else if (response.status === "pending") {
+    transaction.paymentStatus = "pending";
+    await transaction.save();
+
+    order.orderStatus = "pending";
+    await order.save();
+  } else if (response.status === "failed") {
+    transaction.paymentStatus = "failed";
+    await transaction.save();
+
+    order.orderStatus = "cancelled";
+    await order.save();
   }
 
-  // Do something with event
-  switch (data.status) {
-    case "success":
-      // The payment was successful, change transaction status to success
-      transaction.paymentStatus = "successful";
-      order.orderStatus = "paid";
+  res.status(200).json({
+    status: response.status,
+    message: response.message,
+  });
+});
 
-      // Save the transaction
-      await transaction.save();
-      await order.save();
+exports.webhook = catchAsync(async (req, res, next) => {
+  const secreatHash = req.headers["verif-hash"];
 
-      res.sendStatus(200);
-      break;
-    case "failed":
-      // The charge failed for some reason. If it was card declined, you can
-      // use event.data.raw_message to display the message to your customer.
-      transaction.paymentStatus = "failed";
-      order.orderStatus = "cancelled";
+  if (!secreatHash) {
+    return next(new AppError("Invalid request", 400));
+  }
 
-      // Save the transaction
-      await transaction.save();
-      await order.save();
+  if (secreatHash !== process.env.FLW_WEBHOOK_HASH) {
+    return next(new AppError("Invalid request", 400));
+  }
 
-      res.sendStatus(200);
-      break;
-    default:
-      break;
+  const { event, data } = req.body;
+
+  if (event === "charge.completed") {
+    const transaction = await Transaction.findOne({ tx_ref: data.tx_ref });
+
+    if (!transaction) {
+      return next(new AppError("Transaction not found", 404));
+    }
+
+    switch (data.status) {
+      case "successful": {
+        // Update the transaction
+        transaction.paymentStatus = "successful";
+        await transaction.save();
+
+        // Update the order
+        const order = await Order.findOne({ _id: transaction.orderId });
+        order.orderStatus = "paid";
+        await order.save();
+
+        res.sendStatus(200);
+        break;
+      }
+      case "pending": {
+        transaction.paymentStatus = "pending";
+        await transaction.save();
+
+        // Schedule a job that polls for the status of the payment every 10 minutes
+        transactionVerificationQueue.add({
+          id: transaction.transactionId,
+        });
+
+        res.sendStatus(200);
+        break;
+      }
+      case "failed":
+        transaction.paymentStatus = "failed";
+        await transaction.save();
+
+        res.sendStatus(200);
+        break;
+      default:
+        res.sendStatus(400);
+        break;
+    }
   }
 });
 
