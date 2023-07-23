@@ -31,7 +31,7 @@ const wineProductSchema = new mongoose.Schema({
   image: {
     type: String,
   },
-  categories: [String],
+  categories: String,
   quantity: {
     type: Number,
     required: [true, "A wine product must have a quantity"],
