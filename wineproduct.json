@@ -1,6 +1,6 @@
 [
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "4th street wine",
     "price": 200000,
     "summary": "Fourth Street wine is a delicious blend of red grapes that boasts a rich, full-bodied flavor with hints of blackberry and vanilla.",
@@ -8,7 +8,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Agor Red wine",
     "price": 200000,
     "summary": "Agor red wine is a rich and flavorful blend of red grapes, offering a taste experience that is both bold and smooth.",
@@ -16,7 +16,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Carlo Rossi",
     "price": 200000,
     "summary": "Carlo Rossi is a smooth and easy-to-drink wine that's perfect for any occasion.",
@@ -24,7 +24,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Four Cousins",
     "price": 200000,
     "summary": "our Cousins wine is a delightful blend of tradition and innovation.",
@@ -32,7 +32,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Rich Lady",
     "price": 200000,
     "summary": "Rich Lady is a wine that exudes elegance and sophistication. This bold and flavorful wine is made from carefully selected grapes, grown in the finest vineyards.",
@@ -40,7 +40,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Castilo Grande",
     "price": 200000,
     "summary": "Castillo Grande wine is a majestic tribute to the art of winemaking.",
@@ -48,7 +48,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Maison Castel",
     "price": 200000,
     "summary": "Maison Castel wine is a true masterpiece of French winemaking.",
@@ -56,7 +56,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Sweet Lips Red Wine",
     "price": 200000,
     "summary": "Sweet Lips Red wine is a blissful delight for the senses, with its rich, fruity aromas and luscious sweetness.",
@@ -64,7 +64,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Sweet Lips white wine",
     "price": 200000,
     "summary": "Sweet Lips white wine is a crisp and refreshing white wine that boasts a unique blend of fruity and floral notes.",
@@ -72,7 +72,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Sweet Lips Rose Wine",
     "price": 200000,
     "summary": "Sweet Lips is a refreshing and fruity rose wine that is perfect for any occasion.",
@@ -80,7 +80,7 @@
     "quantity": 20
   },
   {
-    "categories": ["wines"],
+    "categories": "wines",
     "name": "Robertson",
     "price": 200000,
     "summary": "Robertson is a wine brand that was founded in South Africa in 1941, and has since become known for producing premium wines that capture the unique character of the country's winelands.",
@@ -88,7 +88,7 @@
     "quantity": 20
   },
   {
-    "categories": ["liquor"],
+    "categories": "liquor",
     "name": "Amarula",
     "price": 200000,
     "summary": "Amarula liquor is a sweet and creamy indulgence that's perfect for sipping on special occasions or sharing with friends.",
@@ -96,7 +96,7 @@
     "quantity": 20
   },
   {
-    "categories": ["liquor"],
+    "categories": "liquor",
     "name": "Campari",
     "price": 200000,
     "summary": "Campari liquor is a bold and bittersweet Italian aperitif, perfect for sipping on a warm evening or using as a key ingredient in your favorite cocktail.",
@@ -104,7 +104,7 @@
     "quantity": 20
   },
   {
-    "categories": ["liquor"],
+    "categories": "liquor",
     "name": "Best cream",
     "price": 200000,
     "summary": "Indulge in the velvety smoothness of the best cream liquor, perfect for those who love their drinks with a touch of luxury.",
@@ -112,7 +112,7 @@
     "quantity": 20
   },
   {
-    "categories": ["liquor"],
+    "categories": "liquor",
     "name": "Bailey’s",
     "price": 200000,
     "summary": "Bailey's liquor is the perfect indulgence for anyone looking for a deliciously creamy and luxurious drink.",
@@ -120,7 +120,7 @@
     "quantity": 20
   },
   {
-    "categories": ["liquor"],
+    "categories": "liquor",
     "name": "Jägermeister",
     "price": 200000,
     "summary": "Jägermeister is the ultimate drink for those who dare to be bold and adventurous.",
@@ -128,7 +128,7 @@
     "quantity": 20
   },
   {
-    "categories": ["sparkling wine"],
+    "categories": "sparkling wine",
     "name": "Andre Brut",
     "price": 200000,
     "summary": "Andre Sparkling wine is the perfect choice for anyone looking for a light, refreshing, and affordable way to add some sparkle to any occasion.",
@@ -136,7 +136,7 @@
     "quantity": 20
   },
   {
-    "categories": ["sparkling wine"],
+    "categories": "sparkling wine",
     "name": "Martini Rose",
     "price": 200000,
     "summary": "Martini Rose is the perfect drink for those who crave a taste of the luxurious and exotic.",
@@ -144,7 +144,7 @@
     "quantity": 20
   },
   {
-    "categories": ["sparkling wine"],
+    "categories": "sparkling wine",
     "name": "Whispering Angel",
     "price": 200000,
     "summary": "Whispering Angel is a rosé wine that evokes the beauty and tranquility of the French countryside.",
@@ -152,7 +152,7 @@
     "quantity": 20
   },
   {
-    "categories": ["sparkling wine"],
+    "categories": "sparkling wine",
     "name": "Belaire Rose",
     "price": 200000,
     "summary": "Belaire Rose is a luxurious sparkling wine that combines the finest French craftsmanship with a modern sensibility.",
@@ -160,7 +160,7 @@
     "quantity": 20
   },
   {
-    "categories": ["sparkling wine"],
+    "categories": "sparkling wine",
     "name": "Veuve de vernay",
     "price": 200000,
     "summary": "Veuve de Vernay is a sparkling wine that embodies the spirit of Parisian elegance and joie de vivre.",
@@ -168,7 +168,7 @@
     "quantity": 20
   },
   {
-    "categories": ["champagne"],
+    "categories": "champagne",
     "name": "Andre Rose",
     "price": 200000,
     "summary": "Andre Rose is a sparkling wine that radiates elegance and exuberance with its beautiful pink hue and effervescent bubbles.",
@@ -176,7 +176,7 @@
     "quantity": 20
   },
   {
-    "categories": ["champagne"],
+    "categories": "champagne",
     "name": "Moet&chandon",
     "price": 200000,
     "summary": "Moet & Chandon is the epitome of luxury and sophistication in the world of champagne.",
@@ -184,7 +184,7 @@
     "quantity": 20
   },
   {
-    "categories": ["champagne"],
+    "categories": "champagne",
     "name": "Dom Perignon",
     "price": 200000,
     "summary": "The signature champagne of Dom Perignon is the Dom Perignon Vintage, which is only produced in the best years and is a true expression of the brand's philosophy of excellence.",
@@ -192,7 +192,7 @@
     "quantity": 20
   },
   {
-    "categories": ["champagne"],
+    "categories": "champagne",
     "name": "Laurent-perrier",
     "price": 200000,
     "summary": "This champagne is a true expression of the art of blending, with a complex and harmonious flavor profile that is both rich and refined.",
@@ -200,7 +200,7 @@
     "quantity": 20
   },
   {
-    "categories": ["rum"],
+    "categories": "rum",
     "name": "Bambu Original Rum",
     "price": 200000,
     "summary": "Bambu Original Rum is a premium rum that captures the spirit of the Caribbean with every sip.",
@@ -208,7 +208,7 @@
     "quantity": 20
   },
   {
-    "categories": ["non alcoholic wine"],
+    "categories": "non alcoholic wine",
     "name": "Chamdor",
     "price": 200000,
     "summary": "Chamdor is a premium sparkling grape juice that brings a touch of luxury and sophistication to any occasion.",
@@ -216,7 +216,7 @@
     "quantity": 20
   },
   {
-    "categories": ["non alcoholic wine"],
+    "categories": "non alcoholic wine",
     "name": "J&W",
     "price": 200000,
     "summary": "J&W wine is a brand that delivers quality and consistency with every bottle.",
@@ -224,7 +224,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Chivas Regal",
     "price": 200000,
     "summary": "Chivas Regal is a blend of malt and grain whiskies aged for at least 12 years.",
@@ -232,7 +232,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Claymore",
     "price": 200000,
     "summary": "Claymore Whiskey is a true testament to the craftsmanship and passion of its Scottish distillers.",
@@ -240,7 +240,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Glenfiddich 12",
     "price": 200000,
     "summary": "Glenfiddich 12 is a legendary single malt scotch whisky that has been crafted using traditional methods and techniques for over a century.",
@@ -248,7 +248,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Glenfiddich 15",
     "price": 200000,
     "summary": "Glenfiddich 15 is a single malt Scotch whisky that has been aged in American oak casks for 15 years, resulting in a rich and complex flavor profile that is both smooth and satisfying.",
@@ -256,7 +256,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Glenfiddich 18",
     "price": 200000,
     "summary": "Glenfiddich 18 is a single malt Scotch whisky that has been aged for a minimum of 18 years in a combination of American oak casks and European oak sherry casks.",
@@ -264,7 +264,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Glenfiddich 21",
     "price": 200000,
     "summary": "Glenfiddich 21 is a luxurious single malt Scotch whiskey that has been aged for a minimum of 21 years to perfection.",
@@ -272,7 +272,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Glenmorangie",
     "price": 200000,
     "summary": "Glenmorangie is a highly acclaimed single malt Scotch whisky that is renowned for its complex and delicate flavors.",
@@ -280,7 +280,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Jameson",
     "price": 200000,
     "summary": "Jameson is one of the world's most recognizable Irish whiskeys, known for its smoothness, complexity, and distinctive flavor.",
@@ -288,7 +288,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "John Bannermans",
     "price": 200000,
     "summary": "John Bannerman's Whiskey is a smooth and rich blend of carefully selected malt and grain whiskies from some of the finest distilleries in Scotland.",
@@ -296,7 +296,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Johnnie Walker Red Label",
     "price": 200000,
     "summary": "Johnnie Walker Red Label is a classic blended Scotch whiskey that has been enjoyed around the world for over a century.",
@@ -304,7 +304,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Johnnie Walker Black Label",
     "price": 200000,
     "summary": "Johnnie Walker Black Label whiskey is an iconic blended Scotch whiskey that has been enjoyed by whiskey lovers around the world for over a century.",
@@ -312,7 +312,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Label 5 Black",
     "price": 200000,
     "summary": "Label 5 Black is a premium blended Scotch whiskey that is known for its rich and complex flavors.",
@@ -320,7 +320,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Monkey Shoulder",
     "price": 200000,
     "summary": "Monkey Shoulder is a premium blended Scotch whiskey that is known for its rich and complex flavors.",
@@ -328,7 +328,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "The Observatory",
     "price": 200000,
     "summary": "\"The Observatory\" is a highly sought-after whiskey produced by the Westland Distillery in Seattle, Washington.",
@@ -336,7 +336,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "The Singleton",
     "price": 200000,
     "summary": "The Singleton is a premium brand of single malt Scotch whiskey that is known for its smooth and rich taste.",
@@ -344,7 +344,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Tullamore Dew Irish Whiskey",
     "price": 200000,
     "summary": "Tullamore D.E.W. Irish Whiskey is a triple-distilled blended Irish whiskey that has been crafted with the finest ingredients and a rich history dating back to 1829.",
@@ -352,7 +352,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "William Lawson Scotch Whisky",
     "price": 200000,
     "summary": "William Lawson's is a blended Scotch whisky that offers a smooth and mellow taste with a hint of sweetness.",
@@ -360,7 +360,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Best Whiskey (Big&small)",
     "price": 200000,
     "summary": "When it comes to classic whiskey, nothing beats the smooth and rich flavor of the \"Best Classic Whiskey.\"",
@@ -368,7 +368,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Wild Turkey",
     "price": 200000,
     "summary": "Wild Turkey is a classic American whiskey that has been distilled for over 150 years.",
@@ -376,7 +376,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Macallan",
     "price": 200000,
     "summary": "Macallan whiskey is a luxurious and high-end Scottish single malt whiskey that has captured the hearts of whiskey lovers around the world.",
@@ -384,7 +384,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Red Label Blended Scoth",
     "price": 200000,
     "summary": "Red Label is a blended Scotch whiskey that has become an iconic spirit worldwide.",
@@ -392,7 +392,7 @@
     "quantity": 20
   },
   {
-    "categories": ["whiskey"],
+    "categories": "whiskey",
     "name": "Grant’s 12 Years",
     "price": 200000,
     "summary": "Grant's 12 Year Old is a premium blended Scotch whiskey crafted from some of the finest single malt and grain whiskies aged for at least 12 years in oak casks.",
@@ -400,7 +400,7 @@
     "quantity": 20
   },
   {
-    "categories": ["beer"],
+    "categories": "beer",
     "name": "Guinness",
     "price": 200000,
     "summary": "With a rich history dating back to 1759, Guinness is an iconic Irish stout known for its distinct dark color and creamy head.",
@@ -408,7 +408,7 @@
     "quantity": 20
   },
   {
-    "categories": ["beer"],
+    "categories": "beer",
     "name": "Goldberg",
     "price": 200000,
     "summary": "Goldberg is a German-style pilsner that's brewed with high-quality ingredients and a dedication to craftsmanship.",
@@ -416,7 +416,7 @@
     "quantity": 20
   },
   {
-    "categories": ["beer"],
+    "categories": "beer",
     "name": "Heineken",
     "price": 200000,
     "summary": "Founded in Amsterdam in 1864, Heineken is a premium lager that's known for its smooth and balanced flavor.",
@@ -424,7 +424,7 @@
     "quantity": 20
   },
   {
-    "categories": ["beer"],
+    "categories": "beer",
     "name": "Star",
     "price": 200000,
     "summary": "Star is a popular beer in Southeast Asia, known for its crisp and refreshing taste.",
@@ -432,7 +432,7 @@
     "quantity": 20
   },
   {
-    "categories": ["bitters"],
+    "categories": "bitters",
     "name": "4Horses",
     "price": 200000,
     "summary": "4Horses Bitters is a premium herbal bitter that adds a unique flavor profile to any cocktail.",
@@ -440,7 +440,7 @@
     "quantity": 20
   },
   {
-    "categories": ["bitters"],
+    "categories": "bitters",
     "name": "Kolaq Alagbo Bitters",
     "price": 200000,
     "summary": "Kolaq Alagbo Bitters is a unique and authentic blend of natural herbs and spices with a rich history and cultural significance in Africa.",
@@ -448,7 +448,7 @@
     "quantity": 20
   },
   {
-    "categories": ["bitters"],
+    "categories": "bitters",
     "name": "Origin Biters",
     "price": 200000,
     "summary": "Origin bitters is a premium bitters brand that takes its inspiration from the rich history and diversity of the spice trade.",
@@ -456,7 +456,7 @@
     "quantity": 20
   },
   {
-    "categories": ["bitters"],
+    "categories": "bitters",
     "name": "Campari Bitters",
     "price": 200000,
     "summary": "Campari is an iconic and versatile Italian bitters with a bold, bitter and refreshing taste.",
@@ -464,7 +464,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Sprite",
     "price": 2000,
     "summary": "Sprite is a refreshing lemon-lime flavored soda that has been enjoyed by people all over the world since 1961.",
@@ -472,7 +472,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Coca-cola",
     "price": 2000,
     "summary": "Coca-Cola is an iconic carbonated soft drink that has been enjoyed around the world for over a century.",
@@ -480,7 +480,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Fanta",
     "price": 2000,
     "summary": "Fanta is a fun and fruity carbonated soft drink that has been enjoyed by people around the world for over 75 years.",
@@ -488,7 +488,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Eva Water",
     "price": 2000,
     "summary": "Eva Water is refreshing and pure mineral water that comes from a natural spring in Nigeria.",
@@ -496,7 +496,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Cranberry",
     "price": 2000,
     "summary": "Cranberry is a vibrant and refreshing fruit known for its tartness and tangy flavor.",
@@ -504,7 +504,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Coke Zero",
     "price": 2000,
     "summary": "Coke Zero is a sugar-free and calorie-free soft drink from the Coca-Cola Company.",
@@ -512,7 +512,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Five alive pulpy orange",
     "price": 2000,
     "summary": "Five Alive Pulpy Orange is a refreshing juice drink that bursts with the flavor of freshly squeezed oranges.",
@@ -520,7 +520,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Tonic water",
     "price": 2000,
     "summary": "Tonic water is a carbonated beverage that is often used as a mixer in cocktails.",
@@ -528,7 +528,7 @@
     "quantity": 20
   },
   {
-    "categories": ["pet drinks"],
+    "categories": "pet drinks",
     "name": "Maltina",
     "price": 2000,
     "summary": "Maltina is a non-alcoholic malt drink that is popular in many parts of Africa, particularly Nigeria.",
@@ -536,7 +536,7 @@
     "quantity": 20
   },
   {
-    "categories": ["energy drinks"],
+    "categories": "energy drinks",
     "name": "Power Horse",
     "price": 200000,
     "summary": "Power Horse is a popular energy drink that provides a boost of energy and mental alertness.",
@@ -544,7 +544,7 @@
     "quantity": 20
   },
   {
-    "categories": ["energy drinks"],
+    "categories": "energy drinks",
     "name": "RedBull",
     "price": 200000,
     "summary": "Red Bull is an energy drink that has become synonymous with boosting energy and enhancing performance.",
@@ -552,7 +552,7 @@
     "quantity": 20
   },
   {
-    "categories": ["energy drinks"],
+    "categories": "energy drinks",
     "name": "Monster",
     "price": 200000,
     "summary": "Monster is a high-energy drink that has gained a cult following among young people and extreme sports enthusiasts.",
@@ -560,7 +560,7 @@
     "quantity": 20
   },
   {
-    "categories": ["energy drinks"],
+    "categories": "energy drinks",
     "name": "Climax",
     "price": 200000,
     "summary": "Climax energy drink is a refreshingly bold beverage that packs a punch.",
@@ -568,7 +568,7 @@
     "quantity": 20
   },
   {
-    "categories": ["gin"],
+    "categories": "gin",
     "name": "Gordons Moringa",
     "price": 200000,
     "summary": "Gordons Moringa is a refreshing and unique beverage that combines the classic taste of gin with the nutrient-rich properties of moringa leaves.",
@@ -576,7 +576,7 @@
     "quantity": 20
   },
   {
-    "categories": ["cognac"],
+    "categories": "cognac",
     "name": "Hennessy VSOP",
     "price": 200000,
     "summary": "Hennessy VSOP is a sophisticated blend of eaux-de-vie aged for up to 15 years from the four best-growing regions in Cognac, France.",
@@ -584,7 +584,7 @@
     "quantity": 20
   },
   {
-    "categories": ["cognac"],
+    "categories": "cognac",
     "name": "Hennessy XO",
     "price": 200000,
     "summary": "Hennessy XO is an exceptional blend of up to 100 eaux-de-vie, each aged for at least 10 years, resulting in a rich, complex and intense cognac.",
@@ -592,7 +592,7 @@
     "quantity": 20
   },
   {
-    "categories": ["cognac"],
+    "categories": "cognac",
     "name": "Martell Blue Swift",
     "price": 200000,
     "summary": "Martell Blue Swift is a unique cognac that combines the traditional elegance of Martell with a modern twist.",
@@ -600,7 +600,7 @@
     "quantity": 20
   },
   {
-    "categories": ["cognac"],
+    "categories": "cognac",
     "name": "Martell VS",
     "price": 200000,
     "summary": "Martell VS is a classic Cognac that has been enjoyed for generations.",
@@ -608,7 +608,7 @@
     "quantity": 20
   },
   {
-    "categories": ["cognac"],
+    "categories": "cognac",
     "name": "Remy Martin 1738",
     "price": 200000,
     "summary": "Remy Martin 1738 is a premium cognac with a rich and complex flavor profile.",
@@ -616,7 +616,7 @@
     "quantity": 20
   },
   {
-    "categories": ["cognac"],
+    "categories": "cognac",
     "name": "Remy Martin VSOP",
     "price": 200000,
     "summary": "Remy Martin VSOP is a premium French cognac that has been aged in oak barrels for at least four years, resulting in a smooth and refined flavor profile.",
@@ -624,7 +624,7 @@
     "quantity": 20
   },
   {
-    "categories": ["cognac"],
+    "categories": "cognac",
     "name": "Remy Martin XO",
     "price": 200000,
     "summary": "Remy Martin XO is a truly exceptional cognac that offers a rich and complex flavor profile.",
@@ -632,7 +632,7 @@
     "quantity": 20
   },
   {
-    "categories": ["spirits"],
+    "categories": "spirits",
     "name": "Smirnoff",
     "price": 200000,
     "summary": "Smirnoff vodka is a timeless classic that has been enjoyed for over a century. Distilled from premium grains and filtered through charcoal, it delivers a smooth and crisp taste with a hint of sweetness. Smirnoff vodka is versatile and mixes well with a variety of drinks, making it a popular choice among bartenders and cocktail enthusiasts alike. Whether you prefer it on the rocks, in a classic martini, or as the base for a fruity cocktail, Smirnoff vodka is sure to satisfy your taste buds and leave you feeling refreshed.",
@@ -640,7 +640,7 @@
     "quantity": 20
   },
   {
-    "categories": ["spirits"],
+    "categories": "spirits",
     "name": "St Remy VSOP",
     "price": 200000,
     "summary": "St Remy VSOP is a premium French brandy that offers a smooth and well-balanced taste, with notes of vanilla, dried fruit, and oak. Made with a blend of eaux-de-vie from the finest wine-growing regions in France, this brandy is aged for a minimum of four years in oak casks to achieve its distinctive flavor and aroma. St Remy VSOP is perfect for sipping neat or on the rocks, and also adds depth and complexity to cocktails. As a versatile and sophisticated spirit, St Remy VSOP is a must-try for brandy lovers and connoisseurs alike.",
@@ -648,7 +648,7 @@
     "quantity": 20
   },
   {
-    "categories": ["spirits"],
+    "categories": "spirits",
     "name": "St Remy XO",
     "price": 200000,
     "summary": "St Remy XO is a premium brandy that is smooth and full of flavor. Aged for a minimum of 10 years, this exquisite blend of eaux-de-vie delivers a rich, complex taste with notes of vanilla, honey, and oak. It's a perfect choice for sipping neat, on the rocks, or as an ingredient in a luxurious cocktail. St Remy XO is the epitome of French expertise and craftsmanship, making it a top choice for brandy lovers worldwide.",

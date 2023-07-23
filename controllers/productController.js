@@ -75,6 +75,7 @@ exports.getAllWineProducts = catchAsync(async (req, res, next) => {
     .sort()
     .limitFields()
     .paginate();
+
   const wineProducts = await features.query;
 
   // SEND RESPONSE
@@ -112,13 +113,12 @@ exports.getWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.createWineProduct = catchAsync(async (req, res, next) => {
-  const { file } = req;
-
-  if (!file) {
-    return next(new AppError("Please upload an image", 400));
+  if (req.file) {
+    // req.body.image = req.file.path;
+    req.body.image = req.file.path.replace("C:\\fakepath\\", "");
   }
 
-  req.body.image = file.path.replace("C:\\fakepath\\", "");
+  req.body.id = uuidv4();
 
   const newWineProduct = await WineProduct.create(req.body);
 
@@ -178,7 +178,7 @@ exports.updateWineProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteWineProduct = catchAsync(async (req, res, next) => {
-  const wine = await WineProduct.findOneAndDelete({ id: req.params.id });
+  const wine = await WineProduct.findByIdAndDelete({ _id: req.params.id });
 
   if (!wine) {
     return next(new AppError("No wine found with that ID", 404));
@@ -296,6 +296,17 @@ exports.deleteFromCart = catchAsync(async (req, res, next) => {
     status: "success",
     data: {
       cart,
+    },
+  });
+});
+
+exports.getCategories = catchAsync(async (req, res, next) => {
+  const categories = await WineProduct.find().distinct("categories");
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      categories,
     },
   });
 });
