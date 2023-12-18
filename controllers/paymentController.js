@@ -216,6 +216,15 @@ exports.webhook = catchAsync(async (req, res, next) => {
   }
 });
 
+/**
+ * Retrieves all transactions from the database and returns them as a JSON response.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @param {Function} next - The next middleware function.
+ * @returns {Object} - A JSON response with the status, number of results, and the transactions data.
+ * @throws {AppError} - If something goes wrong during the retrieval of transactions.
+ */
 exports.getAllTransactions = catchAsync(async (req, res, next) => {
   // const features = new APIFeatures(Transaction.find(), req.query)
   //   .filter()
